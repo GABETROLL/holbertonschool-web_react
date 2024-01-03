@@ -11,6 +11,16 @@ export interface Directors extends Teacher {
   numberOfReports: number;
 }
 
+export interface printTeacherFunction {
+  (firstName: string, lastName: string): string;
+}
+
+export const printTeacher: printTeacherFunction = function (firstName: string, lastName: string): string {
+  return `${firstName[0]}. ${lastName}`;
+};
+
+// TESTS
+
 const teacher: Teacher = {
   firstName: 'A',
   lastName: 'B',
@@ -52,3 +62,6 @@ Should print:
   numberOfReports: 17,
 }
 */
+
+console.log(printTeacher('Elsa', 'Frank'));
+// Should print: `E. Frank`.
