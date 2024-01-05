@@ -66,6 +66,16 @@ export function executeWork(employee: DirectorInterface | TeacherInterface): str
   }
 }
 
+export type Subjects = 'Math' | 'History';
+
+export function teachClass(todayClass: Subjects): string {
+  if (todayClass === 'Math') {
+    return 'Teaching Math'
+  } else if (todayClass === 'History') {
+    return 'Teaching History'
+  }
+}
+
 const ab = createEmployee(200);
 const cd = createEmployee(1000);
 const ef = createEmployee('500');
@@ -88,3 +98,12 @@ console.log(executeWork(cd));
 console.log(executeWork(ef));
 // Getting to work
 console.log(executeWork(teacher));
+
+// Teaching Math
+console.log(teachClass('Math'));
+// Teaching History
+console.log(teachClass('History'));
+/*
+TS error:
+teachClass('Science');
+*/

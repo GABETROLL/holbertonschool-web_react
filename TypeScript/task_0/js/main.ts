@@ -6,7 +6,7 @@ interface Student {
 }
 
 const student1: Student = { firstName: 'A', lastName: 'B', age: 19, location: 'Puerto Rico' };
-const student2: Student = { firstName: 'C', lastName: 'D', age: 20, location: 'Puerto Rico' };
+const student2: Student = { firstName: 'C', lastName: 'D', age: 20, location: 'Costa Rica' };
 const studentsList: Array<Student> = [student1, student2];
 
 const table = document.createElement('table');
