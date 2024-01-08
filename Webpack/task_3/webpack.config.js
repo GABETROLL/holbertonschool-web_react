@@ -12,6 +12,11 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
     filename: '[name].bundle.js'
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({ title: 'Task 3' }),
     new CleanWebpackPlugin(),
