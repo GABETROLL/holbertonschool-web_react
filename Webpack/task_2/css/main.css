@@ -1,9 +1,9 @@
 #count {
     display: inline;
+    font-weight: bold;
 }
 
-body::before {
-    content: "<span id=\"logo\"></span>";
+#logo {
     width: 200px;
     height: 200px;
     background-image: url('../assets/holberton-logo.jpg');
