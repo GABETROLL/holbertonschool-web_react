@@ -1,0 +1,11 @@
+:root {
+  --color-red: rgb(224, 0, 60);
+}
+
+.App-header {
+  display: flex;
+  color: var(--color-red);
+
+  border-bottom-width: 10px;
+  border-bottom-color: var(--color-red);
+}
