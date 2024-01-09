@@ -6,6 +6,23 @@
   display: flex;
   color: var(--color-red);
 
-  border-bottom-width: 10px;
-  border-bottom-color: var(--color-red);
+  height: calc(100vh * 4 / 12);
+
+  border-bottom: 4px var(--color-red) solid;
+}
+
+.App-body {
+  height: calc(100vh * 7 / 12);
+
+  margin-top: 7vh;
+  margin-left: 6vh;
+}
+
+.App-footer {
+  text-align: center;
+  font-style: italic;
+
+  height: calc(100ch * 1 / 12);
+
+  border-top: 4px var(--color-red) solid;
 }
