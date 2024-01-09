@@ -3,9 +3,9 @@ import logo from './holberton-logo.jpg';
 
 function App() {
   return (
-    <div>
+    <div class="app">
       <header className="App-header">
-        <img src={logo} alt=""/>
+        <img className="logo" src={logo} alt=""/>
         <h1>School dashboard</h1>
       </header>
       <body className="App-body">
