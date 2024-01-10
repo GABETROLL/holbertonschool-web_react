@@ -1,0 +1,10 @@
+.Notifications {
+  padding: 20px;
+  border: 4px var(--color-red) solid;
+  /*
+  The task didn't specify how much to give,
+  nor the color. I think the color is fine like this.
+  */
+
+  font-size: 24px;
+}
