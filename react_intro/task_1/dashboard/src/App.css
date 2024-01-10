@@ -1,0 +1,38 @@
+:root {
+  --color-red: rgb(224, 0, 60);
+}
+
+.app {
+  font-size: 24px;
+}
+
+.App-header {
+  display: flex;
+  align-items: center;
+
+  color: var(--color-red);
+
+  border-bottom: 4px var(--color-red) solid;
+}
+
+.logo {
+  height: 240px;
+}
+
+.App-body {
+  margin-top: 67px;
+  margin-left: 48px;
+}
+
+.App-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+  font-size: 20px;
+  text-align: center;
+  font-style: italic;
+
+  border-top: 4px var(--color-red) solid;
+}
