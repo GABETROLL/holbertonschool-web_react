@@ -3,7 +3,7 @@ import logo from './holberton-logo.jpg';
 
 function App() {
   return (
-    <div class="app">
+    <div className="app">
       <header className="App-header">
         <img className="logo" src={logo} alt=""/>
         <h1>School dashboard</h1>
