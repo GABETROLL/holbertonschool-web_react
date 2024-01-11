@@ -1,6 +1,5 @@
 import { getFullYear, getFooterCopy, getLatestNotification } from './utils';
 import assert from  'assert';
-import sinon from 'sinon';
 
 describe('getFullYear', () => {
   it('returns the current year', () => {
