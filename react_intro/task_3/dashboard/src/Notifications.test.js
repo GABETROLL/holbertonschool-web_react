@@ -10,5 +10,5 @@ describe('<Notifications />', () => {
   it('renders <p>Here is the list of notifications</p>', () => {
     const wrapper = shallow(<Notifications />);
     expect(wrapper.contains(<p>Here is the list of notifications</p>)).toBe(true);
-  })
+  });
 });

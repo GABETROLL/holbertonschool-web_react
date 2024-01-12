@@ -16,14 +16,16 @@ describe('getFullYear', () => {
 });
 
 describe('getFooterCopy', () => {
-  it('returns the correct string when its `index` argument is true or false', () => {
+  it("returns 'Holberton School main dashboard' when called with false", () => {
     expect(getFooterCopy(false)).toEqual('Holberton School main dashboard');
+  });
+  it("returns 'Holberton School' when called with true", () => {
     expect(getFooterCopy(true)).toEqual('Holberton School');
   });
 });
 
 describe('getLatestNotification', () => {
-  it('returns: "<strong>Urgent requirement</strong> - complete by EOD"', () => {
+  it('returns "<strong>Urgent requirement</strong> - complete by EOD"', () => {
     expect(getLatestNotification()).toEqual('<strong>Urgent requirement</strong> - complete by EOD');
   });
 });
