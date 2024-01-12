@@ -2,8 +2,16 @@ import { getFullYear, getFooterCopy, getLatestNotification } from './utils';
 
 describe('getFullYear', () => {
   it('returns the current year', () => {
-    // ?
-    expect(getFullYear()).toBe((new Date()).getFullYear());
+    const fakeYear = 2024;
+    const fakeNow = new Date();
+    fakeNow.setFullYear(fakeYear);
+
+    jest.useFakeTimers({});
+    jest.setSystemTime(fakeNow);
+
+    // console.log(fakeYear, fakeNow.getFullYear());
+
+    expect(getFullYear()).toBe(fakeYear);
   });
 });
 
