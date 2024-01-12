@@ -5,11 +5,11 @@ import { getFooterCopy, getFullYear } from './utils';
 function App() {
   return (
     <div className="app">
-      <header className="App-header">
+      <div className="App-header">
         <img className="logo" src={logo} alt=""/>
         <h1>School dashboard</h1>
-      </header>
-      <body className="App-body">
+      </div>
+      <div className="App-body">
         <p>Login to access the full dashboard</p>
         <div className="login">
           <label htmlFor="email">Email:</label>
@@ -18,10 +18,10 @@ function App() {
           <input id="password" name="password" type="text"/>
           <button>OK</button>
         </div>
-      </body>
-      <footer className="App-footer">
+      </div>
+      <div className="App-footer">
         <p>Copyright { getFullYear() } - { getFooterCopy(true) }</p>
-      </footer>
+      </div>
     </div>
   );
 }
