@@ -9,7 +9,7 @@ describe('getFullYear', () => {
 });
 
 describe('getFooterCopy', () => {
-  it('returns the correct string depending on its `index` bool argument', () => {
+  it('returns the correct string when its `index` argument is true or false', () => {
     assert.equal(getFooterCopy(false), 'Holberton School main dashboard');
     assert.equal(getFooterCopy(true), 'Holberton School');
   });
