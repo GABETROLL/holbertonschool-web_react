@@ -1,0 +1,23 @@
+.Notifications {
+  margin-bottom: 35px;
+  padding: 7px 5px;
+  border: 2px var(--color-red) solid;
+  border-style: dashed;
+  /*
+  The task didn't specify how much to give,
+  nor the color. I think the color is fine like this.
+  */
+
+  font-size: 24px;
+}
+
+.Notifications ul {
+  padding-left: 56px;
+}
+
+[data-priority="default"] {
+  color: navy;
+}
+[data-priority="urgent"] {
+  color: red;
+}
