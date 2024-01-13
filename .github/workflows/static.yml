@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './react_intro/task_5/dashboard/dist/'
+          path: './react_intro/task_4/dashboard/build/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
