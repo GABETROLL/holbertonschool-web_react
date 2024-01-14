@@ -3,7 +3,7 @@ import './Login.css';
 
 export default function Login() {
   return (
-    <React.Fragment>
+    <>
       <p>Login to access the full dashboard</p>
       <div className="login">
         <label htmlFor="email">Email:</label>
@@ -12,6 +12,6 @@ export default function Login() {
         <input id="password" name="password" type="text"/>
         <button>OK</button>
       </div>
-    </React.Fragment>
+    </>
   );
 }
