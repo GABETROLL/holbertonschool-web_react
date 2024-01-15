@@ -2,5 +2,12 @@ import { shallow } from 'enzyme';
 import App from './App';
 
 describe('<App />', () => {
-  /* ADD TEST FOR CRASH */
+  let wrapper;
+  beforeAll(() => {
+    wrapper = shallow(<App />);
+  });
+
+  it('renders without crashing', () => {
+    expect(wrapper.exists()).toBe(true);
+  });
 });
