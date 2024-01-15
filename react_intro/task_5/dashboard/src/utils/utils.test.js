@@ -9,6 +9,10 @@ describe('getFullYear', () => {
     jest.useFakeTimers({});
     jest.setSystemTime(fakeNow);
 
+    // ASSUMES THAT `fakeNow.setFullYear`
+    // AND `setSystemTime(fakeNow)`
+    // WORK CORRECTLY.
+
     // console.log(fakeYear, fakeNow.getFullYear());
 
     expect(getFullYear()).toBe(fakeYear);
