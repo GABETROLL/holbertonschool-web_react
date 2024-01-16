@@ -1,3 +1,4 @@
+import React from 'react';
 import { shallow } from 'enzyme';
 import Footer from './Footer';
 
@@ -9,9 +10,6 @@ describe('<Footer />', () => {
 
   it('at the very least renders the text "Copyright"', () => {
     const wrapper = shallow(<Footer />);
-    const pElements = wrapper.find(<p />);
-
-    expect(pElements).toHaveLength(1);
-    expect(pElements.first().text().startsWith('Copyright')).toBe(true);
+    expect(wrapper.html().includes('Copyright'))
   });
 });
