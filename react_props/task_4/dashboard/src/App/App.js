@@ -25,7 +25,7 @@ function App({ isLoggedIn }) {
 App.defaultProps = {
   isLoggedIn: false,
 };
-App.PropTypes = {
+App.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 

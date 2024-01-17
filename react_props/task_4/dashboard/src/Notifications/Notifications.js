@@ -5,6 +5,10 @@ import { getLatestNotification } from '../utils/utils';
 import NotificationItem from './NotificationItem';
 import './Notifications.css';
 
+function closeButtonClicked() {
+  console.log('Close button has been clicked');
+}
+
 export const menuItemElement = (
   <div className="menuItem">
     <p>Your notifications</p>
@@ -32,15 +36,11 @@ export const notificationsDrawer = (
 );
 
 export default function Notifications({ displayDrawer }) {
-  function closeButtonClicked() {
-    console.log('Close button has been clicked');
-  }
-
   return (
-    <>
+    <div className="notificationsMenu">
       {menuItemElement}
       {displayDrawer === true ? (notificationsDrawer) : <></>}
-    </>
+    </div>
   );
 }
 

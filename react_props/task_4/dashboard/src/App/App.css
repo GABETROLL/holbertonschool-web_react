@@ -11,6 +11,5 @@ body {
 }
 
 .App-body {
-  margin-top: 75px;
-  margin-left: 48px;
+  margin: 75px 48px;
 }
