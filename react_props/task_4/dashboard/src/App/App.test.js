@@ -41,7 +41,7 @@ describe('<App />', () => {
     });
 
     it('does not render the Login component', () => {
-      expect(wrapper.find(Login)).toHaveLength(0);      
+      expect(wrapper.find(Login)).toHaveLength(0);
     });
 
     it('renders the CourseList component', () => {

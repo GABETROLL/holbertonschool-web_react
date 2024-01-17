@@ -8,8 +8,6 @@ import Footer from '../Footer/Footer';
 import './App.css';
 
 function App({ isLoggedIn }) {
-  isLoggedIn = isLoggedIn || false;
-
   return (
     <>
       <Notifications />
@@ -24,8 +22,11 @@ function App({ isLoggedIn }) {
   );
 }
 
+App.defaultProps = {
+  isLoggedIn: false,
+};
 App.PropTypes = {
   isLoggedIn: PropTypes.bool,
-}
+};
 
 export default App;
