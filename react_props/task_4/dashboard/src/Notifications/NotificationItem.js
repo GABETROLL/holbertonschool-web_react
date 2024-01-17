@@ -18,6 +18,8 @@ function NotificationItem({ type, html, value }) {
 
 NotificationItem.defaultProps = {
   type: 'default',
+  html: null,
+  value: '',
 };
 NotificationItem.propTypes = {
   type: PropTypes.string,  // .isRequired

@@ -21,15 +21,15 @@ describe('<NotificationItem />', () => {
     let wrapper;
 
     wrapper = shallow(<NotificationItem html={{__html: "<strong>urgent</strong>"}} />);
-    expect(wrapper.html()).toBe('<li><strong>urgent</strong></li>');
+    expect(wrapper.html()).toBe('<li data-notification-type="default"><strong>urgent</strong></li>');
 
     wrapper = shallow(<NotificationItem value="a" html={{__html: "b"}} />);
-    expect(wrapper.html()).toBe('<li>b</li>');
+    expect(wrapper.html()).toBe('<li data-notification-type="default">b</li>');
 
     wrapper = shallow(<NotificationItem html={{__html: "???"}} />);
-    expect(wrapper.html()).toBe('<li>???</li>');
+    expect(wrapper.html()).toBe('<li data-notification-type="default">???</li>');
 
     wrapper = shallow(<NotificationItem />);
-    expect(wrapper.html()).toBe('<li></li>');
+    expect(wrapper.html()).toBe('<li data-notification-type="default"></li>');
   });
 });
