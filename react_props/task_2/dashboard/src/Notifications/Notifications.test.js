@@ -20,7 +20,7 @@ describe('<Notifications />', () => {
   it('the first <NotificationItem /> has the correct HTML rendered', () => {
     expect(wrapper.find(NotificationItem).first().html())
       .toBe('<li data-notification-type="default">New course available</li>');
-  })
+  });
 
   it('renders <p>Here is the list of notifications</p>', () => {
     expect(wrapper.contains(<p>Here is the list of notifications</p>)).toBe(true);
