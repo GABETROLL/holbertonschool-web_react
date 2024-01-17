@@ -9,43 +9,27 @@ describe('<NotificationItem />', () => {
   });
 
   it('renders correct HTML based on the `type` and `value` props', () => {
-    let wrapper;
-
-    wrapper = shallow(<NotificationItem type="default" />);
-    expect(wrapper.prop('data-notification-type')).toBe('default');
-
-    wrapper = shallow(<NotificationItem type="urgent" />);
-    expect(wrapper.prop('data-notification-type')).toBe('urgent');
-
-    wrapper = shallow(<NotificationItem type="???" />);
-    expect(wrapper.prop('data-notification-type')).toBe('???');
-
-    wrapper = shallow(<NotificationItem />);
-    expect(wrapper.prop('data-notification-type')).toBe('default');
-
-    wrapper = shallow(<NotificationItem value="hello" />);
-    expect(wrapper.text()).toBe('hello');
-
-    wrapper = shallow(<NotificationItem value="???" />);
-    expect(wrapper.text()).toBe('???');
-
-    wrapper = shallow(<NotificationItem />);
-    expect(wrapper.text()).toBe('');
+    for (const typeProp of ['default', 'urgent', '???']) {
+      for (const valueProp of ['test', '???']) {
+        const wrapper = shallow(<NotificationItem type={typeProp} value={valueProp} />);
+        expect(wrapper.html()).toBe(`<li data-notification-type="${typeProp}">${valueProp}</li>`);
+      }
+    }
   });
 
   it('renders correct HTML based on the `html` prop', () => {
     let wrapper;
 
-    wrapper = shallow(<NotificationItem html="<strong>urgent</strong>" />);
-    expect(wrapper.html()).toBe('<li data-notification-type="default"><strong>urgent</strong></li>');
+    wrapper = shallow(<NotificationItem html={{__html: "<strong>urgent</strong>"}} />);
+    expect(wrapper.html()).toBe('<li><strong>urgent</strong></li>');
 
-    wrapper = shallow(<NotificationItem value="a" html="b" />);
-    expect(wrapper.html()).toBe('<li data-notification-type="default">b</li>');
+    wrapper = shallow(<NotificationItem value="a" html={{__html: "b"}} />);
+    expect(wrapper.html()).toBe('<li>b</li>');
 
-    wrapper = shallow(<NotificationItem html="???" />);
-    expect(wrapper.html()).toBe('<li data-notification-type="default">???</li>');
+    wrapper = shallow(<NotificationItem html={{__html: "???"}} />);
+    expect(wrapper.html()).toBe('<li>???</li>');
 
     wrapper = shallow(<NotificationItem />);
-    expect(wrapper.html()).toBe('<li data-notification-type="default"></li>');
+    expect(wrapper.html()).toBe('<li></li>');
   });
 });
