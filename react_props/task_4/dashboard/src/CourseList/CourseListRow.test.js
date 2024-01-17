@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CourseListRow from './CourseListRow';
 
+// new
 describe('<CourseListRow />', () => {
   describe('when isHeader=true', () => {
     it('renders one <th /> cell with colspan="2" when textSecondCell does not exist', () => {
@@ -19,7 +20,7 @@ describe('<CourseListRow />', () => {
     it('renders correctly two <td /> elements within a <tr /> element', () => {
       const wrapper = shallow(<CourseListRow isHeader={false} textFirstCell="d" textSecondCell="e" />);
       expect(wrapper.type()).toBe('tr');
-      expect(wrapper.find('tr')).toHaveLength(2);
+      expect(wrapper.find('td')).toHaveLength(2);
     });
   });
 });

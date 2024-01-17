@@ -7,6 +7,7 @@ import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
 
+// new
 describe('<App />', () => {
   let wrapper;
   beforeAll(() => {

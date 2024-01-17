@@ -35,7 +35,7 @@ export const notificationsDrawer = (
   </div>
 );
 
-export default function Notifications({ displayDrawer }) {
+function Notifications({ displayDrawer }) {
   return (
     <div className="notificationsMenu">
       {menuItemElement}
@@ -50,3 +50,5 @@ Notifications.defaultProps = {
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
 };
+
+export default Notifications;

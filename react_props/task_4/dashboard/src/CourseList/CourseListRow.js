@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
+function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
   // console.log(typeof isHeader, typeof textFirstCell, typeof textSecondCell);
 
   if (isHeader) {
@@ -37,3 +37,5 @@ CourseListRow.propTypes = {
   textFirstCell: PropTypes.string.isRequired,
   textSecondCell: PropTypes.string,
 };
+
+export default CourseListRow;

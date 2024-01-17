@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function NotificationItem({ type, html, value }) {
+function NotificationItem({ type, html, value }) {
   if (html) {
     return (
       <li data-notification-type={type} dangerouslySetInnerHTML={html} />
@@ -26,3 +26,5 @@ NotificationItem.propTypes = {
   }),
   value: PropTypes.string,
 };
+
+export default NotificationItem;
