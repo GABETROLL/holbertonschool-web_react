@@ -11,7 +11,7 @@ function closeButtonClicked() {
 
 export const menuItemElement = (
   <div className="menuItem">
-    <p>Your notifications</p>
+    <p className="menuItemP">Your notifications</p>
   </div>
 );
 
@@ -37,7 +37,7 @@ export const notificationsDrawer = (
 
 function Notifications({ displayDrawer }) {
   return (
-    <div className="notificationsMenu">
+    <div className="NotificationsMenu">
       {menuItemElement}
       {displayDrawer === true ? (notificationsDrawer) : <></>}
     </div>
