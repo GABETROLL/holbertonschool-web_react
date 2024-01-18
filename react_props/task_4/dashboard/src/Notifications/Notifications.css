@@ -3,6 +3,7 @@
 .NotificationsMenu {
   position: absolute;
   right: 0px;
+  top: 0px;
   width: 100%;
 }
 
@@ -17,14 +18,18 @@
   max-width: 600px;
 
   margin-left: auto;
-  margin-bottom: 35px;
-  padding: 7px 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
   border: 2px var(--color-red) solid;
   border-style: dashed;
   /*
   The task didn't specify how much to give,
   nor the color. I think the color is fine like this.
   */
+}
+
+.NotificationsTitle {
+  margin-top: 30px;
 }
 
 .Notifications ul {

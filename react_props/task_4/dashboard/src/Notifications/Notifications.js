@@ -18,15 +18,15 @@ export const menuItemElement = (
 export const notificationsDrawer = (
   <div className="Notifications">
     <button onClick={closeButtonClicked} style={{
-      marginTop: 10,
-      marginRight: 5,
       float: 'right',
+      paddingTop: 18,
+      paddingRight: 15,
       border: 'none',
       backgroundColor: 'transparent'
     }} aria-label="Close">
       <img style={{width: 10}} src={closeIcon} alt=""/>
     </button>
-    <p>Here is the list of notifications</p>
+    <p className="NotificationsTitle">Here is the list of notifications</p>
     <ul>
       <NotificationItem type="default" value="New course available" />
       <NotificationItem type="urgent" value="New resume available" />

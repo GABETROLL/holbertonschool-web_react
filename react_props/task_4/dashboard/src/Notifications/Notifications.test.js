@@ -48,7 +48,7 @@ describe('<Notifications />', () => {
       .toBe('<li data-notification-type="default">New course available</li>');
   });
 
-  it('renders <p>Here is the list of notifications</p> when displayDrawer={true}', () => {
-    expect(wrapper.contains(<p>Here is the list of notifications</p>)).toBe(true);
+  it('renders <p className="NotificationsTitle">Here is the list of notifications</p> when displayDrawer={true}', () => {
+    expect(wrapper.contains(<p className="NotificationsTitle">Here is the list of notifications</p>)).toBe(true);
   });
 });
