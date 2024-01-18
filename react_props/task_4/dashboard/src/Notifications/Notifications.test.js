@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Notifications, menuItemElement, notificationsDrawer } from './Notifications';
+import { menuItemElement, notificationsDrawer } from './Notifications';
+import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 
 describe('<Notifications />', () => {
