@@ -1,0 +1,44 @@
+/* TODO: finish styling */
+
+.NotificationsMenu {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 100%;
+}
+
+.menuItem {
+  text-align: right;
+}
+.menuItemP {
+  margin-top: 12px;
+  margin-bottom: 14px;
+}
+.Notifications {
+  max-width: 600px;
+
+  margin-left: auto;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  border: 2px var(--color-red) solid;
+  border-style: dashed;
+  /*
+  The task didn't specify how much to give,
+  nor the color. I think the color is fine like this.
+  */
+}
+
+.NotificationsTitle {
+  margin-top: 30px;
+}
+
+.Notifications ul {
+  padding-left: 56px;
+}
+
+[data-notification-type="default"] {
+  color: navy;
+}
+[data-notification-type="urgent"] {
+  color: red;
+}
