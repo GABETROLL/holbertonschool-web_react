@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
 import closeIcon from '../assets/close-icon.png';
-import { getLatestNotification } from '../utils/utils';
 import NotificationItem from './NotificationItem';
 import './Notifications.css';
 
@@ -26,7 +25,7 @@ function Notifications({ displayDrawer, listNotifications }) {
         ? listNotifications.map(notification => (
           <NotificationItem key={`notificationId:${notification.id}`} type={notification.type} value={notification.value} html={notification.html} />
         ))
-        : (<NotificationItem key={`notificationId:${undefined}`} type="default" value="No new notification for now" />)
+        : (<NotificationItem key={`notificationId:${undefined}`} type="default" value="No new notifications for now" />)
       }
     </ul>
   );
@@ -61,7 +60,7 @@ Notifications.defaultProps = {
 };
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: NotificationItemShape,
+  listNotifications: PropTypes.arrayOf(NotificationItemShape),
 };
 
 export default Notifications;

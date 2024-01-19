@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import CourseList from './CourseList';
 import CourseListRow from './CourseListRow';
 
+// TODO: UPDATE TESTS
 // new
 describe('<CourseList />', () => {
   let wrapper;

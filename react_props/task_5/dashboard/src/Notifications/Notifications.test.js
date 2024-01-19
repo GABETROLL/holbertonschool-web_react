@@ -4,6 +4,8 @@ import { menuItemElement, notificationsDrawer } from './Notifications';
 import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 
+// TODO: UPDATE TESTS
+
 describe('<Notifications />', () => {
   let wrapper;
   beforeAll(() => {

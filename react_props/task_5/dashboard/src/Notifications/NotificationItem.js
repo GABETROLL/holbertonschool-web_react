@@ -24,7 +24,7 @@ NotificationItem.defaultProps = {
 NotificationItem.propTypes = {
   type: PropTypes.string,  // .isRequired
   html: PropTypes.shape({
-    __html: PropTypes.string.isRequired,
+    __html: PropTypes.string,
   }),
   value: PropTypes.string,
 };
