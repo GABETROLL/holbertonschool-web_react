@@ -21,6 +21,7 @@ describe('<CourseList />', () => {
 
   it('renders without crashing', () => {
     expect(defaultWrapper.exists()).toBe(true);
+    expect(emptyListWrapper.exists()).toBe(true);
     expect(usedWrapper.exists()).toBe(true);
   });
 

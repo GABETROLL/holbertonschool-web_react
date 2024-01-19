@@ -46,8 +46,10 @@ describe('<Notifications />', () => {
   });
 
   it('renders correctly when given no `listNotifications` array or an empty one', () => {
-    // renders **SPECIFICALLY THE LIST** correctly
     const expectedHtml = (
+      '<div class="NotificationsMenu"><div class="menuItem"><p class="menuItemP">Your notifications</p></div><div class="Notifications"><button style="float:right;padding-top:18px;padding-right:15px;border:none;background-color:transparent" aria-label="Close"><img style="width:10px" src="test-file-stub" alt=""/></button><ul><li data-notification-type="default">No new notifications for now</li></ul></div></div>'
+    );
+    const expectedUlHtml = (
       `<ul><li data-notification-type="default">No new notifications for now</li></ul>`
     );
 
@@ -55,9 +57,12 @@ describe('<Notifications />', () => {
       shallow(<Notifications displayDrawer={true} />),
       shallow(<Notifications displayDrawer={true} listNotifications={[]} />)
     ]) {
+      // console.log(wrapper.html())
+      expect(wrapper.html()).toBe(expectedHtml);
+
       const foundNotificationItems = wrapper.find('ul');
       expect(foundNotificationItems).toHaveLength(1);
-      expect(foundNotificationItems.first().html()).toBe(expectedHtml);
+      expect(foundNotificationItems.first().html()).toBe(expectedUlHtml);
     }
   });
 
@@ -84,7 +89,7 @@ describe('<Notifications />', () => {
  and renders "No new notifications for now", when listNotifications is empty`, () => {
     const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={[]} />);
     // console.log(wrapper.html());
-    expect(wrapper.contains(<p className="notificationsTitle">Here is the list of notifications</p>)).toBe(false);
+    expect(wrapper.html().includes('Here is the list of notifications')).toBe(false);
     expect(wrapper.find('ul').first().html()).toBe('<ul><li data-notification-type="default">No new notifications for now</li></ul>');
   });
 
