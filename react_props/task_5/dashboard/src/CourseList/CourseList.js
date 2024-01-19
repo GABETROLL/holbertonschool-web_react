@@ -13,7 +13,7 @@ function CourseList({ listCourses }) {
       </thead>
       <tbody>
         {
-          listCourses
+          listCourses && listCourses.length && listCourses.length > 0
           ? listCourses.map(course => (
             <CourseListRow key={`courseId:${course.id}`} isHeader={false} textFirstCell={course.name} textSecondCell={course.credit} />
           ))

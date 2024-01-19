@@ -21,7 +21,7 @@ function Notifications({ displayDrawer, listNotifications }) {
   const notificationsList = (
     <ul>
       {
-        listNotifications
+        listNotifications && listNotifications.length && listNotifications.length > 0
         ? listNotifications.map(notification => (
           <NotificationItem key={`notificationId:${notification.id}`} type={notification.type} value={notification.value} html={notification.html} />
         ))
@@ -41,7 +41,11 @@ function Notifications({ displayDrawer, listNotifications }) {
       }} aria-label="Close">
         <img style={{width: 10}} src={closeIcon} alt=""/>
       </button>
-      <p className="NotificationsTitle">Here is the list of notifications</p>
+      {
+        listNotifications && listNotifications.length && listNotifications.length > 0
+        ? (<p className="NotificationsTitle">Here is the list of notifications</p>)
+        : (<></>)
+      }
       {notificationsList}
     </div>
   );
