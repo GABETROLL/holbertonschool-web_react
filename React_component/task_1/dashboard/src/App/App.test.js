@@ -41,7 +41,7 @@ describe('<App />', () => {
     (and make ruse to restore
     the `alert` function
     after mocking it)
-    *//
+    */
   });
 
   describe('when isLoggedIn={true}', () => {
