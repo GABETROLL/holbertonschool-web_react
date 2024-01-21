@@ -1,0 +1,12 @@
+.App-header {
+    display: flex;
+    align-items: center;
+  
+    color: var(--color-red);
+  
+    border-bottom: 4px var(--color-red) solid;
+}
+
+.logo {
+    height: 300px;
+}
