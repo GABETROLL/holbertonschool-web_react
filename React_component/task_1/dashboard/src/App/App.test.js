@@ -36,7 +36,12 @@ describe('<App />', () => {
   });
 
   it('Calls `logOut` function prop when Ctrl+h is pressed', () => {
-    // TODO
+    /*
+    TODO
+    (and make ruse to restore
+    the `alert` function
+    after mocking it)
+    *//
   });
 
   describe('when isLoggedIn={true}', () => {
