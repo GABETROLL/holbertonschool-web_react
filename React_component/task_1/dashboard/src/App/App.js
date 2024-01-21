@@ -9,14 +9,15 @@ import Footer from '../Footer/Footer';
 import './App.css';
 
 class App extends React.Component {
-  handleLogOutKeyEvent(event) {
-    if (event.ctrlKey && event.key === 'h') {
-      alert('Logging you out');
-      this.props.logOut();
-    }
-  }
-
+  // TODO: CHECK THAT THE EVENT REMOVAL WORKS
   componentDidMount() {
+    this.handleLogOutKeyEvent = (event) => {
+      if (event.ctrlKey && event.key === 'h') {
+        alert('Logging you out');
+        this.props.logOut();
+      }
+    };
+
     document.addEventListener('keydown', this.handleLogOutKeyEvent);
   }
 
