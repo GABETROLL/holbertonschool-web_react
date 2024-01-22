@@ -1,0 +1,17 @@
+:root {
+  --color-red: rgb(224, 0, 60);
+}
+
+body {
+  margin: 0px;
+  font-size: 24px;
+}
+
+.App {
+  font-size: 24px;
+  margin-top: 40px;
+}
+
+.App-body {
+  margin: 75px 48px;
+}
