@@ -23,8 +23,7 @@ NotificationItem.defaultProps = {
   html: null,
   value: '',
   id: 0,
-  markAsRead: (id) => console.log(`Notification ${id} has been marked as read`),
-  // same as the one in ./Notifications
+  markAsRead: () => {},
 };
 NotificationItem.propTypes = {
   type: PropTypes.string,  // .isRequired

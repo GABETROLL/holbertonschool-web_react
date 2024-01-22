@@ -23,6 +23,11 @@ class Notifications extends React.Component {
     in your constructor
     to avoid unecessary re-rendering"
   */
+  constructor(props) {
+    super(props);
+    this.markAsRead = this.markAsRead.bind(this);
+  }
+
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
   }

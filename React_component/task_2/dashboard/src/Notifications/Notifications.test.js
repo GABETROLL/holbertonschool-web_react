@@ -114,7 +114,7 @@ describe('<Notifications />', () => {
     expect(usedWrapper.contains(<p className="NotificationsTitle">Here is the list of notifications</p>)).toBe(true);
   });
 
-  it('has a mathod, `markAsRead(id)`, that wen called, calls: console.log(`Notification ${id} has been marked as read`)', () => {
+  it('has a method, `markAsRead(id)`, that when called, calls: console.log(`Notification ${id} has been marked as read`)', () => {
     jest.spyOn(console, 'log');
 
     const id = 3;

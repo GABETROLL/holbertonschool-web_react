@@ -34,10 +34,10 @@ describe('<NotificationItem />', () => {
   });
 
   it('calls its `markAsRead` prop when clicked', () => {
-    const markAsReadMock = jest.fn();
+    const markAsReadSpy = jest.fn();
     const id = 5;
-    const wrapper = shallow(<NotificationItem id={id} markAsRead={markAsReadMock} />);
+    const wrapper = shallow(<NotificationItem id={id} markAsRead={markAsReadSpy} />);
     wrapper.simulate('click');
-    expect(markAsReadMock.mock.calls).toEqual([[id]]);
+    expect(markAsReadSpy.mock.calls).toEqual([[id]]);
   });
 });

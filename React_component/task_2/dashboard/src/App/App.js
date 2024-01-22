@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Notifications from '../Notifications/Notifications';
 import { getLatestNotification } from '../utils/utils';
@@ -9,15 +10,20 @@ import Footer from '../Footer/Footer';
 import './App.css';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLogOutKeyEvent = this.handleLogOutKeyEvent.bind(this);
+  }
+
+  handleLogOutKeyEvent(event) {
+    if (event.ctrlKey && event.key === 'h') {
+      alert('Logging you out');
+      this.props.logOut();
+    }
+  }
+
   // TODO: CHECK THAT THE EVENT REMOVAL WORKS
   componentDidMount() {
-    this.handleLogOutKeyEvent = (event) => {
-      if (event.ctrlKey && event.key === 'h') {
-        alert('Logging you out');
-        this.props.logOut();
-      }
-    };
-
     document.addEventListener('keydown', this.handleLogOutKeyEvent);
   }
 
@@ -31,13 +37,13 @@ class App extends React.Component {
       { id: 2, type: 'urgent', value: 'New resume available' },
       { id: 3, type: 'urgent', html: {__html: getLatestNotification()} },
     ];
-  
+
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: 'Webpack', credit: 20 },
       { id: 3, name: 'React', credit: 40 },
     ];
-  
+
     return (
       <>
         <Notifications listNotifications={listNotifications} />
