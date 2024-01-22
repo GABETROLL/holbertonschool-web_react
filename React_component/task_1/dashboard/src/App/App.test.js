@@ -1,5 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import ReactDOM from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import App from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
@@ -36,6 +37,13 @@ describe('<App />', () => {
   });
 
   it('Calls `logOut` function prop when Ctrl+h is pressed', () => {
+    const logOutSpy = jest.fn();
+    const alertSpy = jest.fn(alert);
+
+    const wrapper = mount(<App logOut={logOutSpy} />);
+    wrapper.simulate('keydown');
+
+    expect(alertSpy.mock.calls).toBe([['Logging you out']]);
     /*
     TODO
     (and make ruse to restore
