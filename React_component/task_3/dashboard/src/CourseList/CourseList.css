@@ -1,0 +1,15 @@
+#CourseList {
+  width: 100%;
+  border: 1px lightgrey solid;
+
+  text-align: left;
+}
+
+#CourseList thead tr:first-child {
+  text-align: center;
+}
+#CourseList th {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 3px lightgrey solid;
+}
