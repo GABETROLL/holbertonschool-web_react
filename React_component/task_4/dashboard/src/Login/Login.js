@@ -1,7 +1,7 @@
 import React from 'react';
 import './Login.css';
 
-export default function Login() {
+function Login() {
   return (
     <>
       <p>Login to access the full dashboard</p>
@@ -15,3 +15,5 @@ export default function Login() {
     </>
   );
 }
+Login.displayName = 'Login';
+export default Login;
