@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import WithLogging from '../HOC/WithLogging';
 import Notifications from '../Notifications/Notifications';
 import { getLatestNotification } from '../utils/utils';
 import Header from '../Header/Header';
@@ -46,6 +47,8 @@ class App extends React.Component {
       { id: 3, name: 'React', credit: 40 },
     ];
 
+    const LoginWithLogging = WithLogging(Login);
+
     return (
       <>
         <Notifications listNotifications={listNotifications} />
@@ -61,7 +64,7 @@ class App extends React.Component {
               )
               : (
                 <BodySectionWithMarginBottom title="Log in to continue">
-                  <Login />
+                  <LoginWithLogging />
                 </BodySectionWithMarginBottom>
               )
             }
