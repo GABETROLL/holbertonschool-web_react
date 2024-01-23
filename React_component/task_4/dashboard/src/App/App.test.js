@@ -26,6 +26,7 @@ describe('<App />', () => {
     expect(wrapper.find(Header)).toHaveLength(1);
   });
   it('contains one Login component', () => {
+    // console.log(wrapper.html());
     expect(wrapper.find(Login)).toHaveLength(1);
   });
   it('contains one Footer component', () => {
