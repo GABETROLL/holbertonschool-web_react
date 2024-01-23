@@ -3,3 +3,4 @@
 - Class components
 - State
 - Lifecycle
+- Higher Order Components
