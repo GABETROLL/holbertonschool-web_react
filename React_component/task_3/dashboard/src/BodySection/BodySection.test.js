@@ -1,3 +1,4 @@
+import React from 'react';
 import { shallow } from 'enzyme';
 import BodySection from './BodySection';
 
@@ -38,7 +39,7 @@ describe('<BodySection />', () => {
         <button>{buttonText}</button>
       </BodySection>
     );
-    expect(wrapper.children()).toHaveLength(2);
+    expect(wrapper.children()).toHaveLength(3);
 
     foundH2 = wrapper.find('h2');
     expect(foundH2).toHaveLength(1);
