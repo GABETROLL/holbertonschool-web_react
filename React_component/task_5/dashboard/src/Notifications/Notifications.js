@@ -32,6 +32,11 @@ class Notifications extends React.Component {
     console.log(`Notification ${id} has been marked as read`);
   }
 
+  // TODO
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return nextProps.listNotifications.length > this.props.listNotifications.length;
+  }
+
   render() {
     const notificationsList = (
       <ul>

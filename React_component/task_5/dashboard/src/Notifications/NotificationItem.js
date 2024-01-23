@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const NotificationItem = React.memo(
   class NotificationItem extends React.Component {
     render() {
-      console.log(`NotificationItem with id ${this.props.id} is being rendered, at: ${(new Date()).toLocaleTimeString()}`);
+      // console.log(`NotificationItem with id ${this.props.id} is being rendered, at: ${(new Date()).toLocaleTimeString()}`);
 
       if (this.props.html) {
         return (
