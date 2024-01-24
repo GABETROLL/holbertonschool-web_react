@@ -124,4 +124,68 @@ describe('<Notifications />', () => {
     console.log.mockRestore();
     // expect(console.log.mock).toBe(undefined);
   });
+
+  it("doesn't re-render when its props are updated, and the `listNotifications` prop stays the same", () => {
+    const testNotifications = [
+      { id: 1, type: 'urgent', value: 'Hello' },
+      { id: 2, type: 'default', value: 'World' },
+      { id: 3, type: 'default', html: {__html: '<strong>Congratulations!</strong>'} },
+    ];
+
+    jest.spyOn(Notifications.prototype, 'render');
+
+    const wrapper = mount(<Notifications displayDrawer={true} listNotifications={testNotifications} />);
+
+    // creating the wrapper is should be one `render` call
+    expect(Notifications.prototype.render.mock.calls).toEqual([[]]);
+
+    // Update the props, with the SAME LIST IN MEMORY
+    wrapper.setProps({ displayDrawer: true, listNotifications: testNotifications });
+    wrapper.setProps({ displayDrawer: false, listNotifications: testNotifications });
+
+    const testNotificationsCopy = [...testNotifications];
+
+    // Update the props, again, this time, with a COPY OF THE LIST
+    wrapper.setProps({ displayDrawer: true, listNotifications: testNotificationsCopy });
+    wrapper.setProps({ displayDrawer: false, listNotifications: testNotificationsCopy });
+
+    /*
+    `render` method shouldn't have any more calls,
+    after creating it
+    */
+    expect(Notifications.prototype.render.mock.calls).toEqual([[]]);
+
+    Notifications.prototype.render.mockRestore();
+  });
+
+  it('re-renders when its props are updated, and the `listNotifications` prop is longer', () => {
+    let testNotifications = [
+      { id: 1, type: 'urgent', value: 'Hello' },
+      { id: 2, type: 'default', value: 'World' },
+      { id: 3, type: 'default', html: {__html: '<strong>Congratulations!</strong>'} },
+    ];
+
+    jest.spyOn(Notifications.prototype, 'render');
+    jest.spyOn(Notifications.prototype, 'shouldComponentUpdate');
+
+    const wrapper = mount(<Notifications displayDrawer={true} listNotifications={testNotifications} />);
+    // 1 render call, to render the component initially
+    expect(Notifications.prototype.render.mock.calls).toEqual([[]]);
+    expect(Notifications.prototype.shouldComponentUpdate.mock.calls).toHaveLength(0);
+
+    testNotifications = [...testNotifications, { id: 4, type: 'urgent', value: 'Testing!' }];
+    wrapper.setProps({ displayDrawer: true, listNotifications: testNotifications });
+    // 2 render calls, to re-render the component after a new and longer testNotifications list was passed
+    expect(Notifications.prototype.render.mock.calls).toEqual([[], []]);
+    expect(Notifications.prototype.shouldComponentUpdate.mock.calls).toHaveLength(1);
+
+    testNotifications = [...testNotifications, { id: 5, type: 'default', value: '1, 2. 3...' }];
+    wrapper.setProps({ displayDrawer: false, listNotifications: testNotifications });
+    // 3 render calls, to re-render the component after a new and longer testNotifications list was passed
+    expect(Notifications.prototype.render.mock.calls).toEqual([[], [], []]);
+    expect(Notifications.prototype.shouldComponentUpdate.mock.calls).toHaveLength(2);
+
+    Notifications.prototype.render.mockRestore();
+    Notifications.prototype.shouldComponentUpdate.mockRestore();
+  });
 });
