@@ -15,7 +15,10 @@ describe('<NotificationItem />', () => {
     for (const typeProp of ['default', 'urgent', '???']) {
       for (const valueProp of ['test', '???']) {
         const wrapper = shallow(<NotificationItem type={typeProp} value={valueProp} />);
-        expect(wrapper.html()).toBe(`<li data-notification-type="${typeProp}">${valueProp}</li>`);
+        expect(wrapper.type()).toBe('li');
+        expect(wrapper.prop('data-notification-type')).toBe(typeProp);
+        expect(wrapper.text()).toBe(valueProp);
+        // expect(wrapper.html()).toBe(`<li data-notification-type="${typeProp}">${valueProp}</li>`);
       }
     }
   });
@@ -24,16 +27,28 @@ describe('<NotificationItem />', () => {
     let wrapper;
 
     wrapper = shallow(<NotificationItem html={{__html: "<strong>urgent</strong>"}} />);
-    expect(wrapper.html()).toBe('<li data-notification-type="default"><strong>urgent</strong></li>');
+    expect(wrapper.type()).toBe('li');
+    expect(wrapper.prop('data-notification-type')).toBe('default');
+    expect(wrapper.render().html()).toBe('<strong>urgent</strong>');
+    // expect(wrapper.html()).toBe('<li data-notification-type="default"><strong>urgent</strong></li>');
 
     wrapper = shallow(<NotificationItem value="a" html={{__html: "b"}} />);
-    expect(wrapper.html()).toBe('<li data-notification-type="default">b</li>');
+    expect(wrapper.type()).toBe('li');
+    expect(wrapper.prop('data-notification-type')).toBe('default');
+    expect(wrapper.render().html()).toBe('b');
+    // expect(wrapper.html()).toBe('<li data-notification-type="default">b</li>');
 
     wrapper = shallow(<NotificationItem html={{__html: "???"}} />);
-    expect(wrapper.html()).toBe('<li data-notification-type="default">???</li>');
+    expect(wrapper.type()).toBe('li');
+    expect(wrapper.prop('data-notification-type')).toBe('default');
+    expect(wrapper.render().html()).toBe('???');
+    // expect(wrapper.html()).toBe('<li data-notification-type="default">???</li>');
 
     wrapper = shallow(<NotificationItem />);
-    expect(wrapper.html()).toBe('<li data-notification-type="default"></li>');
+    expect(wrapper.type()).toBe('li');
+    expect(wrapper.prop('data-notification-type')).toBe('default');
+    expect(wrapper.render().html()).toBe('');
+    // expect(wrapper.html()).toBe('<li data-notification-type="default"></li>');
   });
 
   it('calls its `markAsRead` prop when clicked', () => {

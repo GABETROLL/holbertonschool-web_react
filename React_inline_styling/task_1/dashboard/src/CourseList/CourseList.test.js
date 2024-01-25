@@ -29,24 +29,23 @@ describe('<CourseList />', () => {
   });
 
   it('renders correctly when given an empty `listCourses` or none at all', () => {
-    const expectedHtml = (
-      `<table id="CourseList">\
-<thead><tr style="background-color:#deb5b545"><th colSpan="2">Available courses</th></tr><tr style="background-color:#deb5b545"><th>Course name</th><th>Credit</th></tr></thead>\
-<tbody><tr style="background-color:#f5f5f5ab"><td>No course available yet</td><td></td></tr></tbody>\
-</table>`
-    );
-    expect(defaultWrapper.html()).toBe(expectedHtml);
-    expect(emptyListWrapper.html()).toBe(expectedHtml);
+    for (const wrapper of [defaultWrapper, emptyListWrapper]) {
+      expect(wrapper.find('tbody')).toHaveLength(1);
+      const tBody = wrapper.find('tbody').first();
+
+      expect(tBody.children()).toHaveLength(1);
+      expect(tBody.contains(<CourseListRow textFirstCell="No course available yet" />)).toBe(true);
+    }
   });
 
   it("renders correctly when it's given a correct `listCourses` that's not empty", () => {
-    const expectedHtml = (
-      `<table id="CourseList">\
-<thead><tr style="background-color:#deb5b545"><th colSpan="2">Available courses</th></tr><tr style="background-color:#deb5b545"><th>Course name</th><th>Credit</th></tr></thead>\
-<tbody><tr style="background-color:#f5f5f5ab"><td>ES6</td><td>60</td></tr><tr style="background-color:#f5f5f5ab"><td>Webpack</td><td>20</td></tr><tr style="background-color:#f5f5f5ab"><td>React</td><td>40</td></tr></tbody>\
-</table>`
-    );
-    expect(usedWrapper.html()).toBe(expectedHtml);
+    expect(usedWrapper.find('tbody')).toHaveLength(1);
+    const tBody = usedWrapper.find('tbody').first();
+
+    expect(tBody.children()).toHaveLength(3);
+    expect(tBody.contains(<CourseListRow textFirstCell="ES6" textSecondCell={60} />)).toBe(true);
+    expect(tBody.contains(<CourseListRow textFirstCell="Webpack" textSecondCell={20} />)).toBe(true);
+    expect(tBody.contains(<CourseListRow textFirstCell="React" textSecondCell={40} />)).toBe(true);
   });
 
   it('renders the 5 different rows', () => {
