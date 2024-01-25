@@ -1,6 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import BodySection from './BodySection';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+StyleSheetTestUtils.suppressStyleInjection();
 
 describe('<BodySection />', () => {
   it('should renders correctly the `title` prop as an <h2 /> and its children', () => {

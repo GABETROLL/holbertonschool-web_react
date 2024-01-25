@@ -4,6 +4,10 @@ import { menuItemElement, notificationsDrawer } from './Notifications';
 import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+StyleSheetTestUtils.suppressStyleInjection();
+
 // TODO: UPDATE TESTS
 
 describe('<Notifications />', () => {
