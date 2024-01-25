@@ -3,15 +3,48 @@ import PropTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
-import './Notifications.css';
+import { StyleSheet, css } from 'aphrodite';
+import { red } from '../styleColor';
+
+/* TODO: finish styling */
+const styles = StyleSheet.create({
+  NotificationsMenu: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    width: '100%',
+  },
+  menuItem: {
+    textAlign: 'right',
+  },
+  menuItemP: {
+    marginTop: 12,
+    marginBottom: 14,
+  },
+  Notifications: {
+    maxWidth: 600,
+    marginLeft: 'auto',
+    paddingBottom: 5,
+    paddingLeft: 15,
+    borderWidth: 2,
+    borderColor: red,
+    borderStyle: 'dashed',
+  },
+  NotificationsTitle: {
+    marginTop: 30,
+  },
+  NotificationsUl: {
+    paddingLeft: 56,
+  },
+});
 
 function closeButtonClicked() {
   console.log('Close button has been clicked');
 }
 
 export const menuItemElement = (
-  <div className="menuItem">
-    <p className="menuItemP">Your notifications</p>
+  <div className={css(styles.menuItem)}>
+    <p className={css(styles.menuItemP)}>Your notifications</p>
   </div>
 );
 
@@ -38,7 +71,7 @@ class Notifications extends React.Component {
 
   render() {
     const notificationsList = (
-      <ul>
+      <ul className={css(styles.NotificationsUl)}>
         {
           this.props.listNotifications && this.props.listNotifications.length && this.props.listNotifications.length > 0
           ? this.props.listNotifications.map(notification => (
@@ -50,7 +83,7 @@ class Notifications extends React.Component {
     );
 
     const notificationsDrawer = (
-      <div className="Notifications">
+      <div className={css(styles.Notifications)}>
         <button onClick={closeButtonClicked} style={{
           float: 'right',
           paddingTop: 18,
@@ -62,7 +95,7 @@ class Notifications extends React.Component {
         </button>
         {
           this.props.listNotifications && this.props.listNotifications.length && this.props.listNotifications.length > 0
-          ? (<p className="NotificationsTitle">Here is the list of notifications</p>)
+          ? (<p className={css(styles.NotificationsTitle)}>Here is the list of notifications</p>)
           : (<></>)
         }
         {notificationsList}
@@ -70,7 +103,7 @@ class Notifications extends React.Component {
     );
 
     return (
-      <div className="NotificationsMenu">
+      <div className={css(styles.NotificationsMenu)}>
         {menuItemElement}
         {this.props.displayDrawer === true ? notificationsDrawer : <></>}
       </div>

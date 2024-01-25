@@ -1,5 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
+
+const styles = StyleSheet.create({
+  defaultNotification: {
+    color: 'navy',
+  },
+  urgentNotification: {
+    color: 'red',
+  },
+});
 
 const NotificationItem = React.memo(
   class NotificationItem extends React.Component {
@@ -8,11 +18,18 @@ const NotificationItem = React.memo(
 
       if (this.props.html) {
         return (
-          <li onClick={() => this.props.markAsRead(this.props.id)} data-notification-type={this.props.type} dangerouslySetInnerHTML={this.props.html} />
+          <li className={css(this.props.type === 'urgent' ? styles.urgentNotification : styles.defaultNotification )}
+            onClick={() => this.props.markAsRead(this.props.id)}
+            data-notification-type={this.props.type} dangerouslySetInnerHTML={this.props.html}
+          />
         );
       }
       return (
-        <li onClick={() => this.props.markAsRead(this.props.id)} data-notification-type={this.props.type}>{this.props.value}</li>
+        <li className={css(this.props.type === 'urgent' ? styles.urgentNotification : styles.defaultNotification )}
+          onClick={() => this.props.markAsRead(this.props.id)}
+          data-notification-type={this.props.type}>
+            {this.props.value}
+        </li>
       );
       /*
       React should default to filling the <li /> with ''
