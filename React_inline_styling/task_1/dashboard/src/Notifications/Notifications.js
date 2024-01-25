@@ -7,7 +7,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { red } from '../styleColor';
 
 /* TODO: finish styling */
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   NotificationsMenu: {
     position: 'absolute',
     right: 0,
