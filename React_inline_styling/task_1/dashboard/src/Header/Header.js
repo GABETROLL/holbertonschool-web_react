@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { red } from '../styleColor';
 
 const styles = StyleSheet.create({
-  appHeader: {
+  header: {
     display: 'flex',
     alignItems: 'center',
     borderBottomWidth: 4,
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 
 export default function Header() {
   return (
-    <div className={css(styles.appHeader)}>
+    <div className={css(styles.header)}>
       <img className={css(styles.logo)} src={logo} alt=""/>
       <h1>School dashboard</h1>
     </div>
