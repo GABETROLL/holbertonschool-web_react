@@ -18,11 +18,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginTop: 40,
   },
-  appBody: {
+  body: {
     marginVertical: 75,
     marginHorizontal: 48,
   },
-  appFooter: {
+  footer: {
     position: 'fixed',
       left: 0,
       bottom: 0,
@@ -77,7 +77,7 @@ class App extends React.Component {
         <Notifications listNotifications={listNotifications} />
         <div className={css(styles.app)}>
           <Header />
-          <div className={css(styles.appBody)}>
+          <div className={css(styles.body)}>
             {
               this.props.isLoggedIn
               ? (
