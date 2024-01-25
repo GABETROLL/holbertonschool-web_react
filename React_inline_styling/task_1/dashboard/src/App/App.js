@@ -11,6 +11,7 @@ import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBot
 import BodySection from '../BodySection/BodySection';
 import Footer from '../Footer/Footer';
 import { StyleSheet, css } from 'aphrodite';
+import { red } from '../styleColor';
 
 const styles = StyleSheet.create({
   app: {
@@ -20,6 +21,17 @@ const styles = StyleSheet.create({
   appBody: {
     marginVertical: 75,
     marginHorizontal: 48,
+  },
+  appFooter: {
+    position: 'fixed',
+      left: 0,
+      bottom: 0,
+      width: '100%',
+      fontSize: 20,
+      textAlign: 'center',
+      fontStyle: 'italic',
+      borderTopWidth: 4,
+      borderTopColor: red,
   },
 });
 
