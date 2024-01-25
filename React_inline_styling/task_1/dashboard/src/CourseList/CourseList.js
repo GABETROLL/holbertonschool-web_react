@@ -3,21 +3,28 @@ import PropTypes from 'prop-types';
 import CourseShape from './CourseShape';
 import CourseListRow from './CourseListRow';
 import { StyleSheet, css } from 'aphrodite';
-import './CourseList.css';
 
 const styles = StyleSheet.create({
-  th: {
-    paddingVertical: 8,
-    borderBottomWidth: 3,
+  CourseList: {
+    width: '100%',
+
+    borderWidth: 1,
     borderColor: 'lightgrey',
+
+    textAlign: 'left',
+  },
+
+  // #CourseList thead tr:first-child
+  CourseListCaption: {
+    textAlign: 'center',
   },
 });
 
 function CourseList({ listCourses }) {
   return (
-    <table id="CourseList">
+    <table className={css(styles.CourseList)}>
       <thead>
-        <CourseListRow isHeader={true} textFirstCell="Available courses" />
+        <CourseListRow className={css(styles.CourseListCaption)} isHeader={true} textFirstCell="Available courses" />
         <CourseListRow isHeader={true} textFirstCell="Course name" textSecondCell="Credit" />
       </thead>
       <tbody>

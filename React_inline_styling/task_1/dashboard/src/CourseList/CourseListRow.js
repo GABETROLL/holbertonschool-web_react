@@ -1,5 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
+
+const styles = StyleSheet.create({
+  CourseListTh: {
+    paddingVertical: 8,
+    borderBottomWidth: 3,
+    borderColor: 'lightgrey',
+  },
+});
 
 function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
   // console.log(typeof isHeader, typeof textFirstCell, typeof textSecondCell);
@@ -11,14 +20,14 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
     if (!textSecondCell) {
       return (
         <tr style={headerRowStyle}>
-          <th colSpan="2">{textFirstCell}</th>
+          <th className={css(styles.CourseListTh)} colSpan="2">{textFirstCell}</th>
         </tr>
       );
     }
     return (
       <tr style={headerRowStyle}>
-        <th>{textFirstCell}</th>
-        <th>{textSecondCell}</th>
+        <th className={css(styles.CourseListTh)}>{textFirstCell}</th>
+        <th className={css(styles.CourseListTh)}>{textSecondCell}</th>
       </tr>
     );
   }
