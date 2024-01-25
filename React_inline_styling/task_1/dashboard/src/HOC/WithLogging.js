@@ -3,7 +3,7 @@ import React from 'react';
 export default function WithLogging(WrappedComponent) {
   const NAME_OF_THE_WRAPPED_COMPONENT = WrappedComponent.displayName || 'Component';
 
-  const result = class extends React.Component {
+  class HOC extends React.Component {
     componentDidMount() {
       console.log(`Component ${NAME_OF_THE_WRAPPED_COMPONENT} is mounted`);
     }
@@ -16,7 +16,6 @@ export default function WithLogging(WrappedComponent) {
       return (<WrappedComponent {...(this.props)} />);
     }
   };
-  result.displayName = `WithLogging(${NAME_OF_THE_WRAPPED_COMPONENT})`;
-
-  return result;
+  HOC.displayName = `WithLogging(${NAME_OF_THE_WRAPPED_COMPONENT})`;
+  return HOC;
 }
