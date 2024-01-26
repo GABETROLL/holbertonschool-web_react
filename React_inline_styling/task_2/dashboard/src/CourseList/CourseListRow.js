@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
+  CouseListHeaderRow: {
+    backgroundColor: '#deb5b545',
+  },
+  CourseListBodyRow: {
+    backgroundColor: '#f5f5f5ab'
+  },
   CourseListTh: {
     paddingTop: 8,
     paddingBottom: 8,
@@ -17,30 +23,49 @@ const styles = StyleSheet.create({
 function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
   // console.log(typeof isHeader, typeof textFirstCell, typeof textSecondCell);
 
-  const headerRowStyle = { backgroundColor: '#deb5b545' };
-  const bodyRowStyle = { backgroundColor: '#f5f5f5ab' };
+  return (
+    <tr class={css( isHeader ? styles.CouseListHeaderRow : styles.CourseListBodyRow )}>
+      {
+        isHeader ? (
+          <>
+            <th className={css(styles.CourseListTh, textSecondCell ? undefined : styles.CourseListCaption)} colSpan={textSecondCell ? '1' : '2'}>{textFirstCell}</th>
+            {
+              textSecondCell ? (
+                <th className={css(styles.CourseListTh)} colSpan="2">{textSecondCell}</th>
+              ) : (<></>)
+            }
+          </>
+        ) : (
+          <>
+            <td>{textFirstCell}</td>
+            <td>{textSecondCell}</td>
+          </>
+        )
+      }
+    </tr>
+  );
 
-  if (isHeader) {
+  /* if (isHeader) {
     if (!textSecondCell) {
       return (
-        <tr style={headerRowStyle}>
+        <>
           <th className={css(styles.CourseListTh, styles.CourseListCaption)} colSpan="2">{textFirstCell}</th>
-        </tr>
+        </>
       );
     }
     return (
-      <tr style={headerRowStyle}>
+      <>
         <th className={css(styles.CourseListTh)}>{textFirstCell}</th>
         <th className={css(styles.CourseListTh)}>{textSecondCell}</th>
-      </tr>
+      </>
     );
   }
   return (
-    <tr style={bodyRowStyle}>
+    <>
       <td>{textFirstCell}</td>
       <td>{textSecondCell}</td>
-    </tr>
-  );
+    </>
+  ); */
 }
 
 CourseListRow.defaultProps = {
