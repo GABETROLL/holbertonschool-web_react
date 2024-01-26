@@ -24,7 +24,7 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
   // console.log(typeof isHeader, typeof textFirstCell, typeof textSecondCell);
 
   return (
-    <tr class={css( isHeader ? styles.CouseListHeaderRow : styles.CourseListBodyRow )}>
+    <tr className={css( isHeader ? styles.CouseListHeaderRow : styles.CourseListBodyRow )}>
       {
         isHeader ? (
           <>
@@ -44,28 +44,6 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
       }
     </tr>
   );
-
-  /* if (isHeader) {
-    if (!textSecondCell) {
-      return (
-        <>
-          <th className={css(styles.CourseListTh, styles.CourseListCaption)} colSpan="2">{textFirstCell}</th>
-        </>
-      );
-    }
-    return (
-      <>
-        <th className={css(styles.CourseListTh)}>{textFirstCell}</th>
-        <th className={css(styles.CourseListTh)}>{textSecondCell}</th>
-      </>
-    );
-  }
-  return (
-    <>
-      <td>{textFirstCell}</td>
-      <td>{textSecondCell}</td>
-    </>
-  ); */
 }
 
 CourseListRow.defaultProps = {
