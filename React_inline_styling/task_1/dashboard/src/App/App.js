@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: 'fixed',
-      left: 0,
-      bottom: 0,
-      width: '100%',
-      fontSize: 20,
-      textAlign: 'center',
-      fontStyle: 'italic',
-      borderTop: `4px ${red} solid`,
+    left: 0,
+    bottom: 0,
+    width: '100%',
+    fontSize: 20,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    borderTop: `4px ${red} solid`,
   },
 });
 
