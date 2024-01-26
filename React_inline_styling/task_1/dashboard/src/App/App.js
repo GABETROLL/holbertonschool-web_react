@@ -19,8 +19,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   body: {
-    marginVertical: 75,
-    marginHorizontal: 48,
+    margin: '75px 48px',
   },
   footer: {
     position: 'fixed',
@@ -30,8 +29,7 @@ const styles = StyleSheet.create({
       fontSize: 20,
       textAlign: 'center',
       fontStyle: 'italic',
-      borderTopWidth: 4,
-      borderTopColor: red,
+      borderTop: `4px ${red} solid`,
   },
 });
 
@@ -97,7 +95,9 @@ class App extends React.Component {
               </BodySection>
             }
           </div>
-          <Footer />
+          <div className={css(styles.footer)}>
+            <Footer />
+          </div>
         </div>
       </>
     );

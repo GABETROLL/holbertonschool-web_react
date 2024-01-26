@@ -7,16 +7,8 @@ import { StyleSheet, css } from 'aphrodite';
 const styles = StyleSheet.create({
   CourseList: {
     width: '100%',
-
-    borderWidth: 1,
-    borderColor: 'lightgrey',
-
+    border: '1px lightgrey solid',
     textAlign: 'left',
-  },
-
-  // #CourseList thead tr:first-child
-  CourseListCaption: {
-    textAlign: 'center',
   },
 });
 

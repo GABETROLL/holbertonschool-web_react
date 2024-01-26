@@ -4,9 +4,13 @@ import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
   CourseListTh: {
-    paddingVertical: 8,
-    borderBottomWidth: 3,
-    borderColor: 'lightgrey',
+    paddingTop: 8,
+    paddingBottom: 8,
+    borderBottom: '3px lightgrey solid',
+  },
+  // #CourseList thead tr:first-child
+  CourseListCaption: {
+    textAlign: 'center',
   },
 });
 
@@ -20,7 +24,7 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
     if (!textSecondCell) {
       return (
         <tr style={headerRowStyle}>
-          <th className={css(styles.CourseListTh)} colSpan="2">{textFirstCell}</th>
+          <th className={css(styles.CourseListTh, styles.CourseListCaption)} colSpan="2">{textFirstCell}</th>
         </tr>
       );
     }

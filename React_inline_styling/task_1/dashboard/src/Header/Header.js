@@ -7,9 +7,8 @@ const styles = StyleSheet.create({
   header: {
     display: 'flex',
     alignItems: 'center',
-    borderBottomWidth: 4,
     color: red,
-    borderBottomColor: red,
+    borderBottom: `4px ${red} solid`,
   },
   logo: {
     height: 300,

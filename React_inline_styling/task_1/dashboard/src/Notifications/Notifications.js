@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     right: 0,
     top: 0,
     width: '100%',
+    fontSize: 24,
   },
   menuItem: {
     textAlign: 'right',
