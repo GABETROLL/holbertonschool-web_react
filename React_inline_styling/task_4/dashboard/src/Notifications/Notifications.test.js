@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { menuItemElement, notificationsDrawer } from './Notifications';
 import Notifications from './Notifications';
 import { styles as notificationsStyles } from './Notifications';
 import NotificationItem from './NotificationItem';
@@ -53,7 +52,8 @@ describe('<Notifications />', () => {
 
   it('renders correctly when given no `listNotifications` array or an empty one', () => {
     const expectedHtml = `<ul class="${css(notificationsStyles.NotificationsUl)}">\
-<li class="${css(notificationItemStyles.defaultNotification)}" data-notification-type="default">No new notifications for now</li>\
+<li class="${css(notificationItemStyles.notificationItem, notificationItemStyles.defaultNotification)}"\
+ data-notification-type="default">No new notifications for now</li>\
 </ul>`;
 
     for (const wrapper of [
@@ -69,9 +69,9 @@ describe('<Notifications />', () => {
   it('renders correctly when given a `listNotifications` array with notifications inside', () => {
     // ONLY TESTS THAT THE component renders the  LIST correctly!!
     const expectedHtml = `<ul class="${css(notificationsStyles.NotificationsUl)}">\
-<li class="${css(notificationItemStyles.defaultNotification)}" data-notification-type="default">New course available</li>\
-<li class="${css(notificationItemStyles.urgentNotification)}" data-notification-type="urgent">New resume available</li>\
-<li class="${css(notificationItemStyles.urgentNotification)}" data-notification-type="urgent"><strong>Urgent requirement</strong> - complete by EOD</li>\
+<li class="${css(notificationItemStyles.notificationItem, notificationItemStyles.defaultNotification)}" data-notification-type="default">New course available</li>\
+<li class="${css(notificationItemStyles.notificationItem, notificationItemStyles.urgentNotification)}" data-notification-type="urgent">New resume available</li>\
+<li class="${css(notificationItemStyles.notificationItem, notificationItemStyles.urgentNotification)}" data-notification-type="urgent"><strong>Urgent requirement</strong> - complete by EOD</li>\
 </ul>`;
     const notificationsUl = usedWrapper.find('ul').first();
     expect(notificationsUl.html()).toBe(expectedHtml);
@@ -91,8 +91,8 @@ describe('<Notifications />', () => {
       .toHaveLength(1);
   });
 
-  it('renders the div.${notificationsStyles.Notifications} when displayDrawer={true}', () => {
-    expect(displayedDrawer.find(`div.${css(notificationsStyles.Notifications)}`)).toHaveLength(1);
+  it('renders the div.${notificationsStyles.NotificationsDrawerOpen} when displayDrawer={true}', () => {
+    expect(displayedDrawer.find(`div.${css(notificationsStyles.NotificationsDrawerOpen)}`)).toHaveLength(1);
   });
 
   it('renders 3 <NotificationItem /> when displayDrawer={true}', () => {
@@ -101,7 +101,7 @@ describe('<Notifications />', () => {
 
   it('the first <NotificationItem /> has the correct HTML rendered when displayDrawer={true}', () => {
     expect(usedWrapper.find(NotificationItem).first().html())
-      .toBe(`<li class="${css(notificationItemStyles.defaultNotification)}" data-notification-type="default">New course available</li>`);
+      .toBe(`<li class="${css(notificationItemStyles.notificationItem, notificationItemStyles.defaultNotification)}" data-notification-type="default">New course available</li>`);
   });
 
   it(`renders the "Here is the list of notifications" <p /> when displayDrawer={true} \
