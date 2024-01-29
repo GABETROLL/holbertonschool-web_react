@@ -21,10 +21,10 @@ const bounceKeyFrames = {
   '0%': {
     transform: 'translateY(0)',
   },
-  '33.33%': {
+  '50%': {
     transform: 'translateY(-5px)',
   },
-  '66.67%': {
+  '75%': {
     transform: 'translateY(5px)',
   },
   '100%': {
@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     ':hover': {
       animationName: [opacityKeyFrames, bounceKeyFrames],
       animationDuration: '1s, 0.5s',
-      animationIterationCount: '3, 3',
+      animationIterationCount: 3,
     },
   },
   hiddenMenuItem: {
@@ -132,7 +132,7 @@ class Notifications extends React.Component {
     );
 
     const notificationsDrawer = (
-      <div className={css(this.props.displayDrawer ? styles.NotificationsDrawerOpen : styles.Notifications)}>
+      <div className={css(this.props.displayDrawer ? styles.NotificationsDrawerOpen : undefined)}>
         <button onClick={closeButtonClicked} style={{
           float: 'right',
           paddingTop: 18,
