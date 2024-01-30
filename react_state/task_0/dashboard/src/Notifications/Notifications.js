@@ -115,8 +115,8 @@ class Notifications extends React.Component {
 
   render() {
     const menuItemElement = (
-      <div className={css(styles.menuItem, this.props.displayDrawer && styles.hiddenMenuItem)} onClick={this.props.handleDisplayDrawer}>
-        <p className={css(styles.menuItemP)}>Your notifications</p>
+      <div className={css(styles.menuItem, this.props.displayDrawer && styles.hiddenMenuItem)}>
+        <p className={css(styles.menuItemP)} onClick={this.props.handleDisplayDrawer}>Your notifications</p>
       </div>
     );
 

@@ -28,14 +28,12 @@ describe('<App />', () => {
     expect(mountWrapper.state('displayDrawer')).toBe(false);
   });
   it("has a method, called `handleDisplayDrawer`, that changes the component's `displayDrawer` state to true", () => {
-    const instance = mountWrapper.instance();
-    instance.handleDisplayDrawer();
-    expect(instance.state.displayDrawer).toBe(true);
+    mountWrapper.instance().handleDisplayDrawer();
+    expect(mountWrapper.state('displayDrawer')).toBe(true);
   });
   it("has a method, called `handleHideDrawer`, that changes the component's `displayDrawer` state to false", () => {
-    const instance = mountWrapper.instance();
-    instance.handleHideDrawer();
-    expect(instance.state.displayDrawer).toBe(false);
+    mountWrapper.instance().handleHideDrawer();
+    expect(mountWrapper.state('displayDrawer')).toBe(false);
   });
 
   it('contains one Notifications component', () => {

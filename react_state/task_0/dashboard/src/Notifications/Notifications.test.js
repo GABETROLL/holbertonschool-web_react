@@ -182,16 +182,16 @@ and 'listNotifications' prop exists and is not empty`, () => {
     Notifications.prototype.shouldComponentUpdate.mockRestore();
   });
 
-  it('calls the `handleDisplayDrawer` func when clicking on its menuItemP', () => {
+  it('calls the `handleDisplayDrawer` func when clicking on its menuItem', () => {
     const spyHandleDisplayDrawer = jest.fn();
     const wrapper = mount(<Notifications handleDisplayDrawer={spyHandleDisplayDrawer} />);
-    const menuItemP = wrapper.find(`p.${css(notificationsStyles.menuItemP)}`).first();
+    const menuItemP = wrapper.find(`${css(notificationsStyles.menuItemP)}`).first();
     menuItemP.simulate('click');
     expect(spyHandleDisplayDrawer.mock.calls).toEqual([[]]);
   });
   it('calls the `handleHideDrawer` func when clicking on its close button', () => {
     const spyHandleHideDrawer = jest.fn();
-    const wrapper = mount(<Notifications handleHideDrawer={spyHandleHideDrawer} />);
+    const wrapper = mount(<Notifications displayDrawer={true} handleHideDrawer={spyHandleHideDrawer} />);
     const closeButton = wrapper.find(`button[aria-label="Close"]`).first();
     closeButton.simulate('click');
     expect(spyHandleHideDrawer.mock.calls).toEqual([[]]);
