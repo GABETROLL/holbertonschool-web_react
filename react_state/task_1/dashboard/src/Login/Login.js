@@ -33,31 +33,35 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isLoggedIn: false, email: '', password: '', enableSubmit: false };
-    this.tryEnableSubmit = this.tryEnableSubmit.bind(this);
+    this.shouldEnableSubmit = this.shouldEnableSubmit.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
   }
 
-  tryEnableSubmit() {
-    const newState = {
-      enableSubmit: (typeof this.state.email === 'string' && this.state.email.length > 0
-        && typeof this.state.password === 'string' && this.state.password.length > 0),
-    };
-    // console.log(`Setting state enableSubmit: ${newState.enableSubmit}`);
-    this.setState(newState);
+  shouldEnableSubmit(email, password) {
+    return (
+      typeof email === 'string' && email.length > 0
+      && typeof password === 'string' && password.length > 0
+    );
   }
 
   handleChangeEmail(event) {
     // console.log(`Setting state email: ${event.target.value}`);
-    this.setState({ email: event.target.value });
-    this.tryEnableSubmit();
+    const email = event.target.value;
+    this.setState({
+      email,
+      enableSubmit: this.shouldEnableSubmit(email, this.state.password),
+    });
   }
 
   handleChangePassword(event) {
     // console.log(`Setting state password: ${event.target.value}`);
-    this.setState({ password: event.target.value });
-    this.tryEnableSubmit();
+    const password = event.target.value;
+    this.setState({
+      password,
+      enableSubmit: this.shouldEnableSubmit(this.state.email, password),
+    });
   }
 
   handleLoginSubmit(event) {
