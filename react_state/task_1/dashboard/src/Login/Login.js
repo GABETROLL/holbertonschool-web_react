@@ -49,19 +49,19 @@ class Login extends React.Component {
   handleChangeEmail(event) {
     // console.log(`Setting state email: ${event.target.value}`);
     const email = event.target.value;
-    this.setState({
+    this.setState(state => ({
       email,
-      enableSubmit: this.shouldEnableSubmit(email, this.state.password),
-    });
+      enableSubmit: this.shouldEnableSubmit(email, state.password),
+    }));
   }
 
   handleChangePassword(event) {
     // console.log(`Setting state password: ${event.target.value}`);
     const password = event.target.value;
-    this.setState({
+    this.setState(state => ({
       password,
-      enableSubmit: this.shouldEnableSubmit(this.state.email, password),
-    });
+      enableSubmit: this.shouldEnableSubmit(state.email, password),
+    }));
   }
 
   handleLoginSubmit(event) {

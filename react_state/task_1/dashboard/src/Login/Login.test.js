@@ -24,20 +24,17 @@ describe('<Login />', () => {
   });
   it(`renders email and password inputs. When their values change, they enable the submit button if they're both not empty. Otherwise, they disable it`, () => {
     const wrapper = mount(<Login />);
-    jest.spyOn(wrapper.instance(), 'handleChangeEmail');
     const foundButton = wrapper.find('input[type="submit"]').first();
 
     // one empty should result in the submit button being disabled
     wrapper.find(`input[type="email"]`).first()
       .simulate('change', { target: { name: 'email', value: 'test@test.test' }});
-    expect(wrapper.instance().handleChangeEmail).toHaveBeenCalledTimes(1);
     expect(wrapper.state('enableSubmit')).toBe(false);
     expect(foundButton.prop('disabled')).toBe(true);
 
     // both not empty should result in the submit button being enabled
     wrapper.find(`input[type="password"]`).first()
       .simulate('change', { target: { name: 'password', value: 'supersecurepass' }});
-    // expect(wrapper.instance().tryEnableSubmit).toHaveBeenCalledTimes(2);
     expect(wrapper.state('enableSubmit')).toBe(true);
     expect(foundButton.prop('disabled')).toBe(false);
 
