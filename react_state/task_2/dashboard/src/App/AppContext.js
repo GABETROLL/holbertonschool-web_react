@@ -5,10 +5,14 @@ export const defaultUser = {
   password: '',
   isLoggedIn: false,
 };
-export function logOut() { 
+export function logOut() {
   this.setState(state => ({
-    value: { ...(state.value), user: defaultUser } }
-  ));
+    ...state,
+    value: {
+      ...(state.value),
+      user: defaultUser
+    }
+  }));
 }
 
 const AppContext = React.createContext({
