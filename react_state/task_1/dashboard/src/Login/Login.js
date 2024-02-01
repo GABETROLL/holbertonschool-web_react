@@ -72,6 +72,7 @@ class Login extends React.Component {
 
   render () {
     // console.log('Rendering `Login` component with states:', this.state);
+    // TODO: USE FORM'S SUBMIT EVENT
     return (
       <>
         <p>Login to access the full dashboard</p>

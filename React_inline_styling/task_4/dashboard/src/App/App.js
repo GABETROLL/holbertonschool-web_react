@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
   },
 });
 
+export const LoginWithLogging = WithLogging(Login);
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -67,8 +69,6 @@ class App extends React.Component {
       { id: 2, name: 'Webpack', credit: 20 },
       { id: 3, name: 'React', credit: 40 },
     ];
-
-    const LoginWithLogging = WithLogging(Login);
 
     return (
       <>

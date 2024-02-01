@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme';
 import App from './App';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
+import { LoginWithLogging } from './App';
 import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
 import Footer from '../Footer/Footer';
@@ -42,9 +43,12 @@ describe('<App />', () => {
   it('contains one Header component', () => {
     expect(shallowWrapper.find(Header)).toHaveLength(1);
   });
-  it('contains one Login component', () => {
+  it('contains one Login component, inside one LoginWithLogging component', () => {
     // console.log(wrapper.html());
-    expect(shallowWrapper.find(Login)).toHaveLength(1);
+    const foundLoginWithLogging = wrapper.find(LoginWithLogging);
+    expect(foundLoginWithLogging).toHaveLength(1);
+    const loginWithLogging = foundLoginWithLogging.first().shallow();
+    expect(loginWithLogging.find(Login)).toHaveLength(1);
   });
   it('contains one Footer component', () => {
     expect(shallowWrapper.find(Footer)).toHaveLength(1);
