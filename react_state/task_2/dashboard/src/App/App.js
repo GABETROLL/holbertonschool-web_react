@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { defaultUser, logOut } from './AppContext';
+import AppContext from './AppContext';
 import WithLogging from '../HOC/WithLogging';
 import Notifications from '../Notifications/Notifications';
 import { getLatestNotification } from '../utils/utils';
@@ -101,7 +102,7 @@ export default class App extends React.Component {
     const LoginWithLogging = WithLogging(Login);
 
     return (
-      <>
+      <AppContext.Provider value={this.state.value}>
         <Notifications listNotifications={listNotifications} displayDrawer={this.state.displayDrawer} handleDisplayDrawer={this.handleDisplayDrawer} handleHideDrawer={this.handleHideDrawer} />
         <div className={css(styles.app)}>
           <Header />
@@ -129,7 +130,7 @@ export default class App extends React.Component {
             <Footer />
           </div>
         </div>
-      </>
+      </AppContext.Provider>
     );
   }
 }
