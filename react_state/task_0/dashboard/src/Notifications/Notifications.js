@@ -132,9 +132,11 @@ class Notifications extends React.Component {
       </ul>
     );
 
+    const { handleHideDrawer } = this.props;
+
     const notificationsDrawer = (
       <div className={css(this.props.displayDrawer ? styles.NotificationsDrawerOpen : undefined)}>
-        <button onClick={this.props.handleHideDrawer} style={{
+        <button onClick={handleHideDrawer} style={{
           float: 'right',
           paddingTop: 18,
           paddingRight: 15,
