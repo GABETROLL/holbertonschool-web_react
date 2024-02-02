@@ -27,6 +27,7 @@ describe('<App />', () => {
   });
 
   it('has a `displayDrawer` state, and its initial value is false', () => {
+    mountWrapper = mount(<App />);
     expect(mountWrapper.state('displayDrawer')).toBe(false);
   });
   it("has a method, called `handleDisplayDrawer`, that changes the component's `displayDrawer` state to true", () => {
@@ -85,6 +86,26 @@ describe('<App />', () => {
     the `alert` function
     after mocking it)
     */
+  });
+
+  it('has an instance method, `logIn`, that updates `state.value.user` correctly: adds the new email and password, and sets `isLoggedIn` to true', () => {
+    mountWrapper = mount(<App />);
+    const oldState = mountWrapper.state();
+    expect(mountWrapper.state()).toStrictEqual({ ...(oldState), value: { ...(oldState.value), user: defaultUser } });
+
+    mountWrapper.instance().logIn('a', 'b');
+
+    const expectedNewUser = { email: 'a', password: 'b', isLoggedIn: true };
+    expect(mountWrapper.state()).toStrictEqual({ ...(oldState), value: { ...(oldState.value), user: expectedNewUser } });
+  });
+  it('has an instance method, `logIn`, that updates `state.value.user` correctly: adds the new email and password, and sets `isLoggedIn` to true', () => {
+    mountWrapper = mount(<App />);
+    const oldState = mountWrapper.state();
+    mountWrapper.setState({ ...(oldState), value: { ...(oldState.value), user: { email: 'hello', password: 'world', isLoggedIn: true } } });
+
+    mountWrapper.state().value.logOut();
+
+    expect(mountWrapper.state()).toStrictEqual({ ...(oldState), value: { ...(oldState.value), user: defaultUser } });
   });
 
   describe('when user is logged in', () => {
