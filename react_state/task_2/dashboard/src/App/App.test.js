@@ -44,8 +44,8 @@ describe('<App />', () => {
     expect(shallowWrapper.find(Header)).toHaveLength(1);
   });
   it('contains one Login component, inside one LoginWithLogging component', () => {
-    // console.log(wrapper.html());
-    const foundLoginWithLogging = wrapper.find(LoginWithLogging);
+    // console.log(shallowWrapper.html());
+    const foundLoginWithLogging = shallowWrapper.find(LoginWithLogging);
     expect(foundLoginWithLogging).toHaveLength(1);
     const loginWithLogging = foundLoginWithLogging.first().shallow();
     expect(loginWithLogging.find(Login)).toHaveLength(1);
