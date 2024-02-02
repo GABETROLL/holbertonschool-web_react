@@ -19,6 +19,8 @@ describe('<App />', () => {
   let mountWrapper;
   beforeAll(() => {
     shallowWrapper = shallow(<App />);
+  });
+  beforeEach(() => {
     mountWrapper = mount(<App />);
   });
 
@@ -27,7 +29,6 @@ describe('<App />', () => {
   });
 
   it('has a `displayDrawer` state, and its initial value is false', () => {
-    mountWrapper = mount(<App />);
     expect(mountWrapper.state('displayDrawer')).toBe(false);
   });
   it("has a method, called `handleDisplayDrawer`, that changes the component's `displayDrawer` state to true", () => {
@@ -60,7 +61,7 @@ describe('<App />', () => {
     expect(shallowWrapper.find(CourseList)).toHaveLength(0);
   });
 
-  it(' when Ctrl+h is pressed', () => {
+  it('logs out user (resets the user credentials state) when Ctrl+h is pressed', () => {
     const alertSpy = jest.fn(alert); // TODO: CHANGE
 
     const wrapper = mount(<App />);
@@ -72,6 +73,7 @@ describe('<App />', () => {
         user: {
           email: 'test@test.test',
           password: '***************',
+          isLoggedIn: true,
         },
       },
     });
@@ -88,23 +90,35 @@ describe('<App />', () => {
     */
   });
 
-  it('has an instance method, `logIn`, that updates `state.value.user` correctly: adds the new email and password, and sets `isLoggedIn` to true', () => {
-    mountWrapper = mount(<App />);
+  it("has an instance method, `logIn`, that updates the state correctly:\
+ sets the credentials and `isLoggedIn` to true in the state's `value.user`,\
+ and leaves the rest of the state the same", () => {
+    // setup
     const oldState = mountWrapper.state();
     expect(mountWrapper.state()).toStrictEqual({ ...(oldState), value: { ...(oldState.value), user: defaultUser } });
 
+    // call
     mountWrapper.instance().logIn('a', 'b');
 
+    // test
     const expectedNewUser = { email: 'a', password: 'b', isLoggedIn: true };
     expect(mountWrapper.state()).toStrictEqual({ ...(oldState), value: { ...(oldState.value), user: expectedNewUser } });
   });
-  it('has an instance method, `logIn`, that updates `state.value.user` correctly: adds the new email and password, and sets `isLoggedIn` to true', () => {
-    mountWrapper = mount(<App />);
+  it("has an instance method, `logOut`, that updates the state correctly:\
+ resets the state's `value.user` to `defaultUser`, from './AppContext',\
+ and leaves the rest of the state the same", () => {
+    // setup
     const oldState = mountWrapper.state();
     mountWrapper.setState({ ...(oldState), value: { ...(oldState.value), user: { email: 'hello', password: 'world', isLoggedIn: true } } });
+    /*
+    Use `setState` directly, instead of `logIn`, to only test `logOut` in isloation,
+    and not depend on `logIn`!
+    */
 
+    // call
     mountWrapper.state().value.logOut();
 
+    // test
     expect(mountWrapper.state()).toStrictEqual({ ...(oldState), value: { ...(oldState.value), user: defaultUser } });
   });
 

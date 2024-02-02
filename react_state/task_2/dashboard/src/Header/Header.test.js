@@ -20,16 +20,16 @@ describe('<Header />', () => {
     expect(wrapper.find('h1')).toHaveLength(1);
   });
 
-  it("doesn't render the `p#logoutSection`,\
+  it("doesn't render the `#logoutSection`,\
  when mounted with the AppContext having the user not logged in, and empty credentials", () => {
     const wrapper = mount(
       <AppContext.Provider value={{ user: defaultUser, logOut }}>
         <Header />
       </AppContext.Provider>
     );
-    expect(wrapper.find('p#logoutSection')).toHaveLength(0);
+    expect(wrapper.find('#logoutSection')).toHaveLength(0);
   });
-  it("renders the `p#logoutSection`,\
+  it("renders the `#logoutSection`,\
  when mounted with the AppContext having the user logged in with their credentials", () => {
     const wrapper = mount(
       <AppContext.Provider value={{
@@ -44,9 +44,9 @@ describe('<Header />', () => {
       </AppContext.Provider>
     );
     // console.log(wrapper.html());
-    expect(wrapper.find('p#logoutSection')).toHaveLength(1);
+    expect(wrapper.find('#logoutSection')).toHaveLength(1);
   });
-  it('has an `a.${styles.link}` inside the `p#logoutSection` (when the AppContext has the user is logged in),\
+  it('has an `a.${styles.link}` inside the `#logoutSection` (when the AppContext has the user is logged in),\
 which calls the `logOut` function from the context', () => {
     const spyLogOut = jest.fn();
 
@@ -64,7 +64,7 @@ which calls the `logOut` function from the context', () => {
     );
 
     wrapper
-      .find('p#logoutSection').first()
+      .find('#logoutSection').first()
       .find(`a.${css(styles.link)}`).first()
       .simulate('click');
 
