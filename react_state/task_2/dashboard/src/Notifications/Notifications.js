@@ -114,9 +114,11 @@ class Notifications extends React.Component {
   }
 
   render() {
+    const { handleDisplayDrawer, handleHideDrawer } = this.props;
+
     const menuItemElement = (
       <div className={css(styles.menuItem, this.props.displayDrawer && styles.hiddenMenuItem)}>
-        <p className={css(styles.menuItemP)} onClick={this.props.handleDisplayDrawer}>Your notifications</p>
+        <p className={css(styles.menuItemP)} onClick={handleDisplayDrawer}>Your notifications</p>
       </div>
     );
 
@@ -134,7 +136,7 @@ class Notifications extends React.Component {
 
     const notificationsDrawer = (
       <div className={css(this.props.displayDrawer ? styles.NotificationsDrawerOpen : undefined)}>
-        <button onClick={this.props.handleHideDrawer} style={{
+        <button onClick={handleHideDrawer} style={{
           float: 'right',
           paddingTop: 18,
           paddingRight: 15,

@@ -101,9 +101,11 @@ export default class App extends React.Component {
       { id: 3, name: 'React', credit: 40 },
     ];
 
+    const { displayDrawer } = this.state;
+
     return (
       <AppContext.Provider value={this.state.value}>
-        <Notifications listNotifications={listNotifications} displayDrawer={this.state.displayDrawer} handleDisplayDrawer={this.handleDisplayDrawer} handleHideDrawer={this.handleHideDrawer} />
+        <Notifications listNotifications={listNotifications} displayDrawer={displayDrawer} handleDisplayDrawer={this.handleDisplayDrawer} handleHideDrawer={this.handleHideDrawer} />
         <div className={css(styles.app)}>
           <Header />
           <div className={css(styles.body)}>
