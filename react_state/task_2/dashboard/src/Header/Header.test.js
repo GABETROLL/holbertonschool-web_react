@@ -48,6 +48,7 @@ describe('<Header />', () => {
   });
   it('has an `a.${styles.link}` inside the `#logoutSection` (when the AppContext has the user is logged in),\
 which calls the `logOut` function from the context', () => {
+    // TODO: FIX CIRCULAR JSON ERROR
     const spyLogOut = jest.fn();
 
     const wrapper = mount(
