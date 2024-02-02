@@ -66,17 +66,16 @@ class Login extends React.Component {
 
   handleLoginSubmit(event) {
     // console.log('SUBMITTED');
-    this.setState({ isLoggedIn: true });
     event.preventDefault();
+    this.setState({ isLoggedIn: true });
   }
 
   render () {
     // console.log('Rendering `Login` component with states:', this.state);
-    // TODO: USE FORM'S SUBMIT EVENT
     return (
       <>
         <p>Login to access the full dashboard</p>
-        <form className={css(styles.login)}>
+        <form className={css(styles.login)} onSubmit={this.handleLoginSubmit}>
           <div className={css(styles.loginRow)}>
             <label className={css(styles.loginItem)} htmlFor="email">Email:</label>
             <input className={css(styles.loginTextInput)} id="email" name="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} autoComplete="true"/>
@@ -85,8 +84,8 @@ class Login extends React.Component {
             <label className={css(styles.loginItem)} htmlFor="password">Password:</label>
             <input className={css(styles.loginTextInput)} id="password" name="password" type="password" value={this.state.password} onChange={this.handleChangePassword} />
           </div>
-          <input className={css(styles.loginButton)} type="submit" value="Submit"
-            disabled={!this.state.enableSubmit} onClick={this.handleLoginSubmit}
+          <input className={css(styles.loginButton)} type="submit" value="OK"
+            disabled={!this.state.enableSubmit}
           />
         </form>
       </>
