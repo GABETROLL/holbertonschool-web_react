@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import App from './App';
+import { defaultUser } from './AppContext';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import { LoginWithLogging } from './App';
@@ -58,14 +59,26 @@ describe('<App />', () => {
     expect(shallowWrapper.find(CourseList)).toHaveLength(0);
   });
 
-  it('Calls `logOut` function prop when Ctrl+h is pressed', () => {
-    const logOutSpy = jest.fn();
-    const alertSpy = jest.fn(alert);
+  it(' when Ctrl+h is pressed', () => {
+    const alertSpy = jest.fn(alert); // TODO: CHANGE
 
-    const wrapper = mount(<App logOut={logOutSpy} />);
-    wrapper.simulate('keydown');
+    const wrapper = mount(<App />);
+    const wrapperState = wrapper.state();
+    wrapper.setState({
+      ...wrapperState,
+      value: {
+        ...(wrapperState.value),
+        user: {
+          email: 'test@test.test',
+          password: '***************',
+        },
+      },
+    });
+
+    wrapper.simulate('keydown'); // TODO: CHANGE
 
     expect(alertSpy.mock.calls).toBe([['Logging you out']]);
+    expect(wrapper.state().value.user).toStrictEqual(defaultUser);
     /*
     TODO
     (and make ruse to restore
@@ -78,14 +91,27 @@ describe('<App />', () => {
     let wrapper;
     beforeAll(() => {
       wrapper = mount(<App />);
-      wrapper.instance().logIn('test@test.test', 'lkdsfj;alkdsjfskdjf;lkj');
+      const wrapperState = wrapper.state();
+      wrapper.setState({
+        ...wrapperState,
+        value: {
+          ...(wrapperState.value),
+          user: {
+            email: 'test@test.test',
+            password: 'lkdsfj;alkdsjfskdjf;lkj',
+            isLoggedIn: true
+          },
+        },
+      });
     });
 
     it('does not render the Login component', () => {
+      expect(wrapper.state('value').user).toStrictEqual({ email: 'test@test.test', password: 'lkdsfj;alkdsjfskdjf;lkj', isLoggedIn: true });
       expect(wrapper.find(Login)).toHaveLength(0);
     });
 
     it('renders the CourseList component', () => {
+      expect(wrapper.state('value').user).toStrictEqual({ email: 'test@test.test', password: 'lkdsfj;alkdsjfskdjf;lkj', isLoggedIn: true });
       expect(wrapper.find(CourseList)).toHaveLength(1);
     });
   });

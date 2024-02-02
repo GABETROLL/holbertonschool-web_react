@@ -4,7 +4,7 @@ import AppContext from '../App/AppContext';
 import { StyleSheet, css } from 'aphrodite';
 import { red } from '../styles';
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   header: {
     display: 'flex',
     alignItems: 'center',
