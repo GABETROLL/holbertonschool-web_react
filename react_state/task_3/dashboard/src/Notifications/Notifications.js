@@ -94,20 +94,7 @@ export const styles = StyleSheet.create({
   },
 });
 
-class Notifications extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    /*
-    Change when closing/opening the drawer, or when the next notifications are bigger
-    IF A NEW NOTIFICATION THAT WASN'T PRESENT IS IN THE NEW, SMALLER NOTIFICATIONS LIST,
-    AND ALL OF THE OTHER PROPS ARE THE SAME, THE COMPONENT WON'T UPDATE!!!
-    */
-    return nextProps.displayDrawer != this.props.displayDrawer || nextProps.listNotifications.length > this.props.listNotifications.length;
-  }
-
+class Notifications extends React.PureComponent {
   render() {
     const { handleDisplayDrawer, handleHideDrawer } = this.props;
 
@@ -163,7 +150,7 @@ Notifications.defaultProps = {
   displayDrawer: false,
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
-  markNotificationAsRead: () => {},
+  markNotificationAsRead: (id) => console.log(`Marking notification ${id} as read.`),
 };
 Notifications.propTypes = {
   listNotifications: PropTypes.arrayOf(NotificationItemShape),

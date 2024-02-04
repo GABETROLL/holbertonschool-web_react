@@ -38,8 +38,6 @@ describe('<Notifications />', () => {
     }
   });
 
-  // DO NOT ADD TWO DESCRIBES
-
   it('renders the menuItem, with the correct styles (displayed) when displayDrawer={false}', () => {
     const wrapper = shallow(<Notifications displayDrawer={false} />);
     expect(wrapper.find(`div.${css(notificationsStyles.menuItem)}`)).toHaveLength(1);
