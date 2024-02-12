@@ -27,7 +27,6 @@
     "install": "^0.13.0",
     "jest": "^27.5.1",
     "jsdom": "^24.0.0",
-    "npm": "^10.3.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "^5.0.1",
@@ -49,6 +48,7 @@
   },
   "dependencies": {
     "aphrodite": "^2.4.0",
+    "normalizr": "^3.6.2",
     "prop-types": "^15.8.1"
   }
 }
