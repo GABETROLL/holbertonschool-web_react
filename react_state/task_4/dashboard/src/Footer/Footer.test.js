@@ -1,8 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Footer from './Footer';
 import AppContext from '../App/AppContext';
-import { defaultUser, logOut } from '../App/AppContext';
+import { logOut } from '../App/AppContext';
 import { StyleSheetTestUtils } from 'aphrodite';
 
 StyleSheetTestUtils.suppressStyleInjection();
@@ -19,19 +19,25 @@ describe('<Footer />', () => {
   });
 
   it(`doesn't render the "Contact Us" link when the user is not logged in`, () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <AppContext.Provider value={{ user: { email: '', password: '', isLoggedIn: false }, logOut }}>
         <Footer />
       </AppContext.Provider>
     );
-    expect(wrapper.contains(<a>Contact Us</a>)).toBe(false);
+    const foundFooters = wrapper.find(Footer);
+    expect(foundFooters).toHaveLength(1);
+    const footer = foundFooters.first();
+    expect(footer.contains(<a>Contact us</a>)).toBe(false);
   });
   it('renders the "Contact Us" link when the user is logged in', () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <AppContext.Provider value={{ user: { email: 'hello', password: 'world', isLoggedIn: true }, logOut }}>
         <Footer />
       </AppContext.Provider>
     );
-    expect(wrapper.contains(<a>Contact Us</a>)).toBe(true);
+    const foundFooters = wrapper.find(Footer);
+    expect(foundFooters).toHaveLength(1);
+    const footer = foundFooters.first();
+    expect(footer.contains(<a>Contact us</a>)).toBe(true);
   });
 });
