@@ -1,5 +1,7 @@
 import { notifications, getAllNotificationsByUser } from './notifications';
 
+// console.log(notifications);
+
 describe('notifications', () => {
   it('has the correct `result` array', () => {
     expect(notifications.result).toStrictEqual([
@@ -50,8 +52,6 @@ describe('notifications', () => {
 
 describe('getAllNotificationsByUser', () => {
   it("Returns the correct data for `userId` '5debd764a7c57c7839d722e9'", () => {
-    console.log(notifications);
-
     expect(getAllNotificationsByUser('5debd764a7c57c7839d722e9')).toStrictEqual([
       {
         guid: "2d8e40be-1c78-4de0-afc9-fcc147afd4d2",
