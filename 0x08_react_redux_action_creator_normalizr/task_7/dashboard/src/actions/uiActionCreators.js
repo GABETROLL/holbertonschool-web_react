@@ -11,4 +11,5 @@ export const loginFailure = bindActionCreators(() => ({ type: LOGIN_FAILURE }), 
 
 function loginRequest(email, password) {
   login(email, password);
+  // TODO: fetch the API and dispatch either `loginSuccess` or `loginFailure`.
 }
