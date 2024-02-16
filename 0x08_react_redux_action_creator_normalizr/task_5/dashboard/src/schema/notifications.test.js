@@ -1,7 +1,5 @@
 import { notifications, getAllNotificationsByUser } from './notifications';
 
-// console.log(notifications);
-
 describe('notifications', () => {
   it('has the correct `result` array', () => {
     expect(notifications.result).toStrictEqual([
