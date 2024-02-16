@@ -1,4 +1,4 @@
-import * as notifications_json_obj from '../notifications.json';
+import * as notifications_json_obj from '../../notifications.json';
 import { normalize, schema } from 'normalizr';
 
 const user = new schema.Entity('users');
@@ -7,7 +7,8 @@ const notification = new schema.Entity('notifications', {
   author: user,
   context: message,
 });
-export const notifications = normalize(notifications_json_obj, [notification]);
+
+export const notifications = normalize(notifications_json_obj.default, [notification]);
 
 export function getAllNotificationsByUser(userId) {
   const result = [];
