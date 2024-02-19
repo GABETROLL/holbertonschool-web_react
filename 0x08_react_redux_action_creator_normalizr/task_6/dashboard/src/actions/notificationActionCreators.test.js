@@ -1,9 +1,9 @@
 import { MARK_AS_READ, SET_TYPE_FILTER, NotificationTypeFilters } from './notificationActionTypes';
-import { markAsAread, setNotificationFilter } from './notificationActionCreators';
+import { markAsRead, setNotificationFilter } from './notificationActionCreators';
 
-describe('markAsAread', () => {
+describe('markAsRead', () => {
   it('returns { type: MARK_AS_READ, index: 1 }, when being called with argument: index=1', () => {
-    expect(markAsAread(1)).toStrictEqual({
+    expect(markAsRead(1)).toStrictEqual({
       type: MARK_AS_READ,
       index: 1,
     });
