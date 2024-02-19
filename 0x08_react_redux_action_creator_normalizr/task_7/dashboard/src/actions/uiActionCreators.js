@@ -1,15 +1,32 @@
-import { bindActionCreators} from 'redux';
-import store from './store';
-import { LOGIN, LOGOUT, LOGIN_SUCCESS, LOGIN_FAILURE, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
+import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
 
-export const login = bindActionCreators((email, password) => ({ type: LOGIN, user: { email, password } }), store.dispatch);
-export const logout = bindActionCreators(() => ({ type: LOGOUT }), store.dispatch);
-export const displayNotificationDrawer = bindActionCreators(() => ({ type: DISPLAY_NOTIFICATION_DRAWER }), store.dispatch);
-export const hideNotificationDrawer = bindActionCreators(() => ({ type: HIDE_NOTIFICATION_DRAWER }), store.dispatch);
-export const loginSuccess = bindActionCreators(() => ({ type: LOGIN_SUCCESS }), store.dispatch);
-export const loginFailure = bindActionCreators(() => ({ type: LOGIN_FAILURE }), store.dispatch);
+export function login(email, password) {
+  return { type: LOGIN, user: { email, password } };
+}
+export function logout() {
+  return { type: LOGOUT };
+}
+export function displayNotificationDrawer() {
+  return { type: DISPLAY_NOTIFICATION_DRAWER };
+}
+export function hideNotificationDrawer() {
+  return { type: HIDE_NOTIFICATION_DRAWER };
+}
+
+export function boundLogin(email, password) {
+  return dispatch(login(email, password));
+}
+export function boundLogout() {
+  return dispatch(logout());
+}
+export function boundDisplayNotificationDrawer() {
+  return dispatch(displayNotificationDrawer());
+}
+export function boundHideNotificationDrawer() {
+  return dispatch(hideNotificationDrawer());
+}
 
 function loginRequest(email, password) {
-  login(email, password);
+  dispatch(login(email, password));
   // TODO: fetch the API and dispatch either `loginSuccess` or `loginFailure`.
 }
