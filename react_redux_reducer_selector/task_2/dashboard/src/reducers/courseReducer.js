@@ -7,14 +7,10 @@ export default function courseReducer(state = initialState, action) {
 
   switch (action.type) {
     case SELECT_COURSE: {
-      const newState = state;
-      newState[action.index].isSelected = true;
-      return newState;
+      return state.map((course, index) => ({ ...course, isSelected: index === state ? true : course.isSelected }));
     }
     case UNSELECT_COURSE: {
-      const newState = state;
-      newState[action.index].isSelected = false;
-      return newState;
+      return state.map((course, index) => ({ ...course, isSelected: index === state ? false : course.isSelected }));
     }
     case FETCH_COURSE_SUCCESS: {
       return action.data.map(course => ({ ...course, isSelected: false }));
