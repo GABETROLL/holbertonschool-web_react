@@ -40,10 +40,17 @@ export function boundLoginFailure() {
 }
 
 function loginRequest(email, password) {
-  fetch('/login-success.json')
-    .then(() => {
-      boundLoginSuccess();
-      boundLogin(email, password);
+  boundLogin(email, password);
+  fetch('/login-success.json', {
+    method: 'GET',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  }).then((response) => {
+      if (response.ok) {
+        boundLoginSuccess();
+      } else {
+        boundLoginFailure();
+      }
     })
     .catch(() => {
       boundLoginFailure();
