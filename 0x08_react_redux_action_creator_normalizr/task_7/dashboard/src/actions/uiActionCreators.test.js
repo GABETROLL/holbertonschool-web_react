@@ -1,5 +1,5 @@
 import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
-import * as uiActionCreators from 'uiActionCreators';
+import * as uiActionCreators from './uiActionCreators';
 import fetchMock from 'fetch-mock';
 
 describe('login', () => {
