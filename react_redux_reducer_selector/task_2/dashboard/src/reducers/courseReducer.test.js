@@ -1,4 +1,3 @@
-import { SELECT_COURSE, UNSELECT_COURSE, FETCH_COURSE_SUCCESS } from "../actions/courseActionTypes";
 import { selectCourse, unSelectCourse, fetchCourseSuccess } from "../actions/courseActionCreators";
 import courseReducer, { initialState } from "./courseReducer";
 
@@ -66,7 +65,7 @@ describe('courseReducer', () => {
     expect(courseReducer(undefined, selectCourse(3))).toStrictEqual([]);
     expect(courseReducer(undefined, unSelectCourse(1))).toStrictEqual([]);
     expect(courseReducer(undefined, fetchCourseSuccess([]))).toStrictEqual([]);
-    expect(courseReducer(undefined, fetchCourseSuccess(fetched))).toStrictEqual([]); // should fail
+    expect(courseReducer(undefined, fetchCourseSuccess(fetched))).not.toStrictEqual([]);
     expect(courseReducer(undefined, { type: 'other' })).toStrictEqual([]);
   });
 
