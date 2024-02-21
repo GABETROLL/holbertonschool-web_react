@@ -1,4 +1,5 @@
-import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
+import { LOGIN, LOGOUT, LOGIN_SUCCESS, LOGIN_FAILURE, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
+import fetch from 'node-fetch';
 
 export function login(email, password) {
   return { type: LOGIN, user: { email, password } };
@@ -11,6 +12,12 @@ export function displayNotificationDrawer() {
 }
 export function hideNotificationDrawer() {
   return { type: HIDE_NOTIFICATION_DRAWER };
+}
+export function loginSuccess() {
+  return { type: LOGIN_SUCCESS };
+}
+export function loginFailure() {
+  return { type: LOGIN_FAILURE };
 }
 
 export function boundLogin(email, password) {
@@ -25,8 +32,20 @@ export function boundDisplayNotificationDrawer() {
 export function boundHideNotificationDrawer() {
   return dispatch(hideNotificationDrawer());
 }
+export function boundLoginSuccess() {
+  return dispatch(loginSuccess());
+}
+export function boundLoginFailure() {
+  return dispatch(loginFailure());
+}
 
 function loginRequest(email, password) {
-  dispatch(login(email, password));
-  // TODO: fetch the API and dispatch either `loginSuccess` or `loginFailure`.
+  fetch('/login-success.json')
+    .then(() => {
+      boundLoginSuccess();
+      boundLogin(email, password);
+    })
+    .catch(() => {
+      boundLoginFailure();
+    });
 }
