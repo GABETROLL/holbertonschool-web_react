@@ -21,6 +21,7 @@
     "css-loader": "^6.9.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.7",
+    "fetch-mock": "^9.11.0",
     "file-loader": "^6.2.0",
     "graceful-fs": "^4.2.11",
     "image-webpack-loader": "^8.1.0",
