@@ -19,70 +19,84 @@ const fetchedData = [
   }
 ];
 
-const withSecondUnRead = {
-  filter: '',
-  notifications: [
-    {
-      id: 1,
-      isRead: false,
-      type: "default",
-      value: "New course available",
-    },
-    {
-      id: 2,
-      isRead: false,
-      type: "urgent",
-      value: "New resume available",
-    },
-    {
-      id: 3,
-      isRead: false,
-      type: "urgent",
-      value: "New data available",
-    },
-  ],
-};
-const withSecondRead = {
-  filter: '',
-  notifications: [
-    {
-      id: 1,
-      isRead: false,
-      type: "default",
-      value: "New course available",
-    },
-    {
-      id: 2,
-      isRead: true,
-      type: "urgent",
-      value: "New resume available",
-    },
-    {
-      id: 3,
-      isRead: false,
-      type: "urgent",
-      value: "New data available",
-    },
-  ],
-};
+const secondUnRead = [
+  {
+    id: 1,
+    isRead: false,
+    type: "default",
+    value: "New course available",
+  },
+  {
+    id: 2,
+    isRead: false,
+    type: "urgent",
+    value: "New resume available",
+  },
+  {
+    id: 3,
+    isRead: false,
+    type: "urgent",
+    value: "New data available",
+  },
+];
+const secondRead = [
+  {
+    id: 1,
+    isRead: false,
+    type: "default",
+    value: "New course available",
+  },
+  {
+    id: 2,
+    isRead: true,
+    type: "urgent",
+    value: "New resume available",
+  },
+  {
+    id: 3,
+    isRead: false,
+    type: "urgent",
+    value: "New data available",
+  },
+];
+
+const validFilters = [initialState.filter, 'DEFAULT', 'URGENT', 'something else', undefined];
+const validNotifications = [ initialState.notifications, secondRead, secondUnRead];
 
 describe('notificationReducer', () => {
   it("sets the new state's `notifications` array to be `action.data`,\
 but every notification should have `isRead: false`,\
 when the action type is `FETCH_NOTIFICATIONS_SUCCESS`", () => {
-    expect(notificationReducer(undefined, fetchNotificationsSuccess(fetchedData))).toStrictEqual(withSecondUnRead);
-    expect(notificationReducer(initialState, fetchNotificationsSuccess(fetchedData))).toStrictEqual(withSecondUnRead);
-    expect(notificationReducer(withSecondRead, fetchNotificationsSuccess(fetchedData))).toStrictEqual(withSecondUnRead);
-    expect(notificationReducer(withSecondUnRead, fetchNotificationsSuccess(fetchedData))).toStrictEqual(withSecondUnRead);
+    expect(notificationReducer(undefined, fetchNotificationsSuccess(fetchedData))).toStrictEqual({ ...initialState, notifications: secondUnRead });
+
+    for (const filter of validFilters) {
+      for (const notifications of validNotifications) {
+        const state = { filter, notifications };
+        expect(notificationReducer(state, fetchNotificationsSuccess(fetchedData))).toStrictEqual({ ...state, notifications: secondUnRead });
+      }
+    }
   });
   it('returns `state`, but the 2nd notification marked as read,\
   when the action type is `MARK_AS_READ`', () => {
-    expect(notificationReducer(withSecondUnRead, markAsRead(2))).toStrictEqual(withSecondRead);
-    expect(notificationReducer(withSecondRead, markAsRead(2))).toStrictEqual(withSecondRead);
+    for (const filter of validFilters) {
+      let state = { filter, notifications: secondUnRead};
+      expect(notificationReducer(state, markAsRead(2))).toStrictEqual({ ...state, notifications: secondRead});
+      state = { filter, notifications: secondRead};
+      expect(notificationReducer(state, markAsRead(2))).toStrictEqual({ ...state, notifications: secondRead});
+    }
   });
   it('returns `state`, but with `filter: <filter string>`', () => {
-    expect(notificationReducer(initialState, setNotificationFilter('DEFAULT'))).toStrictEqual({ ...initialState, filter: 'DEFAULT' });
-    expect(notificationReducer(initialState, setNotificationFilter('URGENT'))).toStrictEqual({ ...initialState, filter: 'URGENT' });
-    expect(notificationReducer(initialState, setNotificationFilter('blahblahbah'))).toStrictEqual({ ...initialState, filter: 'blahblahbah' });
+    for (const setFilter of validFilters) {
+      expect(notificationReducer(undefined, setNotificationFilter(setFilter))).toStrictEqual({ ...initialState, filter: setFilter });
+    }
+
+    for (const filter of validFilters) {
+      for (const notifications of validNotifications) {
+        const state = { filter, notifications };
+        for (const setFilter of validFilters) {
+          expect(notificationReducer(state, setNotificationFilter(setFilter))).toStrictEqual({ ...state, filter: setFilter });
+        }
+      }
+    }
   });
 });
