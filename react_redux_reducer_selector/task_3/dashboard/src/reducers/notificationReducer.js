@@ -2,7 +2,7 @@ import { MARK_AS_READ, SET_TYPE_FILTER, FETCH_NOTIFICATIONS_SUCCESS } from '../a
 
 export const initialState = {
   notifications: [],
-  filter: '',
+  filter: 'DEFAULT',
 };
 
 /**

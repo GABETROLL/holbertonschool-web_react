@@ -62,11 +62,19 @@ const secondUnselected = [
 describe('courseReducer', () => {
   it('returns an empty array, when given the default `state` argument (given undefined)', () => {
     expect(courseReducer()).toStrictEqual([]);
+    expect(courseReducer(undefined)).toStrictEqual([]);
     expect(courseReducer(undefined, selectCourse(3))).toStrictEqual([]);
     expect(courseReducer(undefined, unSelectCourse(1))).toStrictEqual([]);
     expect(courseReducer(undefined, fetchCourseSuccess([]))).toStrictEqual([]);
     expect(courseReducer(undefined, fetchCourseSuccess(fetched))).not.toStrictEqual([]);
     expect(courseReducer(undefined, { type: 'other' })).toStrictEqual([]);
+    expect(courseReducer([])).toStrictEqual([]);
+    expect(courseReducer([], {})).toStrictEqual([]);
+    expect(courseReducer([], selectCourse(3))).toStrictEqual([]);
+    expect(courseReducer([], unSelectCourse(1))).toStrictEqual([]);
+    expect(courseReducer([], fetchCourseSuccess([]))).toStrictEqual([]);
+    expect(courseReducer([], fetchCourseSuccess(fetched))).not.toStrictEqual([]);
+    expect(courseReducer([], { type: 'other' })).toStrictEqual([]);
   });
 
   it('returns the courses array passed, and each course now has the property isSelected=false,\
