@@ -59,6 +59,12 @@ const secondSelected = {
     name: "React",
   },
 };
+const fetchedData = {
+  result: [1, 2, 3],
+  entities: {
+    courses: secondUnselected,
+  },
+};
 
 describe('courseReducer',() => {
   it('returns an empty array, when given the default `state` argument (given undefined)', () => {
@@ -70,16 +76,12 @@ describe('courseReducer',() => {
   it('returns the courses array passed, and each course now has the property isSelected=false,\
 when the action type is `FETCH_COURSE_SUCCESS`', () => {
     const value = courseReducer(initialState, fetchCourseSuccess(fetched));
-
-    expect(
-      value
-        .getIn(['entities', 'courses']),
-    ).toStrictEqual(secondUnselected);
+    expect(value.toJS()).toStrictEqual(fetchedData);
   });
 
   it('returns the courses array passed, with the 2nd course selected,\
 when the action type is `SELECT_COURSE` and the index is 2', () => {
-    const secondUnselectedState = courseReducer(initialState, fetchCourseSuccess(fetched));
+    const secondUnselectedState = Map(fetchedData);
     expect(
       courseReducer(secondUnselectedState, selectCourse(2))
         .getIn(['entities', 'courses']),
@@ -88,11 +90,10 @@ when the action type is `SELECT_COURSE` and the index is 2', () => {
 
   it('returns the courses array passed, with the 2nd course un-selected,\
 when the action type is `UNSELECT_COURSE` and the index is 2', () => {
-    const secondUnselectedState = courseReducer(initialState, fetchCourseSuccess(fetched));
-    const secondSelectedState = courseReducer(secondUnselectedState, selectCourse(2));
+    const secondSelectedState = Map({ ...fetchedData, entities: { courses: secondSelected } });
     expect(
       courseReducer(secondSelectedState, unSelectCourse(2))
         .getIn(['entities', 'courses']),
-    ).toStrictEqual(secondSelected);
+    ).toStrictEqual(secondUnselected);
   });
 });
