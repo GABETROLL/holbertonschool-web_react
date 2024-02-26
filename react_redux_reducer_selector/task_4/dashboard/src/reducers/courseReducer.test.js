@@ -1,5 +1,5 @@
 import { selectCourse, unSelectCourse, fetchCourseSuccess } from "../actions/courseActionCreators";
-import { Map } from 'immutable';
+import { Map, fromJS } from 'immutable';
 import courseReducer, { initialState } from "./courseReducer";
 
 const fetched = [
@@ -67,33 +67,35 @@ const fetchedData = {
 };
 
 describe('courseReducer',() => {
-  it('returns an empty array, when given the default `state` argument (given undefined)', () => {
+  it('returns an empty Map, when given the default `state` argument (given undefined)', () => {
     expect(courseReducer()).toStrictEqual(Map());
     expect(courseReducer(undefined, { })).toStrictEqual(Map());
     expect(courseReducer(undefined, { type: 'other' })).toStrictEqual(Map());
   });
 
-  it('returns the courses array passed, and each course now has the property isSelected=false,\
+  it('returns the courses array passed, and each course now has the property isSelected=false, \
 when the action type is `FETCH_COURSE_SUCCESS`', () => {
     const value = courseReducer(initialState, fetchCourseSuccess(fetched));
     expect(value.toJS()).toStrictEqual(fetchedData);
   });
 
-  it('returns the courses array passed, with the 2nd course selected,\
+  it('returns the courses array passed, with the 2nd course selected, \
 when the action type is `SELECT_COURSE` and the index is 2', () => {
-    const secondUnselectedState = Map(fetchedData);
+    const secondUnselectedState = fromJS(fetchedData);
     expect(
       courseReducer(secondUnselectedState, selectCourse(2))
-        .getIn(['entities', 'courses']),
+        .getIn(['entities', 'courses'])
+        .toJS(),
     ).toStrictEqual(secondSelected);
   });
 
-  it('returns the courses array passed, with the 2nd course un-selected,\
+  it('returns the courses array passed, with the 2nd course un-selected, \
 when the action type is `UNSELECT_COURSE` and the index is 2', () => {
-    const secondSelectedState = Map({ ...fetchedData, entities: { courses: secondSelected } });
+    const secondSelectedState = fromJS({ ...fetchedData, entities: { courses: secondSelected } });
     expect(
       courseReducer(secondSelectedState, unSelectCourse(2))
-        .getIn(['entities', 'courses']),
+        .getIn(['entities', 'courses'])
+        .toJS(),
     ).toStrictEqual(secondUnselected);
   });
 });

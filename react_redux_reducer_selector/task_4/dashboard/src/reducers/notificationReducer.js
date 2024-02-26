@@ -1,8 +1,8 @@
 import { MARK_AS_READ, SET_TYPE_FILTER, FETCH_NOTIFICATIONS_SUCCESS } from '../actions/notificationActionTypes';
-import { Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { notificationsNormalizer } from '../schema/notifications';
 
-export const initialState = Map({
+export const initialState = fromJS({
   filter: 'DEFAULT',
   result: [],
   entities: { },
@@ -10,6 +10,7 @@ export const initialState = Map({
 
 /**
  * `state` is expected to have the same shape as `initialState` (or more),
+ * and to be an Immutable object,
  * and `action` is expected to be one of the actions returned by the action creators in
  * `../actions/notificationActionCreators`.
  *
@@ -23,7 +24,15 @@ export const initialState = Map({
  *
  * `action.type: SET_TYPE_FILTER` will result in `filter: action.filter`.
  *
- * @returns Array<{ id: integer, type: 'default' | 'urgent', value: string, isRead: boolean }>
+ * SHOULD return: Map {
+ *   filter: action.filter | string,
+ *   result: (action.data[N].id | integer)[],
+ *   entities: {
+ *     notifications: {
+ *       string: Notification
+ *     }
+ *   }
+ * }
  */
 export default function notificationReducer(state = initialState, action) {
   if (!action) return state;
@@ -32,14 +41,15 @@ export default function notificationReducer(state = initialState, action) {
     case FETCH_NOTIFICATIONS_SUCCESS: {
       const mapped = action.data.map(notification => ({ ...notification, isRead: false }));
       const normalized = notificationsNormalizer(mapped);
-      console.log(mapped, normalized, state);
-      const mergedState = state.merge(normalized);
+      const immutableNormalized = fromJS(normalized);
+      const mergedState = state.merge(immutableNormalized);
 
+      // console.log(state, mapped, normalized, immutableNormalized, mergedState);
 
       return mergedState;
     }
     case MARK_AS_READ: {
-      return state.setIn(['entities', 'notifications', action.index, 'isRead'], true);
+      return state.setIn(['entities', 'notifications', action.index.toString(), 'isRead'], true);
     }
     case SET_TYPE_FILTER: {
       return state.set('filter', action.filter);

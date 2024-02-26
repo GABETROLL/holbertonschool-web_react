@@ -1,6 +1,6 @@
 import { fetchNotificationsSuccess, markAsRead, setNotificationFilter } from '../actions/notificationActionCreators';
+import { fromJS } from 'immutable';
 import notificationReducer from './notificationReducer';
-import { Map } from 'immutable';
 
 const fetchedData = [
   {
@@ -72,44 +72,50 @@ const fetchedState = {
 const filters = ['DEFAULT', 'URGENT', 'OTHER', undefined];
 
 describe('notificationReducer', () => {
-  it("merges the normalized version of `action.data` with the state (using the normalizer ),\
+  it("merges the normalized version of `action.data` with the state (using the normalizer), \
 but with each notification having `isRead: false`, when the action type is 'FETCH_NOTIFICATIONS_SUCCESS", () => {
     for (const filter of filters) {
-      const prevState = Map({ filter });
+      const prevState = fromJS({ filter });
 
       const result = notificationReducer(prevState, fetchNotificationsSuccess(fetchedData));
-      expect(result.get('result')).toStrictEqual(fetchedStateResult);
-      expect(result.getIn(['entities', 'notifications'])).toStrictEqual(secondUnRead);
 
-      for (const courses of [secondUnRead, secondRead]) {
-        const prevState = Map({ filter, result: fetchedStateResult, entities: { courses } });
+      expect(result.get('result').toJS()).toStrictEqual(fetchedStateResult);
+      expect(result.getIn(['entities', 'notifications']).toJS()).toStrictEqual(secondUnRead);
+
+      for (const notifications of [secondUnRead, secondRead]) {
+        const prevState = fromJS({ filter, result: fetchedStateResult, entities: { notifications } });
 
         const result = notificationReducer(prevState, fetchNotificationsSuccess(fetchedData));
-        expect(result.get('result')).toStrictEqual(fetchedStateResult);
-        expect(result.getIn(['entities', 'notifications'])).toStrictEqual(secondUnRead);
+
+        expect(result.get('result').toJS()).toStrictEqual(fetchedStateResult);
+        expect(result.getIn(['entities', 'notifications']).toJS()).toStrictEqual(secondUnRead);
       }
     }
   });
 
   it('(ONLY) marks the 2nd notification as read, when the action type is `MARK_AS_READ`', () => {
     // test with previous state having the 2nd notification unread
-    let state = notificationReducer(Map(fetchedState), markAsRead(2));
-    expect(state.getIn(['entities', 'notifications'])).toStrictEqual(secondRead);
+    let state = notificationReducer(fromJS(fetchedState), markAsRead(2));
+    expect(state.getIn(['entities', 'notifications']).toJS()).toStrictEqual(secondRead);
 
     // test with previous state having the 2nd notification read
-    state = notificationReducer(state, markAsRead(2));
-    expect(state.getIn(['entities', 'notifications'])).toStrictEqual(secondRead);
+    state = notificationReducer(fromJS({ ...fetchedState, entities: { notifications: secondRead } }), markAsRead(2));
+    expect(state.getIn(['entities', 'notifications']).toJS()).toStrictEqual(secondRead);
   });
 
-  it("sets `filter` to the assigned filter, and defaults `filter` to 'DEFAULT'", () => {
+  it("sets `filter` to the assigned filter", () => {
     for (const nextFilter of filters) {
       let state = notificationReducer(undefined, setNotificationFilter(nextFilter));
       expect(state.get('filter')).toBe(nextFilter);
 
       for (const prevFilter of filters) {
-        const state = notificationReducer(Map({ ...fetchedState, filter: prevFilter }), setNotificationFilter(nextFilter));
+        const state = notificationReducer(fromJS({ ...fetchedState, filter: prevFilter }), setNotificationFilter(nextFilter));
         expect(state.get('filter')).toBe(nextFilter);
-      } 
+      }
     }
+  });
+
+  it("defaults `filter` to 'DEFAULT'", () => {
+    expect(notificationReducer(undefined).get('filter')).toBe('DEFAULT');
   });
 });
