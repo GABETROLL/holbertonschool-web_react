@@ -84,6 +84,8 @@ test('getUnreadNotifications', () => {
   expect(getUnreadNotifications(fromJS(secondUnReadState)).toJS()).toStrictEqual(secondUnRead);
 
   for (const otherState of [{ }, initialState, secondUnReadState, secondReadState]) {
+    console.log(otherState);
+
     expect(getUnreadNotifications(fromJS({ ...otherState, entities: { notifications: secondUnRead } })).toJS()).toStrictEqual(secondUnRead);
     expect(getUnreadNotifications(fromJS({ ...otherState, entities: { notifications: secondRead } })).toJS()).toStrictEqual({
       '1': {

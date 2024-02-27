@@ -28,6 +28,7 @@ export function getNotifications(state) {
  * as an object of { id: notification }.
  */
 export function getUnreadNotifications(state) {
-  return (state.getIn(['entities', 'notifications']) || Map())
-    .filter(notification => !notification.isRead);
+  return (
+    state.getIn(['entities', 'notifications']) || Map()
+  ).filter(notification => !(notification.isRead));
 }
