@@ -35,6 +35,17 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * `state` is assumed to be the same format as
+ * `../reducers/uiReducer`'s `initialState`.
+ */
+export function mapStateToProps(state) {
+  return {
+    displayDrawer: state.get('isNotificationDrawerVisible'),
+    isLoggedIn: state.get('isUserLoggedIn'),
+  };
+}
+
 export const LoginWithLogging = WithLogging(Login);
 
 // TODO: USE THE PROPS DIRECTLY, INSTEAD OF THROUGH STATE,
@@ -111,7 +122,7 @@ class App extends React.Component {
   render() {
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
-      { id: 2, name: 'Webpack', credit: 20 },false
+      { id: 2, name: 'Webpack', credit: 20 },
       { id: 3, name: 'React', credit: 40 },
     ];
 
@@ -155,17 +166,6 @@ class App extends React.Component {
       </AppContext.Provider>
     );
   }
-}
-
-/**
- * `state` is assumed to be the same format as
- * `../reducers/uiReducer`'s `initialState`.
- */
-export function mapStateToProps(state) {
-  return {
-    displayDrawer: state.get('isNotificationDrawerVisible'),
-    isLoggedIn: state.get('isUserLoggedIn'),
-  };
 }
 
 export default connect(mapStateToProps)(App);
