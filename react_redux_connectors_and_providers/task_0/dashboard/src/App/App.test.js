@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { shallow, mount } from 'enzyme';
-import App from './App';
+import App, { mapStateToProps } from './App';
 import { defaultUser } from './AppContext';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
@@ -183,5 +183,14 @@ describe('<App />', () => {
       expect(wrapper.state('value').user).toStrictEqual({ email: 'test@test.test', password: 'lkdsfj;alkdsjfskdjf;lkj', isLoggedIn: true });
       expect(wrapper.find(CourseList)).toHaveLength(1);
     });
+  });
+});
+
+describe('mapStateToProps', () => {
+  it("returns { isLoggedIn: true } when given fromJS({ isUserLoggedIn: true }). \
+The argument should be a state object returned by ``uiReducer``.", () => {
+    expect(mapStateToProps(
+      fromJS({ isUserLoggedIn: true })
+    )).toStrictEqual({ isLoggedIn: true });
   });
 });
