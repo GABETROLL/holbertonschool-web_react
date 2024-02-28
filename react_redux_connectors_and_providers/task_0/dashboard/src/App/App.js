@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
 
 /**
  * `state` is assumed to be the same format as
- * `../reducers/uiReducer`'s `initialState`.
+ * `../reducers/uiReducer`'s `initialState`,
+ * AND be converted to a ``Immutable.Map``.
  */
 export function mapStateToProps(state) {
   return { isLoggedIn: state.get('isUserLoggedIn') };
@@ -87,6 +88,7 @@ class App extends React.Component {
     }));
   }
 
+  // (START) TODO: USE REDUX INSTEAD OF REACT STATE
   logIn(email, password) {
     this.setState(state => ({
       value: {
@@ -106,6 +108,7 @@ class App extends React.Component {
       this.state.value.logOut();
     }
   }
+  // (END) TODO: USE REDUX INSTEAD OF REACT STATE
 
   // TODO: CHECK THAT THE EVENT REMOVAL WORKS
   componentDidMount() {

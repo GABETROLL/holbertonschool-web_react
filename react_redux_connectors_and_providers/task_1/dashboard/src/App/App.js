@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
 
 /**
  * `state` is assumed to be the same format as
- * `../reducers/uiReducer`'s `initialState`.
+ * `../reducers/uiReducer`'s `initialState`,
+ * AND be converted to a ``Immutable.Map``.
  */
 export function mapStateToProps(state) {
   return {
@@ -58,7 +59,7 @@ class App extends React.Component {
     value.logOut = value.logOut.bind(this);
 
     this.state = {
-      displayDrawer: this.props.displayDrawer,
+      // displayDrawer: this.props.displayDrawer,
       value,
       listNotifications: [
         { id: 1, type: 'default', value: 'New course available' },
@@ -76,6 +77,7 @@ class App extends React.Component {
     this.handleLogOutKeyEvent = this.handleLogOutKeyEvent.bind(this);
   }
 
+  // (START) TODO: USE REDUX INSTEAD OF REACT STATE
   handleDisplayDrawer() {
     this.setState({ displayDrawer: true });
   }
@@ -109,6 +111,7 @@ class App extends React.Component {
       this.state.value.logOut();
     }
   }
+  // (END) TODO: USE REDUX INSTEAD OF REACT STATE
 
   // TODO: CHECK THAT THE EVENT REMOVAL WORKS
   componentDidMount() {
@@ -126,7 +129,7 @@ class App extends React.Component {
       { id: 3, name: 'React', credit: 40 },
     ];
 
-    const { displayDrawer } = this.state;
+    const { displayDrawer } = this.props;
 
     return (
       <AppContext.Provider value={this.state.value}>
