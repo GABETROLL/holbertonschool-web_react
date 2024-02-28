@@ -35,8 +35,18 @@ const styles = StyleSheet.create({
   },
 });
 
+/**
+ * `state` is assumed to be the same format as
+ * `../reducers/uiReducer`'s `initialState`.
+ */
+export function mapStateToProps(state) {
+  return { isLoggedIn: state.get('isUserLoggedIn') };
+}
+
 export const LoginWithLogging = WithLogging(Login);
 
+// TODO: USE THE PROPS DIRECTLY, INSTEAD OF THROUGH STATE,
+// TO KEEP "MUTATIONS" THROUGH REDUX.
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -153,10 +163,6 @@ class App extends React.Component {
       </AppContext.Provider>
     );
   }
-}
-
-export function mapStateToProps(state) {
-  return { isLoggedIn: state.get('isUserLoggedIn') };
 }
 
 export default connect(mapStateToProps)(App);
