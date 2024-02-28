@@ -13,6 +13,7 @@ import BodySection from '../BodySection/BodySection';
 import Footer from '../Footer/Footer';
 import { StyleSheet, css } from 'aphrodite';
 import { red } from '../styles';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   app: {
@@ -36,12 +37,15 @@ const styles = StyleSheet.create({
 
 export const LoginWithLogging = WithLogging(Login);
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
 
     const value = { user: defaultUser, logOut };
     value.logOut = value.logOut.bind(this);
+    // new
+    value.user.isLoggedIn = this.props.isLoggedIn;
+
     this.state = {
       displayDrawer: false,
       value,
@@ -152,3 +156,9 @@ export default class App extends React.Component {
     );
   }
 }
+
+export function mapStateToProps(state) {
+  return { isLoggedIn: state.get('isUserLoggedIn') };
+}
+
+export default connect(mapStateToProps)(App);
