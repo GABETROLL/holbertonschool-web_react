@@ -59,7 +59,7 @@ const secondReadState = {
 test('filterTypeSelected', () => {
   expect(filterTypeSelected(initialState)).toBe('DEFAULT');
   expect(filterTypeSelected(fromJS(secondUnReadState))).toBe('DEFAULT');
-  expect(filterTypeSelected(fromJS(secondUnReadState))).toBe('DEFAULT');
+  expect(filterTypeSelected(fromJS(secondReadState))).toBe('DEFAULT');
 
   for (const otherState of [{ }, initialState, secondUnReadState, secondReadState]) {
     expect(filterTypeSelected(fromJS({ ...otherState, filter: 'DEFAULT' }))).toBe('DEFAULT');
@@ -84,7 +84,7 @@ test('getUnreadNotifications', () => {
   expect(getUnreadNotifications(fromJS(secondUnReadState)).toJS()).toStrictEqual(secondUnRead);
 
   for (const otherState of [{ }, initialState, secondUnReadState, secondReadState]) {
-    console.log(otherState);
+    // console.log(otherState);
 
     expect(getUnreadNotifications(fromJS({ ...otherState, entities: { notifications: secondUnRead } })).toJS()).toStrictEqual(secondUnRead);
     expect(getUnreadNotifications(fromJS({ ...otherState, entities: { notifications: secondRead } })).toJS()).toStrictEqual({

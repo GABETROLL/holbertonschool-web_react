@@ -14,7 +14,7 @@ export function filterTypeSelected(state) {
  * Assumes `state` is an `Immutable.Map`,
  * with the same structure as `initialState` from `../reducers/notificationReducer`.
  *
- * Returns all of the notifications in the state, as an object of { id: notification }.
+ * Returns all of the notifications in the state, as a Immutable.Map { id: notification }.
  */
 export function getNotifications(state) {
   return state.getIn(['entities', 'notifications']) || Map();
@@ -25,7 +25,7 @@ export function getNotifications(state) {
  * with the same structure as `initialState` from `../reducers/notificationReducer`.
  * 
  * Returns all of the notifications in the state that have not been read (have attribute `isRead: false`),
- * as an object of { id: notification }.
+ * as Immutable.Map { id: notification }.
  */
 export function getUnreadNotifications(state) {
   return (
