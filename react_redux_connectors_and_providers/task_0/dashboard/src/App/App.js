@@ -41,10 +41,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const value = { user: defaultUser, logOut };
+    const value = { user: { ...defaultUser, isLoggedIn: this.props.isLoggedIn }, logOut };
     value.logOut = value.logOut.bind(this);
-    // new
-    value.user.isLoggedIn = this.props.isLoggedIn;
 
     this.state = {
       displayDrawer: false,
