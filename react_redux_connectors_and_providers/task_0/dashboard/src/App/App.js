@@ -54,7 +54,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const value = { user: { ...defaultUser, isLoggedIn: this.props.isLoggedIn }, logOut };
+    const value = { user: defaultUser, logOut };
     value.logOut = value.logOut.bind(this);
 
     this.state = {
@@ -143,7 +143,7 @@ class App extends React.Component {
           <Header />
           <div className={css(styles.body)}>
             {
-              this.state.value.user.isLoggedIn
+              this.props.isLoggedIn
               ? (
                 <BodySectionWithMarginBottom title="Course list">
                   <CourseList listCourses={listCourses} />
