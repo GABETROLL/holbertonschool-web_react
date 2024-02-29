@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 // react
 import { defaultUser, logOut } from './AppContext';
 import AppContext from './AppContext';
@@ -169,5 +170,18 @@ class App extends React.Component {
     );
   }
 }
+// ?
+App.defaultProps = {
+  displayDrawer: false,
+  isLoggedIn: false,
+  handleDisplayDrawer: () => { },
+  handleHideDrawer: () => { },
+};
+App.propTypes = {
+  displayDrawer: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
