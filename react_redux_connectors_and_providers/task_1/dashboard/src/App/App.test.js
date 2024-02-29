@@ -35,14 +35,6 @@ describe('<App />', () => {
   it('has a `displayDrawer` state, and its initial value is false', () => {
     expect(mountWrapper.state('displayDrawer')).toBe(false);
   });
-  it("has a method, called `handleDisplayDrawer`, that changes the component's `displayDrawer` state to true", () => {
-    mountWrapper.instance().handleDisplayDrawer();
-    expect(mountWrapper.state('displayDrawer')).toBe(true);
-  });
-  it("has a method, called `handleHideDrawer`, that changes the component's `displayDrawer` state to false", () => {
-    mountWrapper.instance().handleHideDrawer();
-    expect(mountWrapper.state('displayDrawer')).toBe(false);
-  });
   it('has an instance method, called `markNotificationAsRead(id)`, that replaces its `listNotifications` state\
  with a new `listNotifications` without the notification(s) with the `id`', () => {
     const mockListNotifications = [
@@ -188,10 +180,10 @@ describe('<App />', () => {
 });
 
 describe('mapStateToProps', () => {
-  it("returns { isLoggedIn: true } when given fromJS({ isUserLoggedIn: true }). \
+  it("returns { displayDrawer: false, isLoggedIn: true } when given fromJS({ isNotificationDrawerVisible: false, isUserLoggedIn: true }). \
 The argument should be a state object returned by ``uiReducer``.", () => {
     expect(mapStateToProps(
-      fromJS({ isUserLoggedIn: true }),
-    )).toStrictEqual({ isLoggedIn: true });
+      fromJS({ isNotificationDrawerVisible: false, isUserLoggedIn: true }),
+    )).toStrictEqual({ displayDrawer: false, isLoggedIn: true });
   });
 });
