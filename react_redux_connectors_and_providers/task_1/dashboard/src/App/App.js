@@ -5,9 +5,7 @@ import { defaultUser, logOut } from './AppContext';
 import AppContext from './AppContext';
 // redux
 import { connect } from 'react-redux';
-import {
-  boundDisplayNotificationDrawer, boundHideNotificationDrawer
-} from '../actions/uiActionCreators';
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 // react
 import WithLogging from '../HOC/WithLogging';
 import Notifications from '../Notifications/Notifications';
@@ -52,12 +50,11 @@ export function mapStateToProps(state) {
     isLoggedIn: state.get('isUserLoggedIn'),
   };
 }
-export function mapDispatchToProps(dispatch) {
-  return {
-    handleDisplayDrawer: boundDisplayNotificationDrawer,
-    handleHideDrawer: boundHideNotificationDrawer,
-  };
-}
+// ?
+export const mapDispatchToProps = {
+  handleDisplayDrawer: displayNotificationDrawer,
+  handleHideDrawer: hideNotificationDrawer,
+};
 
 export const LoginWithLogging = WithLogging(Login);
 
@@ -67,11 +64,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const value = { user: { ...defaultUser, isLoggedIn: this.props.isLoggedIn }, logOut };
+    // TODO: REMOVE isLoggedIn FROM STATE!
+    const value = { user: defaultUser, logOut };
     value.logOut = value.logOut.bind(this);
 
     this.state = {
-      // displayDrawer: this.props.displayDrawer,
       value,
       listNotifications: [
         { id: 1, type: 'default', value: 'New course available' },
@@ -146,7 +143,7 @@ class App extends React.Component {
           <Header />
           <div className={css(styles.body)}>
             {
-              this.state.value.user.isLoggedIn
+              this.props.isLoggedIn
               ? (
                 <BodySectionWithMarginBottom title="Course list">
                   <CourseList listCourses={listCourses} />
