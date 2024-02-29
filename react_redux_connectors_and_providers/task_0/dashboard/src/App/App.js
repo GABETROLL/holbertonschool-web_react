@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { defaultUser, logOut } from './AppContext';
 import AppContext from './AppContext';
+// redux
+import { connect } from 'react-redux';
+// react
 import WithLogging from '../HOC/WithLogging';
 import Notifications from '../Notifications/Notifications';
 import { getLatestNotification } from '../utils/utils';
@@ -13,7 +16,6 @@ import BodySection from '../BodySection/BodySection';
 import Footer from '../Footer/Footer';
 import { StyleSheet, css } from 'aphrodite';
 import { red } from '../styles';
-import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   app: {

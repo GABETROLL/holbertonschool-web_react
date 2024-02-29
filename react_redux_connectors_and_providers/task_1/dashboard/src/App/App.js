@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// react
 import { defaultUser, logOut } from './AppContext';
 import AppContext from './AppContext';
+// redux
+import { connect } from 'react-redux';
+import {
+  boundDisplayNotificationDrawer, boundHideNotificationDrawer
+} from '../actions/uiActionCreators';
+// react
 import WithLogging from '../HOC/WithLogging';
 import Notifications from '../Notifications/Notifications';
 import { getLatestNotification } from '../utils/utils';
@@ -13,7 +20,6 @@ import BodySection from '../BodySection/BodySection';
 import Footer from '../Footer/Footer';
 import { StyleSheet, css } from 'aphrodite';
 import { red } from '../styles';
-import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   app: {
@@ -46,6 +52,12 @@ export function mapStateToProps(state) {
     isLoggedIn: state.get('isUserLoggedIn'),
   };
 }
+export function mapDispatchToProps(dispatch) {
+  return {
+    handleDisplayDrawer: boundDisplayNotificationDrawer,
+    handleHideDrawer: boundHideNotificationDrawer,
+  };
+}
 
 export const LoginWithLogging = WithLogging(Login);
 
@@ -68,9 +80,6 @@ class App extends React.Component {
       ],
     };
 
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
-
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
 
     this.logIn = this.logIn.bind(this);
@@ -78,13 +87,6 @@ class App extends React.Component {
   }
 
   // (START) TODO: USE REDUX INSTEAD OF REACT STATE
-  handleDisplayDrawer() {
-    this.setState({ displayDrawer: true });
-  }
-
-  handleHideDrawer() {
-    this.setState({ displayDrawer: false });
-  }
 
   markNotificationAsRead(id) {
     this.setState(state => ({
@@ -136,8 +138,8 @@ class App extends React.Component {
         <Notifications
           listNotifications={this.state.listNotifications}
           displayDrawer={displayDrawer}
-          handleDisplayDrawer={this.handleDisplayDrawer}
-          handleHideDrawer={this.handleHideDrawer}
+          handleDisplayDrawer={this.props.handleDisplayDrawer}
+          handleHideDrawer={this.props.handleHideDrawer}
           markNotificationAsRead={this.markNotificationAsRead}
         />
         <div className={css(styles.app)}>
@@ -171,4 +173,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
