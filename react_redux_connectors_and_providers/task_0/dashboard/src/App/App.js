@@ -54,6 +54,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    // TODO: REMOVE isLoggedIn FROM STATE!
     const value = { user: defaultUser, logOut };
     value.logOut = value.logOut.bind(this);
 
