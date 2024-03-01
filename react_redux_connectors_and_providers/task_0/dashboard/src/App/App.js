@@ -92,6 +92,7 @@ class App extends React.Component {
   }
 
   // (START) TODO: USE REDUX INSTEAD OF REACT STATE
+  // (for isLoggedIn)
   logIn(email, password) {
     this.setState(state => ({
       value: {
@@ -131,6 +132,7 @@ class App extends React.Component {
 
     const { displayDrawer } = this.state;
 
+    // TODO: USE REDUX STORE FOR LOGIN STATE, NOT CONTEXT & LOCAL STATE
     return (
       <AppContext.Provider value={this.state.value}>
         <Notifications
