@@ -92,6 +92,7 @@ class App extends React.Component {
     }));
   }
 
+  // (for isLoggedIn here)
   logIn(email, password) {
     this.setState(state => ({
       value: {
@@ -123,6 +124,8 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this);
+
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: 'Webpack', credit: 20 },
@@ -131,6 +134,7 @@ class App extends React.Component {
 
     const { displayDrawer } = this.props;
 
+    // TODO: USE REDUX STORE FOR LOGIN STATE, NOT CONTEXT & LOCAL STATE
     return (
       <AppContext.Provider value={this.state.value}>
         <Notifications

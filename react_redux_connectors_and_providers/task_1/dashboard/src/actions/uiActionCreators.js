@@ -1,5 +1,4 @@
 import { LOGIN, LOGOUT, LOGIN_SUCCESS, LOGIN_FAILURE, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
-import fetch from 'node-fetch';
 
 export function login(email, password) {
   return { type: LOGIN, user: { email, password } };
