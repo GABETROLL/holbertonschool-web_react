@@ -77,8 +77,6 @@ class App extends React.Component {
     };
 
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
-    // remove?
-    this.handleLogOutKeyEvent = this.handleLogOutKeyEvent.bind(this);
   }
 
   // (START) TODO: USE REDUX INSTEAD OF REACT STATE
@@ -87,25 +85,7 @@ class App extends React.Component {
       listNotifications: state.listNotifications.filter(notification => notification.id !== id),
     }));
   }
-
-  // remove?
-  handleLogOutKeyEvent(event) {
-    if (event.ctrlKey && event.key === 'h') {
-      alert('Logging you out');
-      // this.state.value.logOut();
-      // TODO: REPLACE WITH: this.props.logOut();
-    }
-  }
   // (END) TODO: USE REDUX INSTEAD OF REACT STATE
-
-  // TODO: CHECK THAT THE EVENT REMOVAL WORKS
-  componentDidMount() {
-    document.addEventListener('keydown', this.handleLogOutKeyEvent);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleLogOutKeyEvent);
-  }
 
   render() {
     // console.log(this);
@@ -120,9 +100,7 @@ class App extends React.Component {
 
     // TODO: USE REDUX STORE FOR LOGIN STATE, NOT CONTEXT & LOCAL STATE
     return (
-      // TODO: USE REDUX INSTEAD OF THIS LOGIN CONTEXT, WHICH WAS REMOVED
-      // (HEADER, FOOTER)
-      <AppContext.Provider value={this.state.value}>
+      <>
         <Notifications
           listNotifications={this.state.listNotifications}
           displayDrawer={displayDrawer}
@@ -156,7 +134,7 @@ class App extends React.Component {
             <Footer />
           </div>
         </div>
-      </AppContext.Provider>
+      </>
     );
   }
 }
