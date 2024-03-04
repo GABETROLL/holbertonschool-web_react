@@ -43,10 +43,14 @@ const styles = StyleSheet.create({
  * AND be converted to a ``Immutable.Map``.
  */
 export function mapStateToProps(state) {
+  let user = state.get('user');
+  user = user ? user.toJS() : { email: '', password: '' };
+  // should be a POJS now
+
   return {
     displayDrawer: state.get('isNotificationDrawerVisible'),
-    user: state.get('user').toJS(),
     isLoggedIn: state.get('isUserLoggedIn'),
+    user,
   };
 }
 // ?
@@ -104,7 +108,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this);
+    // console.log(this);
 
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
@@ -161,14 +165,21 @@ class App extends React.Component {
 App.defaultProps = {
   displayDrawer: false,
   isLoggedIn: false,
+  user: { email: '', password: '' },
   handleDisplayDrawer: () => { },
   handleHideDrawer: () => { },
+  login: () => { },
 };
 App.propTypes = {
   displayDrawer: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
+  user: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string,
+  }),
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
+  login: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

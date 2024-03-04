@@ -1,11 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFooterCopy, getFullYear } from '../utils/utils';
 
 export function mapStateToProps(state) {
+  let userCredentials = state.get('user');
+  userCredentials = userCredentials ? userCredentials.toJS() : { email: '', password: '' };
+
   return {
     user: {
-      ...state.get('user').toJS(),
+      ...userCredentials,
       isLoggedIn: state.get('isUserLoggedIn'),
     },
   };
@@ -19,4 +23,15 @@ function Footer({ user }) {
     </>
   );
 }
+Footer.defaultProps = {
+  isLoggedIn: false,
+  email: '',
+  password: '',
+};
+Footer.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  email: PropTypes.string,
+  password: PropTypes.string,
+};
+
 export default connect(mapStateToProps)(Footer);

@@ -24,9 +24,12 @@ export const styles = StyleSheet.create({
 });
 
 export function mapStateToProps(state) {
+  let userCredentials = state.get('user');
+  userCredentials = userCredentials ? userCredentials.toJS() : { email: '', password: '' };
+
   return {
     user: {
-      ...state.get('user').toJS(),
+      ...userCredentials,
       isLoggedIn: state.get('isUserLoggedIn'),
     },
   };
@@ -54,8 +57,8 @@ class Header extends React.Component {
 
 Header.defaultProps = {
   user: {
-    isLoggedIn:
-    false, email: '',
+    isLoggedIn: false,
+    email: '',
     password: ''
   },
   logout: () => { },

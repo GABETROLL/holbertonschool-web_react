@@ -6,17 +6,17 @@ export function login(email, password) {
 export function logout() {
   return { type: LOGOUT };
 }
-export function displayNotificationDrawer() {
-  return { type: DISPLAY_NOTIFICATION_DRAWER };
-}
-export function hideNotificationDrawer() {
-  return { type: HIDE_NOTIFICATION_DRAWER };
-}
 export function loginSuccess() {
   return { type: LOGIN_SUCCESS };
 }
 export function loginFailure() {
   return { type: LOGIN_FAILURE };
+}
+export function displayNotificationDrawer() {
+  return { type: DISPLAY_NOTIFICATION_DRAWER };
+}
+export function hideNotificationDrawer() {
+  return { type: HIDE_NOTIFICATION_DRAWER };
 }
 
 export function boundLogin(email, password) {
@@ -25,17 +25,17 @@ export function boundLogin(email, password) {
 export function boundLogout() {
   return dispatch(logout());
 }
-export function boundDisplayNotificationDrawer() {
-  return dispatch(displayNotificationDrawer());
-}
-export function boundHideNotificationDrawer() {
-  return dispatch(hideNotificationDrawer());
-}
 export function boundLoginSuccess() {
   return dispatch(loginSuccess());
 }
 export function boundLoginFailure() {
   return dispatch(loginFailure());
+}
+export function boundDisplayNotificationDrawer() {
+  return dispatch(displayNotificationDrawer());
+}
+export function boundHideNotificationDrawer() {
+  return dispatch(hideNotificationDrawer());
 }
 
 export function loginRequest(email, password) {
