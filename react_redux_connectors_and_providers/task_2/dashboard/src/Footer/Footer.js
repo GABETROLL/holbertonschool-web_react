@@ -24,14 +24,19 @@ function Footer({ user }) {
   );
 }
 Footer.defaultProps = {
-  isLoggedIn: false,
-  email: '',
-  password: '',
+  user: {
+    isLoggedIn: false,
+    email: '',
+    password: '',
+  }
 };
 Footer.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  email: PropTypes.string,
-  password: PropTypes.string,
+  user: PropTypes.shape({
+    isLoggedIn: PropTypes.bool,
+    email: PropTypes.string,
+    password: PropTypes.string,
+  }),
 };
 
+export const StatelessFooter = Footer;
 export default connect(mapStateToProps)(Footer);

@@ -72,4 +72,5 @@ Header.propTypes = {
   logout: PropTypes.func,
 };
 
+export const StatelessHeader = Header;
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

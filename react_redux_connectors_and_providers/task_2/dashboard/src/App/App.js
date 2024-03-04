@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 /**
  * `state` is assumed to be the same format as
  * `../reducers/uiReducer`'s `initialState`,
- * AND be converted to a ``Immutable.Map``.
+ * AND be the same format as ``Immutable.fromJS``.
  */
 export function mapStateToProps(state) {
   let user = state.get('user');
@@ -98,7 +98,6 @@ class App extends React.Component {
 
     const { displayDrawer } = this.props;
 
-    // TODO: USE REDUX STORE FOR LOGIN STATE, NOT CONTEXT & LOCAL STATE
     return (
       <>
         <Notifications
@@ -160,4 +159,5 @@ App.propTypes = {
   login: PropTypes.func,
 };
 
+export const StatelessApp = App;
 export default connect(mapStateToProps, mapDispatchToProps)(App);
