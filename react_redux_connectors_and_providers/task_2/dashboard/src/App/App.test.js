@@ -80,7 +80,7 @@ describe('<App />', () => {
     expect(shallowWrapper.find(CourseList)).toHaveLength(0);
   });
 
-  // logout Ctrl+h was here!!
+  // logout Ctrl+h was here!
 
   describe('when user is logged in', () => {
     let wrapper;

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 // redux
 import { connect } from 'react-redux';
-import { displayNotificationDrawer, hideNotificationDrawer, loginRequest } from '../actions/uiActionCreators';
+import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from '../actions/uiActionCreators';
 // react
 import WithLogging from '../HOC/WithLogging';
 import Notifications from '../Notifications/Notifications';
@@ -58,6 +58,7 @@ export const mapDispatchToProps = {
   handleDisplayDrawer: displayNotificationDrawer,
   handleHideDrawer: hideNotificationDrawer,
   login: loginRequest,
+  logout,
 };
 
 export const LoginWithLogging = WithLogging(Login);
@@ -77,6 +78,7 @@ class App extends React.Component {
     };
 
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
+    this.handleLogOutKeyEvent = this.handleLogOutKeyEvent.bind(this);
   }
 
   // (START) TODO: USE REDUX INSTEAD OF REACT STATE
@@ -85,7 +87,23 @@ class App extends React.Component {
       listNotifications: state.listNotifications.filter(notification => notification.id !== id),
     }));
   }
+
+  handleLogOutKeyEvent(event) {
+    if (event.ctrlKey && event.key === 'h') {
+      alert('Logging you out');
+      this.props.logout();
+    }
+  }
   // (END) TODO: USE REDUX INSTEAD OF REACT STATE
+
+  // TODO: CHECK THAT THE EVENT REMOVAL WORKS
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleLogOutKeyEvent);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleLogOutKeyEvent);
+  }
 
   render() {
     // console.log(this);
@@ -146,6 +164,7 @@ App.defaultProps = {
   handleDisplayDrawer: () => { },
   handleHideDrawer: () => { },
   login: () => { },
+  logout: () => { },
 };
 App.propTypes = {
   displayDrawer: PropTypes.bool,
@@ -157,6 +176,7 @@ App.propTypes = {
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
   login: PropTypes.func,
+  logout: PropTypes.func,
 };
 
 export const StatelessApp = App;
