@@ -181,7 +181,7 @@ describe('<App />', () => {
 
 describe('mapStateToProps', () => {
   it("returns { displayDrawer: false, isLoggedIn: true } when given fromJS({ isNotificationDrawerVisible: false, isUserLoggedIn: true }). \
-The argument should be a state object returned by ``uiReducer``.", () => {
+The argument is meant to be a state object returned by ``uiReducer``.", () => {
     expect(mapStateToProps(
       fromJS({ isNotificationDrawerVisible: false, isUserLoggedIn: true }),
     )).toStrictEqual({ displayDrawer: false, isLoggedIn: true });

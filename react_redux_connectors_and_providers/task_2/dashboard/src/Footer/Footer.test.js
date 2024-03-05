@@ -24,7 +24,7 @@ describe('<Footer />', () => {
     expect(wrapper.contains(<a>Contact us</a>)).toBe(false);
   });
   it('renders the "Contact Us" link, when the \`user\` prop says the user is logged in', () => {
-    const wrapper = shallow(<Footer user={{ email: 'an email', password: 'a password', isLoggedIn : true}} />);
+    const wrapper = shallow(<Footer user={{ email: 'an email', password: 'a password', isLoggedIn: true}} />);
     expect(wrapper.contains(<a>Contact us</a>)).toBe(true);
   });
 });

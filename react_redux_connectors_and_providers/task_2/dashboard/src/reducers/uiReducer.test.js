@@ -22,7 +22,7 @@ describe('uiReducer', () => {
   });
   it('returns new state with `isUserLoggedIn: false` and `user: null`, when a `logout()` action is passed', () => {
     const prevState = fromJS({
-      ...initialState,
+      ...(initialState.toJS()),
       isUserLoggedIn: true,
       user: {
         email: 'abcdefghijk',
