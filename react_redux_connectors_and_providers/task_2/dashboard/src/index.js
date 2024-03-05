@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // redux
 import { applyMiddleware, createStore } from 'redux';
-import thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 import { Provider } from 'react-redux';
 import uiReducer, { initialState } from './reducers/uiReducer';
 // import middleware
