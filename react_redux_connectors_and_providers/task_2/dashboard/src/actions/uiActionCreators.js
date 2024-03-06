@@ -39,19 +39,21 @@ export function boundHideNotificationDrawer() {
 }
 
 export function loginRequest(email, password) {
-  boundLogin(email, password);
-  fetch('/login-success.json', {
-    method: 'GET',
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  }).then((response) => {
-      if (response.ok) {
-        boundLoginSuccess();
-      } else {
-        boundLoginFailure();
-      }
-    })
-    .catch(() => {
-      boundLoginFailure();
-    });
+  return (dispatch) => {
+    dispatch(login(email, password));
+    fetch('/login-success.json', {
+      method: 'GET',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    }).then((response) => {
+        if (response.ok) {
+          dispatch(loginSuccess());
+        } else {
+          dispatch(loginFailure());
+        }
+      })
+      .catch(() => {
+        dispatch(loginFailure());
+      });
+  };
 }
