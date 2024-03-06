@@ -104,7 +104,7 @@ describe('mapStateToProps', () => {
   it("returns { displayDrawer: false, isLoggedIn: true, user: { email: '', password: '' } } when given fromJS({ isNotificationDrawerVisible: false, isUserLoggedIn: true }). \
 The argument should be a state object returned by ``uiReducer``.", () => {
     expect(mapStateToProps(
-      fromJS({ isNotificationDrawerVisible: false, isUserLoggedIn: true }),
+      { ui: fromJS({ isNotificationDrawerVisible: false, isUserLoggedIn: true }) },
     )).toStrictEqual({ displayDrawer: false, isLoggedIn: true, user: { email: '', password: '' } });
   });
 });
