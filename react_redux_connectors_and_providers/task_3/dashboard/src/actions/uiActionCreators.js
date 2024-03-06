@@ -41,19 +41,19 @@ export function boundHideNotificationDrawer() {
 export function loginRequest(email, password) {
   return (dispatch) => {
     dispatch(login(email, password));
-    fetch('/login-success.json', {
-      method: 'GET',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    }).then((response) => {
+    fetch('/login-success.json')
+      .then((response) => {
         if (response.ok) {
+          console.log('Login fetch request OK!');
           dispatch(loginSuccess());
         } else {
+          console.log('Login fetch request NOT OK! status:', response.status, response.statusText);
           dispatch(loginFailure());
         }
       })
-      .catch(() => {
-        dispatch(loginFailure());
+      .catch((error) => {
+          console.log('Login fetch request failed:', error);
+          dispatch(loginFailure());
       });
   };
 }
