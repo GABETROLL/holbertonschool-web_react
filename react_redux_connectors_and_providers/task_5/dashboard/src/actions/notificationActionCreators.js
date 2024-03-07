@@ -62,6 +62,7 @@ export function fetchNotifications() {
         if (response.ok) {
           // WATCH OUT! This mays not have been automatically interpreted as a JSON object!
           // You may need to check the `response.headers` (inclusive)or parse the `response.body`!
+          console.log(response.body);
           dispatch(setNotifications(response.body));
         }
       })

@@ -10,6 +10,8 @@ export const initialState = fromJS({
   filter: 'DEFAULT',
   result: [],
   entities: {
+    users: { },
+    messages: { },
     notifications: { },
   },
 });
@@ -28,8 +30,30 @@ export const initialState = fromJS({
  * to be `action.loading`. ASSUMES `action.loading` is a boolean.
  *
  * `action.type: FETCH_NOTIFICATIONS_SUCCESS` will result in the new state being DEEPLY merged with
- * `fromJS(notificationsNormalizer(action.data))`. ASSUMES `action.data` is an array of notification objects:
- * [{ id: integer, type: 'default' | 'urgent', value: string }] // THIS MAY CHANGE LATER
+ * `fromJS(notificationsNormalizer(action.data))`. ASSUMES `action.data` is an array of Notification objects,
+ * WITH THE SAME STRUCTURE AS ``../../../notifications.json``:
+ *
+ * [Notification]
+ *
+ * Notification = { id: string, author: User, context: Message };
+ *
+ * User = {
+ *   id: string,
+ *   name: {
+ *     first: string,
+ *     last: string,
+ *   },
+ *   email: email string,
+ *   picture: URL string,
+ *   age: integer,
+ * };
+ *
+ * Message = {
+ *   guid: string,
+ *   isRead: boolean,
+ *   type: 'default' | 'urgent',
+ *   value: string,
+ * };
  *
  * `action.type: MARK_AS_READ`, will result in the notification with `id: action.index`
  * to have the property `isRead: true`. ASSUMES `action.index` is an integer,
@@ -39,12 +63,18 @@ export const initialState = fromJS({
  * is 'DEFAULT' | 'URGENT'.
  *
  * SHOULD return: Map {
- *   filter: action.filter | string,
- *   result: (action.data[N].id | integer)[],
+ *   filter: action.filter,
+ *   result: idString[],
  *   entities: {
+ *     users: {
+ *       idString: User,
+ *     },
+ *     messages: {
+ *       guidString: Message,
+ *     },
  *     notifications: {
- *       idString: Notification
- *     }
+ *       idString: Notification,
+ *     },
  *   }
  * }
  */
