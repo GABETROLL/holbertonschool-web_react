@@ -1,6 +1,6 @@
-import { fetchNotificationsSuccess, markAsRead, setNotificationFilter } from '../actions/notificationActionCreators';
+import { fetchNotificationsSuccess, markAsRead, setNotificationFilter, setNotifications } from '../actions/notificationActionCreators';
 import { fromJS } from 'immutable';
-import notificationReducer from './notificationReducer';
+import notificationReducer, { initialState } from './notificationReducer';
 
 const fetchedData = [
   {
@@ -72,25 +72,89 @@ const fetchedState = {
 const filters = ['DEFAULT', 'URGENT', 'OTHER', undefined];
 
 describe('notificationReducer', () => {
-  it("merges the normalized version of `action.data` with the state (using the normalizer), \
+  it("DEEPLY merges the normalized version of `action.data` (notification obj array) with the state (using the normalizer), \
+(the new notifications added from `action.data` shouldn't replace the old ones), \
 but with each notification having `isRead: false`, when the action type is 'FETCH_NOTIFICATIONS_SUCCESS", () => {
-    for (const filter of filters) {
-      const prevState = fromJS({ filter });
+    const fetchedData = [
+      {
+        id: 0,
+        type: 'default',
+        value: 'This is the first array of notifications!',
+      },
+      {
+        id: 1,
+        type: 'urgent',
+        value: 'This is the second array of notifications!',
+      },
+      {
+        id: 2,
+        type: 'other',
+        value: 'Just making sure that when a new `FETCH_NOTIFICATIONS_SUCCESS` action is dispatched...',
+      },
+      {
+        id: 3,
+        type: 'default',
+        value: 'The reducer will normalize and merge the new notifications without replacing the old ones!',
+      },
+      {
+        id: 4,
+        type: 'urgent',
+        value: 'hello',
+      },
+    ];
+    const mergedData = {
+      '0': {
+        id: 0,
+        isRead: false,
+        type: 'default',
+        value: 'This is the first array of notifications!',
+      },
+      '1': {
+        id: 1,
+        isRead: false,
+        type: 'urgent',
+        value: 'This is the second array of notifications!',
+      },
+      '2': {
+        id: 2,
+        isRead: false,
+        type: 'other',
+        value: 'Just making sure that when a new `FETCH_NOTIFICATIONS_SUCCESS` action is dispatched...',
+      },
+      '3': {
+        id: 3,
+        isRead: false,
+        type: 'default',
+        value: 'The reducer will normalize and merge the new notifications without replacing the old ones!',
+      },
+      '4': {
+        id: 4,
+        isRead: false,
+        type: 'urgent',
+        value: 'hello',
+      },
+    };
 
-      const result = notificationReducer(prevState, fetchNotificationsSuccess(fetchedData));
-
-      expect(result.get('result').toJS()).toStrictEqual(fetchedStateResult);
-      expect(result.getIn(['entities', 'notifications']).toJS()).toStrictEqual(secondUnRead);
-
-      for (const notifications of [secondUnRead, secondRead]) {
-        const prevState = fromJS({ filter, result: fetchedStateResult, entities: { notifications } });
-
-        const result = notificationReducer(prevState, fetchNotificationsSuccess(fetchedData));
-
-        expect(result.get('result').toJS()).toStrictEqual(fetchedStateResult);
-        expect(result.getIn(['entities', 'notifications']).toJS()).toStrictEqual(secondUnRead);
-      }
-    }
+    let result = notificationReducer(initialState, setNotifications([fetchedData[0]]));
+    expect(result.get('result').toJS()).toStrictEqual([0]);
+    expect(result.getIn(['entities', 'notifications']).toJS()).toStrictEqual({ '0': mergedData['0'] });
+  
+    result = notificationReducer(result, setNotifications([fetchedData[1], fetchedData[2], fetchedData[3]]));
+    expect(result.get('result').toJS()).toStrictEqual([0, 1, 2, 3]);
+    expect(result.getIn(['entities', 'notifications']).toJS()).toStrictEqual({
+      '0': mergedData['0'],
+      '1': mergedData['1'],
+      '2': mergedData['2'],
+      '3': mergedData['3'],
+    });
+  
+    result = notificationReducer(result, setNotifications([fetchedData[4]]));
+    expect(result.get('result').toJS()).toStrictEqual([0, 1, 2, 3, 4]);
+    expect(result.getIn(['entities', 'notifications']).toJS()).toStrictEqual(mergedData);
+  
+    result = notificationReducer(result, setNotifications([]));
+    expect(result.get('result').toJS()).toStrictEqual([0, 1, 2, 3, 4]);
+    expect(result.getIn(['entities', 'notifications']).toJS()).toStrictEqual(mergedData);
   });
 
   it('(ONLY) marks the 2nd notification as read, when the action type is `MARK_AS_READ`', () => {

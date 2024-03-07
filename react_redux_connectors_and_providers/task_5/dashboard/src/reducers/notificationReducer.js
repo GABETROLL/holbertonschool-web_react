@@ -1,8 +1,12 @@
-import { MARK_AS_READ, SET_TYPE_FILTER, FETCH_NOTIFICATIONS_SUCCESS } from '../actions/notificationActionTypes';
+import {
+  SET_LOADING_STATE, FETCH_NOTIFICATIONS_SUCCESS,
+  MARK_AS_READ, SET_TYPE_FILTER
+} from '../actions/notificationActionTypes';
 import { fromJS } from 'immutable';
 import { notificationsNormalizer } from '../schema/notifications';
 
 export const initialState = fromJS({
+  loading: false,
   filter: 'DEFAULT',
   result: [],
   entities: { },
@@ -10,19 +14,27 @@ export const initialState = fromJS({
 
 /**
  * `state` is expected to have the same shape as `initialState` (or more),
- * and to be an Immutable object,
- * and `action` is expected to be one of the actions returned by the action creators in
- * `../actions/notificationActionCreators`.
+ * and to be a DEEPLY Immutable object (an object wrapped by `fromJS`).
+ *
+ * `action` is expected to be one of the actions returned by the action creators in
+ * `../actions/notificationActionCreators`, or at the very least, expected to contain this shape:
+ * { type: 'MACRO_CASE_ACTION_TYPE' }
  *
  * If `action` is not specified, `state` will be returned.
+ * 
+ * `action.type: SET_LOADING_STATE`: will set the new state's `loading`
+ * to be `action.loading`. ASSUMES `action.loading` is a boolean.
  *
- * `action.type: FETCH_NOTIFICATIONS_SUCCESS` will result in the new `notifications` array
- * to be `action.data`, but each notification inside will have the property `isRead: false`.
+ * `action.type: FETCH_NOTIFICATIONS_SUCCESS` will result in the new state being DEEPLY merged with
+ * `fromJS(notificationsNormalizer(action.data))`. ASSUMES `action.data` is an array of notification objects:
+ * [{ id: integer, type: 'default' | 'urgent', value: string }]
  *
  * `action.type: MARK_AS_READ`, will result in the notification with `id: action.index`
- * to have the property `isRead: true` .
+ * to have the property `isRead: true`. ASSUMES `action.index` is an integer,
+ * AND IS THE ID OF THE NOTIFICATION TO MARK AS READ.
  *
- * `action.type: SET_TYPE_FILTER` will result in `filter: action.filter`.
+ * `action.type: SET_TYPE_FILTER` will result in `filter: action.filter`. ASSUMES `action.filter`
+ * is 'DEFAULT' | 'URGENT'.
  *
  * SHOULD return: Map {
  *   filter: action.filter | string,
@@ -38,11 +50,14 @@ export default function notificationReducer(state = initialState, action) {
   if (!action) return state;
 
   switch (action.type) {
+    case SET_LOADING_STATE: {
+      return state.set('loading', action.loading);
+    }
     case FETCH_NOTIFICATIONS_SUCCESS: {
       const mapped = action.data.map(notification => ({ ...notification, isRead: false }));
       const normalized = notificationsNormalizer(mapped);
       const immutableNormalized = fromJS(normalized);
-      const mergedState = state.merge(immutableNormalized);
+      const mergedState = state.mergeDeep(immutableNormalized);
 
       // console.log(state, mapped, normalized, immutableNormalized, mergedState);
 

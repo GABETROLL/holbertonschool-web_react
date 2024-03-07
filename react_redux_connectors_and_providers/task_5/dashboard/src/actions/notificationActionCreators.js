@@ -58,6 +58,7 @@ export function fetchNotifications() {
 
     fetch('/notifications.json')
       .then((response) => {
+        console.log('Notifications fetching response:', response.status, response.statusText);
         if (response.ok) {
           // WATCH OUT! This mays not have been automatically interpreted as a JSON object!
           // You may need to check the `response.headers` (inclusive)or parse the `response.body`!
