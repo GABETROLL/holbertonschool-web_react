@@ -32,7 +32,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(?:js|mjs|cjs|json)$/,
+        test: /\.(?:js|mjs|cjs)$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
       },

@@ -9,7 +9,9 @@ export const initialState = fromJS({
   loading: false,
   filter: 'DEFAULT',
   result: [],
-  entities: { },
+  entities: {
+    notifications: { },
+  },
 });
 
 /**
@@ -27,7 +29,7 @@ export const initialState = fromJS({
  *
  * `action.type: FETCH_NOTIFICATIONS_SUCCESS` will result in the new state being DEEPLY merged with
  * `fromJS(notificationsNormalizer(action.data))`. ASSUMES `action.data` is an array of notification objects:
- * [{ id: integer, type: 'default' | 'urgent', value: string }]
+ * [{ id: integer, type: 'default' | 'urgent', value: string }] // THIS MAY CHANGE LATER
  *
  * `action.type: MARK_AS_READ`, will result in the notification with `id: action.index`
  * to have the property `isRead: true`. ASSUMES `action.index` is an integer,
