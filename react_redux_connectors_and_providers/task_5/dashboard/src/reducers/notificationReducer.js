@@ -96,7 +96,7 @@ export default function notificationReducer(state = initialState, action) {
       return mergedState;
     }
     case MARK_AS_READ: {
-      return state.setIn(['entities', 'notifications', action.index.toString(), 'isRead'], true);
+      return state.setIn(['entities', 'messages', action.index.toString(), 'isRead'], true);
     }
     case SET_TYPE_FILTER: {
       return state.set('filter', action.filter);

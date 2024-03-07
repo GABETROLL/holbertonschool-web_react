@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 // redux
 import { connect } from 'react-redux';
-import { displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } from '../actions/uiActionCreators';
+import {
+  displayNotificationDrawer, hideNotificationDrawer,
+  loginRequest, logout,
+} from '../actions/uiActionCreators';
+import { markAsRead } from '../actions/notificationActionCreators';
 // react
 import WithLogging from '../HOC/WithLogging';
 import Notifications from '../Notifications/Notifications';
-import { getLatestNotification } from '../utils/utils';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
@@ -56,35 +59,17 @@ export function mapStateToProps({ ui }) {
 export const mapDispatchToProps = {
   handleDisplayDrawer: displayNotificationDrawer,
   handleHideDrawer: hideNotificationDrawer,
+  markAsRead,
   login: loginRequest,
   logout,
 };
 
 export const LoginWithLogging = WithLogging(Login);
 
-// TODO: USE THE PROPS DIRECTLY, INSTEAD OF THROUGH STATE,
-// TO KEEP "MUTATIONS" THROUGH REDUX.
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      listNotifications: [
-        { id: 1, type: 'default', value: 'New course available' },
-        { id: 2, type: 'urgent', value: 'New resume available' },
-        { id: 3, type: 'urgent', html: {__html: getLatestNotification()} },
-      ],
-    };
-
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.handleLogOutKeyEvent = this.handleLogOutKeyEvent.bind(this);
-  }
-
-  // (START) TODO: USE REDUX INSTEAD OF REACT STATE
-  markNotificationAsRead(id) {
-    this.setState(state => ({
-      listNotifications: state.listNotifications.filter(notification => notification.id !== id),
-    }));
   }
 
   handleLogOutKeyEvent(event) {
@@ -93,7 +78,6 @@ class App extends React.Component {
       this.props.logout();
     }
   }
-  // (END) TODO: USE REDUX INSTEAD OF REACT STATE
 
   // TODO: CHECK THAT THE EVENT REMOVAL WORKS
   componentDidMount() {
@@ -118,11 +102,10 @@ class App extends React.Component {
     return (
       <>
         <Notifications
-          listNotifications={this.state.listNotifications}
           displayDrawer={displayDrawer}
           handleDisplayDrawer={this.props.handleDisplayDrawer}
           handleHideDrawer={this.props.handleHideDrawer}
-          markNotificationAsRead={this.markNotificationAsRead}
+          markNotificationAsRead={this.props.markAsRead}
         />
         <div className={css(styles.app)}>
           <Header />
@@ -155,7 +138,6 @@ class App extends React.Component {
   }
 }
 
-// TODO: ADD THE NEW PROP TYPES
 App.defaultProps = {
   displayDrawer: false,
   isLoggedIn: false,

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchNotifications } from '../actions/notificationActionCreators';
-import NotificationItemShape from './NotificationItemShape';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import { StyleSheet, css } from 'aphrodite';
@@ -166,7 +165,7 @@ Notifications.defaultProps = {
   markNotificationAsRead: (id) => console.log(`Marking notification ${id} as read.`),
 };
 Notifications.propTypes = {
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.array,
   displayDrawer: PropTypes.bool,
   fetchNotifications: PropTypes.func,
   handleDisplayDrawer: PropTypes.func,
