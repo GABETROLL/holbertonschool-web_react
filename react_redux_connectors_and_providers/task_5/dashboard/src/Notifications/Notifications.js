@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
 });
 
 export function mapStateToProps({ notifications }) {
-  return { listNotifications: notifications.getIn(['entities', 'messages']) };
+  return { listNotifications: Object.values(notifications.getIn(['entities', 'messages']).toJS()) };
 }
 
 export const mapDispatchToProps = { fetchNotifications };
@@ -120,7 +120,7 @@ class Notifications extends React.PureComponent {
         {
           this.props.listNotifications && this.props.listNotifications.length && this.props.listNotifications.length > 0
           ? this.props.listNotifications.map(notification => (
-            <NotificationItem key={`notificationId:${notification.id}`} id={notification.id} type={notification.type} value={notification.value} html={notification.html} markAsRead={this.props.markNotificationAsRead} />
+            <NotificationItem key={`notificationId:${notification.guid}`} id={notification.guid} type={notification.type} value={notification.value} html={notification.html} markAsRead={this.props.markNotificationAsRead} />
           ))
           : (<NotificationItem key={`notificationId:${null}`} type="default" value="No new notifications for now" markAsRead={this.props.markNotificationAsRead} />)
         }

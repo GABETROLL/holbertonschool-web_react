@@ -53,24 +53,23 @@ export function boundFetchNotificationsSuccess(data) {
  * - dispatches `setLoadingState(false)`
  */
 export function fetchNotifications() {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(setLoadingState(true));
 
-    fetch('/notifications.json')
-      .then((response) => {
-        console.log('Notifications fetching response:', response.status, response.statusText);
-        if (response.ok) {
-          // WATCH OUT! This mays not have been automatically interpreted as a JSON object!
-          // You may need to check the `response.headers` (inclusive)or parse the `response.body`!
-          console.log(response.body);
-          dispatch(setNotifications(response.body));
-        }
-      })
-      .catch((error) => {
-        console.log('Fetching notifications has failed! error:', error);
-      })
-      .finally(() => {
-        dispatch(setLoadingState(false));
-      });
+    try {
+      const response = await fetch('/notifications.json');
+      console.log('Notifications fetching response:', response.status, response.statusText);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        dispatch(setNotifications(data));
+      }
+    } catch(error) {
+      console.log('Fetching notifications has failed! error:', error);
+    } finally {
+      dispatch(setLoadingState(false));
+    }
   }
 }
