@@ -60,7 +60,7 @@ NotificationItem.propTypes = {
     __html: PropTypes.string,
   }),
   value: PropTypes.string,
-  id: PropTypes.number,
+  id: PropTypes.string,
   markAsRead: PropTypes.func,
 };
 
