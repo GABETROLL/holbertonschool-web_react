@@ -86,8 +86,7 @@ export default function notificationReducer(state = initialState, action) {
       return state.set('loading', action.loading);
     }
     case FETCH_NOTIFICATIONS_SUCCESS: {
-      const mapped = action.data.map(notification => ({ ...notification, isRead: false }));
-      const normalized = notificationsNormalizer(mapped);
+      const normalized = notificationsNormalizer(action.data);
       const immutableNormalized = fromJS(normalized);
       const mergedState = state.mergeDeep(immutableNormalized);
 

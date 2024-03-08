@@ -173,4 +173,5 @@ Notifications.propTypes = {
   markNotificationAsRead: PropTypes.func,
 };
 
+export const StatelessNotifications = Notifications;
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

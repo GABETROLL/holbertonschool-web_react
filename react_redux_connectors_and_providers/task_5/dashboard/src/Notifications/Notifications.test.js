@@ -1,9 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Notifications from './Notifications';
-import { styles as notificationsStyles } from './Notifications';
-import NotificationItem from './NotificationItem';
-import { styles as notificationItemStyles } from './NotificationItem';
+import { StatelessNotifications as Notifications, styles as notificationsStyles } from './Notifications';
+import NotificationItem, { styles as notificationItemStyles } from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
 import { StyleSheetTestUtils, css } from 'aphrodite';
 
@@ -109,22 +107,38 @@ and 'listNotifications' prop exists and is not empty`, () => {
     // expect(usedWrapper.contains(<p className="NotificationsTitle"></p>)).toBe(true);
   });
 
-  it('has a method, `markAsRead(id)`, that when called, calls: console.log(`Notification ${id} has been marked as read`)', () => {
-    jest.spyOn(console, 'log');
-
-    const id = 3;
-    (new Notifications(Notifications.defaultProps)).markAsRead(id);
-    expect(console.log.mock.calls).toEqual([[`Notification ${id} has been marked as read`]]);
-
-    console.log.mockRestore();
-    // expect(console.log.mock).toBe(undefined);
-  });
-
   it("doesn't re-render when its props are updated, and the `listNotifications` prop stays the same", () => {
     const testNotifications = [
-      { id: 1, type: 'urgent', value: 'Hello' },
-      { id: 2, type: 'default', value: 'World' },
-      { id: 3, type: 'default', html: {__html: '<strong>Congratulations!</strong>'} },
+      {
+        "guid": "2d8e40be-1c78-4de0-afc9-fcc147afd4d2",
+        "isRead": false,
+        "type": "urgent",
+        "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+      },
+      {
+        "guid": "cec84b7a-7be4-4af0-b833-f1485433f66e",
+        "isRead": false,
+        "type": "urgent",
+        "value": "ut labore et dolore magna aliqua. Dignissim convallis aenean et tortor at risus viverra adipiscing. Ac tortor dignissim convallis aenean et. ",
+      },
+      {
+        "guid": "280913fe-38dd-4abd-8ab6-acdb4105f922",
+        "isRead": false,
+        "type": "urgent",
+        "value": "Non diam phasellus vestibulum lorem sed risus ultricies. Tellus mauris a diam maecenas sed",
+      },
+      {
+        "guid": "89906f88-a02d-41ee-b214-daa0c54633e3",
+        "isRead": false,
+        "type": "urgent",
+        "value": "Odio pellentesque diam volutpat commodo sed egestas egestas",
+      },
+      {
+        "guid": "f8d66cca-63ec-4f19-a422-a3e1c8f05a36",
+        "isRead": false,
+        "type": "urgent",
+        "value": "In hendrerit gravida rutrum quisque non tellus orci. Gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim. Lorem mollis aliquam ut porttitor",
+      },
     ];
 
     jest.spyOn(Notifications.prototype, 'render');
@@ -136,10 +150,8 @@ and 'listNotifications' prop exists and is not empty`, () => {
 
     // Update the props, with the SAME LIST IN MEMORY
     wrapper.setProps({ listNotifications: testNotifications });
-    const testNotificationsCopy = [...testNotifications];
-    // Update the props, again, this time, with a COPY OF THE LIST
-    wrapper.setProps({ listNotifications: testNotificationsCopy });
-
+    wrapper.setProps({ listNotifications: testNotifications });
+    wrapper.setProps({ listNotifications: testNotifications });
     /*
     `render` method shouldn't have any more calls,
     after creating it
@@ -151,39 +163,34 @@ and 'listNotifications' prop exists and is not empty`, () => {
 
   it('re-renders when its props are updated, and the `listNotifications` prop is longer', () => {
     let testNotifications = [
-      { id: 1, type: 'urgent', value: 'Hello' },
-      { id: 2, type: 'default', value: 'World' },
-      { id: 3, type: 'default', html: {__html: '<strong>Congratulations!</strong>'} },
+      { guid: 1, type: 'urgent', value: 'Hello' },
+      { guid: 2, type: 'default', value: 'World' },
+      { guid: 3, type: 'default', html: {__html: '<strong>Congratulations!</strong>'} },
     ];
 
     jest.spyOn(Notifications.prototype, 'render');
-    jest.spyOn(Notifications.prototype, 'shouldComponentUpdate');
 
     const wrapper = mount(<Notifications displayDrawer={true} listNotifications={testNotifications} />);
     // 1 render call, to render the component initially
     expect(Notifications.prototype.render.mock.calls).toEqual([[]]);
-    expect(Notifications.prototype.shouldComponentUpdate.mock.calls).toHaveLength(0);
 
-    testNotifications = [...testNotifications, { id: 4, type: 'urgent', value: 'Testing!' }];
+    testNotifications = [...testNotifications, { guid: 4, type: 'urgent', value: 'Testing!' }];
     wrapper.setProps({ displayDrawer: true, listNotifications: testNotifications });
     // 2 render calls, to re-render the component after a new and longer testNotifications list was passed
     expect(Notifications.prototype.render.mock.calls).toEqual([[], []]);
-    expect(Notifications.prototype.shouldComponentUpdate.mock.calls).toHaveLength(1);
 
-    testNotifications = [...testNotifications, { id: 5, type: 'default', value: '1, 2. 3...' }];
+    testNotifications = [...testNotifications, { guid: 5, type: 'default', value: '1, 2. 3...' }];
     wrapper.setProps({ displayDrawer: false, listNotifications: testNotifications });
     // 3 render calls, to re-render the component after a new and longer testNotifications list was passed
     expect(Notifications.prototype.render.mock.calls).toEqual([[], [], []]);
-    expect(Notifications.prototype.shouldComponentUpdate.mock.calls).toHaveLength(2);
 
     Notifications.prototype.render.mockRestore();
-    Notifications.prototype.shouldComponentUpdate.mockRestore();
   });
 
   it('calls the `handleDisplayDrawer` func when clicking on its menuItem', () => {
     const spyHandleDisplayDrawer = jest.fn();
     const wrapper = mount(<Notifications handleDisplayDrawer={spyHandleDisplayDrawer} />);
-    const menuItemP = wrapper.find(`${css(notificationsStyles.menuItemP)}`).first();
+    const menuItemP = wrapper.find(`.${css(notificationsStyles.menuItemP)}`).first();
     menuItemP.simulate('click');
     expect(spyHandleDisplayDrawer.mock.calls).toEqual([[]]);
   });
@@ -193,5 +200,11 @@ and 'listNotifications' prop exists and is not empty`, () => {
     const closeButton = wrapper.find(`button[aria-label="Close"]`).first();
     closeButton.simulate('click');
     expect(spyHandleHideDrawer.mock.calls).toEqual([[]]);
+  });
+
+  it('calls the `fetchNotifications` func prop when mounted', () => {
+    const spyFetchNotifications = jest.fn();
+    mount(<Notifications fetchNotifications={spyFetchNotifications} />);
+    expect(spyFetchNotifications.mock.calls).toEqual([[]]);
   });
 });

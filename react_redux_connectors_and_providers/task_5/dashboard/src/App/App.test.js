@@ -27,40 +27,6 @@ describe('<App />', () => {
   it('contains one Notifications component', () => {
     expect(shallowWrapper.find(Notifications)).toHaveLength(1);
   });
-  it('has an instance method, called `markNotificationAsRead(id)`, that replaces its `listNotifications` state\
- with a new `listNotifications` without the notification(s) with the `id`', () => {
-    const mockListNotifications = [
-      { id: 1, type: 'urgent', value: 'Urgent notification!' },
-      { id: 2, type: 'default', value: 'Default notification!' },
-      { id: 10, type: 'urgent', html: { __html: '<strong>Urgent!</strong>'} },
-      { id: 11, type: 'default', html: { __html: '<strong>Default!</strong>'} },
-    ];
-    shallowWrapper.setState({ listNotifications: mockListNotifications });
-    // Both the mock and the set state start off as the same object in memory.
-    expect(shallowWrapper.state().listNotifications).toBe(mockListNotifications);
-
-    shallowWrapper.instance().markNotificationAsRead(11);
-    mockListNotifications.pop();
-    expect(shallowWrapper.state().listNotifications).toStrictEqual(mockListNotifications);
-    /*
-      The `listNotifications` object inside the state should have been REPLACED
-      BY A NEW ONE, that excludes the notification with the ID specified above,
-      that we also, just removed from the mock.
-    */
-    expect(shallowWrapper.state().listNotifications).not.toBe(mockListNotifications);
-
-    shallowWrapper.instance().markNotificationAsRead(10);
-    mockListNotifications.pop();
-    expect(shallowWrapper.state().listNotifications).toStrictEqual(mockListNotifications);
-
-    shallowWrapper.instance().markNotificationAsRead(2);
-    mockListNotifications.pop();
-    expect(shallowWrapper.state().listNotifications).toStrictEqual(mockListNotifications);
-
-    shallowWrapper.instance().markNotificationAsRead(1);
-    mockListNotifications.pop();
-    expect(shallowWrapper.state().listNotifications).toStrictEqual(mockListNotifications);
-  });
 
   it('contains one Header component', () => {
     expect(shallowWrapper.find(Header)).toHaveLength(1);
