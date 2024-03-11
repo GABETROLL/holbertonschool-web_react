@@ -163,9 +163,9 @@ and 'listNotifications' prop exists and is not empty`, () => {
 
   it('re-renders when its props are updated, and the `listNotifications` prop is longer', () => {
     let testNotifications = [
-      { guid: 1, type: 'urgent', value: 'Hello' },
-      { guid: 2, type: 'default', value: 'World' },
-      { guid: 3, type: 'default', html: {__html: '<strong>Congratulations!</strong>'} },
+      { guid: '1', type: 'urgent', value: 'Hello' },
+      { guid: '2', type: 'default', value: 'World' },
+      { guid: '3', type: 'default', html: {__html: '<strong>Congratulations!</strong>'} },
     ];
 
     jest.spyOn(Notifications.prototype, 'render');
@@ -174,12 +174,12 @@ and 'listNotifications' prop exists and is not empty`, () => {
     // 1 render call, to render the component initially
     expect(Notifications.prototype.render.mock.calls).toEqual([[]]);
 
-    testNotifications = [...testNotifications, { guid: 4, type: 'urgent', value: 'Testing!' }];
+    testNotifications = [...testNotifications, { guid: '4', type: 'urgent', value: 'Testing!' }];
     wrapper.setProps({ displayDrawer: true, listNotifications: testNotifications });
     // 2 render calls, to re-render the component after a new and longer testNotifications list was passed
     expect(Notifications.prototype.render.mock.calls).toEqual([[], []]);
 
-    testNotifications = [...testNotifications, { guid: 5, type: 'default', value: '1, 2. 3...' }];
+    testNotifications = [...testNotifications, { guid: '5', type: 'default', value: '1, 2. 3...' }];
     wrapper.setProps({ displayDrawer: false, listNotifications: testNotifications });
     // 3 render calls, to re-render the component after a new and longer testNotifications list was passed
     expect(Notifications.prototype.render.mock.calls).toEqual([[], [], []]);

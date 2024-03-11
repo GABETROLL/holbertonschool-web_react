@@ -374,14 +374,18 @@ describe('notificationReducer', () => {
   });
 
   it('sets `loading: action.loading` when an action with `type: SET_LOADING_STATE` is passed \
-(`action.loading`) will be a boolean)', () => {
+(`action.loading` will be a boolean)', () => {
     let state = notificationReducer(initialState, setLoadingState(true));
     expect(state.get('loading')).toBe(true);
     state = notificationReducer(initialState, setLoadingState(false));
     expect(state.get('loading')).toBe(false);
-    state = notificationReducer(initialState, setLoadingState(true));
+    state = notificationReducer(state, setLoadingState(true));
     expect(state.get('loading')).toBe(true);
-    state = notificationReducer(initialState, setLoadingState(false));
+    state = notificationReducer(state, setLoadingState(false));
+    expect(state.get('loading')).toBe(false);
+    state = notificationReducer(state, setLoadingState(true));
+    expect(state.get('loading')).toBe(true);
+    state = notificationReducer(state, setLoadingState(false));
     expect(state.get('loading')).toBe(false);
   });
 });

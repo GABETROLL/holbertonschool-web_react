@@ -67,6 +67,7 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: red,
     borderStyle: 'dashed',
+    backgroundColor: 'white',
     '@media (max-width: 900px)': {
       position: 'fixed',
       top: 0,
@@ -77,7 +78,6 @@ export const styles = StyleSheet.create({
       padding: 0,
       border: 'none',
       margin: 0,
-      backgroundColor: 'white',
     },
   },
   NotificationsTitle: {
