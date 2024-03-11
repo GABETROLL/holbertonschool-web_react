@@ -26,11 +26,10 @@ export function getNotifications(notificationsState) {
  * coming from `../reducers/notificationReducer`.
  * 
  * Returns all of the messages from `state.getIn(['entities', 'messages'])` that have not been read
- * (have attribute `isRead: false`), as an Immutable.Seq.Indexed<Notification>.
+ * (have attribute `isRead: false`), as an Array<Notification>.
  */
 export function getUnreadNotifications(notificationsState) {
-  // you may need to convert to an array!
   return (
     notificationsState.getIn(['entities', 'messages']) || Map()
-  ).valueSeq().map(notification => !(notification.isRead));
+  ).valueSeq().toJS().filter(notification => !(notification.isRead));
 }
