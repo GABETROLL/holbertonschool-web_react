@@ -14,18 +14,18 @@ export function filterTypeSelected(state) {
  * Assumes `notificationsState` is an `Immutable` object,
  * coming from `../reducers/notificationReducer`.
  *
- * Should return all of the messages from `state.getIn(['entities', 'messages'])`,
- * as an Immutable.Map { id: notification }.
+ * Should return all of the message VALUES from `state.getIn(['entities', 'messages'])`,
+ * as an Array<Notification>.
  */
 export function getNotifications(notificationsState) {
-  return notificationsState.getIn(['entities', 'messages']) || Map();
+  return (notificationsState.getIn(['entities', 'messages']) || Map()).valueSeq().toJS();
 }
 
 /**
  * Assumes `notificationsState` is an `Immutable` object,
  * coming from `../reducers/notificationReducer`.
  * 
- * Returns all of the messages from `state.getIn(['entities', 'messages'])` that have not been read
+ * Should return all of the message VALUES from `state.getIn(['entities', 'messages'])` that have not been read
  * (have attribute `isRead: false`), as an Array<Notification>.
  */
 export function getUnreadNotifications(notificationsState) {

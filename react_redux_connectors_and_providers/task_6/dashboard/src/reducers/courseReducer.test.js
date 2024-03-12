@@ -67,10 +67,12 @@ const fetchedData = {
 };
 
 describe('courseReducer',() => {
-  it('returns an empty Map, when given the default `state` argument (given undefined)', () => {
-    expect(courseReducer()).toStrictEqual(Map());
-    expect(courseReducer(undefined, { })).toStrictEqual(Map());
-    expect(courseReducer(undefined, { type: 'other' })).toStrictEqual(Map());
+  it('returns an empty `Immutable` object with this structure: { result: CourseId[], entities: { courses: { CourseId: Course } } }', () => {
+    const expectedResult = { result: [], entities: { courses: { } } };
+
+    expect(courseReducer().toJS()).toStrictEqual(expectedResult);
+    expect(courseReducer(undefined, { }).toJS()).toStrictEqual(expectedResult);
+    expect(courseReducer(undefined, { type: 'other' }).toJS()).toStrictEqual(expectedResult);
   });
 
   it('returns the courses array passed, and each course now has the property isSelected=false, \
