@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { Seq } from 'immutable';
 import { StatelessNotifications as Notifications, styles as notificationsStyles } from './Notifications';
 import NotificationItem, { styles as notificationItemStyles } from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
@@ -9,27 +10,24 @@ StyleSheetTestUtils.suppressStyleInjection();
 
 // TODO: UPDATE TESTS
 
+const rawListNotifications = [
+  { guid: '1', type: 'default', value: 'New course available' },
+  { guid: '2', type: 'urgent', value: 'New resume available' },
+  { guid: '3', type: 'urgent', html: {__html: getLatestNotification()} },
+];
+const usedListNotifications = Seq.Indexed(rawListNotifications);
+
 describe('<Notifications />', () => {
   let displayedDrawer;
   let usedWrapper;
   beforeAll(() => {
     displayedDrawer = shallow(<Notifications displayDrawer={true} />);
-    usedWrapper = shallow(
-      <Notifications displayDrawer={true} listNotifications={[
-        { id: 1, type: 'default', value: 'New course available' },
-        { id: 2, type: 'urgent', value: 'New resume available' },
-        { id: 3, type: 'urgent', html: {__html: getLatestNotification()} },
-      ]} />
-    );
+    usedWrapper = shallow(<Notifications displayDrawer={true} listNotifications={usedListNotifications} />);
   });
 
   it('renders without crashing', () => {
     for (const displayDrawer of [undefined, false, true]) {
-      for (const listNotifications of [undefined, [], [
-        { id: 1, type: 'default', value: 'New course available' },
-        { id: 2, type: 'urgent', value: 'New resume available' },
-        { id: 3, type: 'urgent', html: {__html: getLatestNotification()} },
-      ]]) {
+      for (const listNotifications of [undefined, Seq.Indexed([]), usedListNotifications]) {
         const wrapper = shallow(<Notifications displayDrawer={displayDrawer} listNotifications={listNotifications} />);
         expect(wrapper.exists()).toBe(true);
       }
@@ -54,7 +52,7 @@ describe('<Notifications />', () => {
 
     for (const wrapper of [
       shallow(<Notifications displayDrawer={true} />),
-      shallow(<Notifications displayDrawer={true} listNotifications={[]} />)
+      shallow(<Notifications displayDrawer={true} listNotifications={ Seq.Indexed([]) } />)
     ]) {
       // console.log(wrapper.html());
       const notificationsUl = wrapper.find('ul').first();
@@ -75,7 +73,7 @@ describe('<Notifications />', () => {
 
   it(`doesn't render the message "Here is the list of notifications"\
  and renders "No new notifications for now", when listNotifications is empty`, () => {
-    const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={[]} />);
+    const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={ Seq.Indexed([]) } />);
     // console.log(wrapper.html());
     expect(wrapper.html().includes('Here is the list of notifications')).toBe(false);
     const notificationsUl = wrapper.find('ul').first();
@@ -108,7 +106,7 @@ and 'listNotifications' prop exists and is not empty`, () => {
   });
 
   it("doesn't re-render when its props are updated, and the `listNotifications` prop stays the same", () => {
-    const testNotifications = [
+    const testNotifications = Seq.Indexed([
       {
         "guid": "2d8e40be-1c78-4de0-afc9-fcc147afd4d2",
         "isRead": false,
@@ -139,7 +137,7 @@ and 'listNotifications' prop exists and is not empty`, () => {
         "type": "urgent",
         "value": "In hendrerit gravida rutrum quisque non tellus orci. Gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim. Lorem mollis aliquam ut porttitor",
       },
-    ];
+    ]);
 
     jest.spyOn(Notifications.prototype, 'render');
 
@@ -162,11 +160,11 @@ and 'listNotifications' prop exists and is not empty`, () => {
   });
 
   it('re-renders when its props are updated, and the `listNotifications` prop is longer', () => {
-    let testNotifications = [
+    let testNotifications = Seq.Indexed([
       { guid: '1', type: 'urgent', value: 'Hello' },
       { guid: '2', type: 'default', value: 'World' },
       { guid: '3', type: 'default', html: {__html: '<strong>Congratulations!</strong>'} },
-    ];
+    ]);
 
     jest.spyOn(Notifications.prototype, 'render');
 
@@ -174,12 +172,12 @@ and 'listNotifications' prop exists and is not empty`, () => {
     // 1 render call, to render the component initially
     expect(Notifications.prototype.render.mock.calls).toEqual([[]]);
 
-    testNotifications = [...testNotifications, { guid: '4', type: 'urgent', value: 'Testing!' }];
+    testNotifications = Seq.Indexed([...(testNotifications.toJS()), { guid: '4', type: 'urgent', value: 'Testing!' }]);
     wrapper.setProps({ displayDrawer: true, listNotifications: testNotifications });
     // 2 render calls, to re-render the component after a new and longer testNotifications list was passed
     expect(Notifications.prototype.render.mock.calls).toEqual([[], []]);
 
-    testNotifications = [...testNotifications, { guid: '5', type: 'default', value: '1, 2. 3...' }];
+    testNotifications = Seq.Indexed([...(testNotifications.toJS()), { guid: '5', type: 'default', value: '1, 2. 3...' }]);
     wrapper.setProps({ displayDrawer: false, listNotifications: testNotifications });
     // 3 render calls, to re-render the component after a new and longer testNotifications list was passed
     expect(Notifications.prototype.render.mock.calls).toEqual([[], [], []]);

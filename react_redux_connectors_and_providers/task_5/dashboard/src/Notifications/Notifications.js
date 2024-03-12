@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchNotifications } from '../actions/notificationActionCreators';
+import { Seq } from 'immutable'
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import { StyleSheet, css } from 'aphrodite';
@@ -95,8 +96,14 @@ export const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Returns the values from `notifications.getIn(['entities', 'messages'])` as an `Immutable.Seq.Indexed<Notification>`
+ * as `listNotifications`.
+ * (THE NOTIFICATION OBJECTS IN THE SUEQUENCE SHOULD BE POJS OBJECTS, BUT THE RETURNED `listNotifications` SHOULD NOT BE,
+ * AND SHOULD BE THE TYPE ABOVE)
+ */
 export function mapStateToProps({ notifications }) {
-  return { listNotifications: Object.values(notifications.getIn(['entities', 'messages']).toJS()) };
+  return { listNotifications: notifications.getIn(['entities', 'messages']).valueSeq().map(notification => notification.toJS()) };
 }
 
 export const mapDispatchToProps = { fetchNotifications };
@@ -118,7 +125,7 @@ class Notifications extends React.PureComponent {
     const notificationsList = (
       <ul className={css(styles.NotificationsUl)}>
         {
-          this.props.listNotifications && this.props.listNotifications.length && this.props.listNotifications.length > 0
+          this.props.listNotifications && this.props.listNotifications.size && this.props.listNotifications.size > 0
           ? this.props.listNotifications.map(notification => (
             <NotificationItem key={`notificationId:${notification.guid}`} id={notification.guid} type={notification.type} value={notification.value} html={notification.html} markAsRead={this.props.markNotificationAsRead} />
           ))
@@ -139,7 +146,7 @@ class Notifications extends React.PureComponent {
           <img style={{width: 10}} src={closeIcon} alt=""/>
         </button>
         {
-          this.props.listNotifications && this.props.listNotifications.length && this.props.listNotifications.length > 0
+          this.props.listNotifications && this.props.listNotifications.size && this.props.listNotifications.size > 0
           ? (<p className={css(styles.NotificationsTitle)}>Here is the list of notifications</p>)
           : (<></>)
         }
@@ -157,7 +164,7 @@ class Notifications extends React.PureComponent {
 }
 
 Notifications.defaultProps = {
-  listNotifications: [],
+  listNotifications: Seq.Indexed([]),
   displayDrawer: false,
   fetchNotifications: () => {},
   handleDisplayDrawer: () => {},
@@ -165,7 +172,7 @@ Notifications.defaultProps = {
   markNotificationAsRead: (id) => console.log(`Marking notification ${id} as read.`),
 };
 Notifications.propTypes = {
-  listNotifications: PropTypes.array,
+  listNotifications: PropTypes.instanceOf(Seq.Indexed),
   displayDrawer: PropTypes.bool,
   fetchNotifications: PropTypes.func,
   handleDisplayDrawer: PropTypes.func,
