@@ -9,6 +9,9 @@ export function unSelectCourse(index) {
 export function fetchCourseSuccess(data) {
   return { type: FETCH_COURSE_SUCCESS, data };
 }
+export function setCourses(data) {
+  return { type: FETCH_COURSE_SUCCESS, data };
+}
 
 export function boundSelectCourse(index) {
   return dispatch(selectCourse(index));
@@ -18,4 +21,21 @@ export function boundUnSelectCourse(index) {
 }
 export function boundFetchCourseSuccess(data) {
   return dispatch(fetchCourseSuccess(data));
+}
+
+export function fetchCourses() {
+  return async (dispatch) => {
+    try {
+      const response = await fetch('/courses.json');
+      console.log('Courses fetch response:', response);
+
+      if (response.ok) {
+        const body = await response.json();
+
+        dispatch(setCourses(body));
+      }
+    } catch (error) {
+      console.log('Error fetching courses:', error);
+    }
+  };
 }
