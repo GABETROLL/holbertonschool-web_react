@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchNotifications, markAsRead } from '../actions/notificationActionCreators';
 import { getUnreadNotifications } from '../selectors/notificationSelector';
+import { Seq } from 'immutable'
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import { StyleSheet, css } from 'aphrodite';
@@ -96,13 +97,17 @@ export const styles = StyleSheet.create({
   },
 });
 
+/**
+ * Returns the values from `notifications.getIn(['entities', 'messages'])` as an `Immutable.Seq.Indexed<POJS Notification>`
+ * as `listNotifications`.
+ */
 export function mapStateToProps({ notifications }) {
   return { listNotifications: getUnreadNotifications(notifications) };
 }
 
 export const mapDispatchToProps = {
   fetchNotifications,
-  markNotificationAsRead: markAsRead
+  markNotificationAsRead: markAsRead,
 };
 
 class Notifications extends React.PureComponent {
@@ -113,8 +118,7 @@ class Notifications extends React.PureComponent {
   render() {
     const { handleDisplayDrawer, handleHideDrawer } = this.props;
     const listNotificationsExistsAndNotEmpty = this.props.listNotifications
-      && this.props.listNotifications.length
-      && this.props.listNotifications.length > 0;
+      && !this.props.listNotifications.isEmpty();
 
     const menuItemElement = (
       <div className={css(styles.menuItem, this.props.displayDrawer && styles.hiddenMenuItem)}>
@@ -164,7 +168,7 @@ class Notifications extends React.PureComponent {
 }
 
 Notifications.defaultProps = {
-  listNotifications: [],
+  listNotifications: Seq.Indexed([]),
   displayDrawer: false,
   fetchNotifications: () => {},
   handleDisplayDrawer: () => {},
@@ -172,7 +176,7 @@ Notifications.defaultProps = {
   markNotificationAsRead: (id) => console.log(`CALLED \`Notifications\` DEFAULT PROP: markNotificationAsRead(${id})`),
 };
 Notifications.propTypes = {
-  listNotifications: PropTypes.array,
+  listNotifications: PropTypes.instanceOf(Seq.Indexed),
   displayDrawer: PropTypes.bool,
   fetchNotifications: PropTypes.func,
   handleDisplayDrawer: PropTypes.func,

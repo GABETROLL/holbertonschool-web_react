@@ -262,13 +262,13 @@ test('getNotifications', () => {
   const secondUnreadNotifications = Object.values(secondUnRead.entities.messages);
   const secondReadNotifications = Object.values(secondRead.entities.messages);
 
-  expect(getNotifications(initialState)).toStrictEqual([]);
-  expect(getNotifications(fromJS(secondUnRead))).toStrictEqual(secondUnreadNotifications);
-  expect(getNotifications(fromJS(secondRead))).toStrictEqual(secondReadNotifications);
+  expect(getNotifications(initialState).toJS()).toStrictEqual([]);
+  expect(getNotifications(fromJS(secondUnRead)).toJS()).toStrictEqual(secondUnreadNotifications);
+  expect(getNotifications(fromJS(secondRead)).toJS()).toStrictEqual(secondReadNotifications);
 
   for (const otherState of [{ }, initialState, secondRead, secondUnRead]) {
-    expect(getNotifications(fromJS({ ...otherState, ...secondUnRead}))).toStrictEqual(secondUnreadNotifications);
-    expect(getNotifications(fromJS({ ...otherState, ...secondRead}))).toStrictEqual(secondReadNotifications);
+    expect(getNotifications(fromJS({ ...otherState, ...secondUnRead})).toJS()).toStrictEqual(secondUnreadNotifications);
+    expect(getNotifications(fromJS({ ...otherState, ...secondRead})).toJS()).toStrictEqual(secondReadNotifications);
   }
 });
 
@@ -276,14 +276,14 @@ test('getUnreadNotifications', () => {
   const notificationsWithSecond = Object.values(secondUnRead.entities.messages).filter(notification => !(notification.isRead));
   const notificationsWithoutSecond = Object.values(secondRead.entities.messages).filter(notification => !(notification.isRead));
 
-  expect(getUnreadNotifications(initialState)).toStrictEqual([]);
-  expect(getUnreadNotifications(fromJS(secondUnRead))).toStrictEqual(notificationsWithSecond);
-  expect(getUnreadNotifications(fromJS(secondRead))).toStrictEqual(notificationsWithoutSecond);
+  expect(getUnreadNotifications(initialState).toJS()).toStrictEqual([]);
+  expect(getUnreadNotifications(fromJS(secondUnRead)).toJS()).toStrictEqual(notificationsWithSecond);
+  expect(getUnreadNotifications(fromJS(secondRead)).toJS()).toStrictEqual(notificationsWithoutSecond);
 
   for (const otherState of [{ }, initialState, secondRead, secondUnRead]) {
     // console.log(otherState);
 
-    expect(getUnreadNotifications(fromJS({ ...otherState, ...secondUnRead }))).toStrictEqual(notificationsWithSecond);
-    expect(getUnreadNotifications(fromJS({ ...otherState, ...secondRead }))).toStrictEqual(notificationsWithoutSecond);
+    expect(getUnreadNotifications(fromJS({ ...otherState, ...secondUnRead })).toJS()).toStrictEqual(notificationsWithSecond);
+    expect(getUnreadNotifications(fromJS({ ...otherState, ...secondRead })).toJS()).toStrictEqual(notificationsWithoutSecond);
   }
 });

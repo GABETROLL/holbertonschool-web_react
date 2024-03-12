@@ -14,22 +14,23 @@ export function filterTypeSelected(state) {
  * Assumes `notificationsState` is an `Immutable` object,
  * coming from `../reducers/notificationReducer`.
  *
- * Should return all of the message VALUES from `state.getIn(['entities', 'messages'])`,
- * as an Array<Notification>.
+ * Should return all of the message VALUES from `notificationsState.getIn(['entities', 'messages'])`
+ * as an `Immutable.Seq.Indexed<POJS Notification>`
  */
 export function getNotifications(notificationsState) {
-  return (notificationsState.getIn(['entities', 'messages']) || Map()).valueSeq().toJS();
+  return (notificationsState.getIn(['entities', 'messages']) || Map())
+    .valueSeq()
+    .map(notification => notification.toJS());
 }
 
 /**
  * Assumes `notificationsState` is an `Immutable` object,
  * coming from `../reducers/notificationReducer`.
- * 
- * Should return all of the message VALUES from `state.getIn(['entities', 'messages'])` that have not been read
- * (have attribute `isRead: false`), as an Array<Notification>.
+ *
+ * Should return all of the message VALUES THAT HAVE NOT BEEN READ from `notificationsState.getIn(['entities', 'messages'])`
+ * as an `Immutable.Seq.Indexed<POJS Notification>`
  */
 export function getUnreadNotifications(notificationsState) {
-  return (
-    notificationsState.getIn(['entities', 'messages']) || Map()
-  ).valueSeq().toJS().filter(notification => !(notification.isRead));
+  return getNotifications(notificationsState)
+    .filter(notification => !(notification.isRead));
 }
