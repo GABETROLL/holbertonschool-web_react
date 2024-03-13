@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import { initialState } from '../reducers/courseReducer';
-import courseSelector from './courseSelector';
+import getListCourses from './courseSelector';
 
 const a = {
   '0': {
@@ -44,7 +44,7 @@ const b = {
 };
 
 test('courseSelector returns the correct courses, in the `coursesState` argument', () => {
-  expect(courseSelector(initialState).toJS()).toStrictEqual([]);
-  expect(courseSelector(fromJS({ result: [0, 1, 2], entities: { courses: a } })).toJS()).toStrictEqual(Object.values(a));
-  expect(courseSelector(fromJS({ result: [3, 4, 5], entities: { courses: b } })).toJS()).toStrictEqual(Object.values(b));
+  expect(getListCourses(initialState).toJS()).toStrictEqual([]);
+  expect(getListCourses(fromJS({ result: [0, 1, 2], entities: { courses: a } })).toJS()).toStrictEqual(Object.values(a));
+  expect(getListCourses(fromJS({ result: [3, 4, 5], entities: { courses: b } })).toJS()).toStrictEqual(Object.values(b));
 });

@@ -5,7 +5,6 @@ import { StyleSheetTestUtils } from 'aphrodite';
 
 StyleSheetTestUtils.suppressStyleInjection();
 
-// new
 describe('<CourseListRow />', () => {
   describe('when isHeader=true', () => {
     it('renders one <th /> cell with colspan="2" when textSecondCell does not exist', () => {

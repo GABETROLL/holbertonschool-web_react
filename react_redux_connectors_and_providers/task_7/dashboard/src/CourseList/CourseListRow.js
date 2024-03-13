@@ -23,18 +23,16 @@ const styles = StyleSheet.create({
   },
 });
 
-function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
-  const [checked, setChecked] = useState(false);
-
-  function toggleRowChecked() {
-    setChecked(!checked);
-  }
-
+/**
+ * The props: `id`, `onChangeRow` and `isChecked`, are not needed,
+ * if the component is meant to be a header row (`isHeader: true`).
+ */
+function CourseListRow({ id, onChangeRow, isChecked, isHeader, textFirstCell, textSecondCell }) {
   return (
     <tr className={css(
       isHeader ? styles.CouseListHeaderRow : [
         styles.CourseListBodyRow,
-        checked && styles.rowChecked
+        isChecked && styles.rowChecked
       ],
     )}>
       {
@@ -52,8 +50,8 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
             <td>
               <input
                 type="checkbox" name={`checkbox:${textFirstCell}`}
-                onChange={toggleRowChecked}
-                checked={checked}
+                onChange={(event) => onChangeRow(id, event.target.checked)}
+                checked={isChecked}
               />
               {textFirstCell}
             </td>
@@ -66,11 +64,17 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
 }
 
 CourseListRow.defaultProps = {
+  id: null,
+  isChecked: false,
+  onChangeRow: (id) => console.log(`CALLED DEFAULT \`CourseListRow\` PROP: onChangeRow(${id})`),
   isHeader: false,
   textSecondCell: null,
 };
 
 CourseListRow.propTypes = {
+  id: PropTypes.string,
+  isChecked: PropTypes.bool,
+  onChangeRow: PropTypes.func,
   isHeader: PropTypes.bool,
   textFirstCell: PropTypes.string.isRequired,
   textSecondCell: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

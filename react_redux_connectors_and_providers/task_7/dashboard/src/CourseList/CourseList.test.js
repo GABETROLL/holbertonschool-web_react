@@ -1,25 +1,27 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import CourseList from './CourseList';
+import { shallow, mount } from 'enzyme';
+import { StatelessCourseList as CourseList } from './CourseList';
+import { List } from 'immutable';
 import CourseListRow from './CourseListRow';
 import { StyleSheetTestUtils } from 'aphrodite';
 
 StyleSheetTestUtils.suppressStyleInjection();
 
+const usedListCourses = List([
+  { id: '1', name: 'ES6', credit: 60 },
+  { id: '2', name: 'Webpack', credit: 20 },
+  { id: '3', name: 'React', credit: 40 },
+]);
+
 // TODO: UPDATE TESTS
-// new
 describe('<CourseList />', () => {
   let defaultWrapper;
   let emptyListWrapper;
   let usedWrapper;
   beforeAll(() => {
     defaultWrapper = shallow(<CourseList />);
-    emptyListWrapper = shallow(<CourseList listCourses={[]} />);
-    usedWrapper = shallow(<CourseList listCourses={[
-      { id: 1, name: 'ES6', credit: 60 },
-      { id: 2, name: 'Webpack', credit: 20 },
-      { id: 3, name: 'React', credit: 40 },
-    ]} />);
+    emptyListWrapper = shallow(<CourseList listCourses={List([])} />);
+    usedWrapper = shallow(<CourseList listCourses={usedListCourses} />);
   });
 
   it('renders without crashing', () => {
@@ -50,5 +52,25 @@ describe('<CourseList />', () => {
 
   it('renders the 5 different rows', () => {
     expect(usedWrapper.find(CourseListRow)).toHaveLength(5);
+  });
+
+  it('dispatches the `fetchCourses` bound thunk action prop when mounted, with no arguments', () => {
+    const spyFetchCourses = jest.fn();
+    mount(<CourseList fetchCourses={spyFetchCourses} />);
+    expect(spyFetchCourses.mock.calls).toStrictEqual([[]]);
+  });
+
+  it('has a method, named `onChangeRow`, that calls `selectCourse(id)` when given `id, checked: true` as arguments, \
+and calls `unSelectCourse(id)` when given `id, checked: false` as arguments', () => {
+    const spySelectCourse = jest.fn();
+    const spyUnSelectCourse = jest.fn();
+    const wrapper = mount(<CourseList selectCourse={spySelectCourse} unSelectCourse={spyUnSelectCourse} />);
+    const id = '3094380594380594385';
+    expect(spySelectCourse.mock.calls).toStrictEqual([]);
+    expect(spyUnSelectCourse.mock.calls).toStrictEqual([]);
+    wrapper.instance().onChangeRow(id, false);
+    wrapper.instance().onChangeRow(id, true);
+    expect(spySelectCourse.mock.calls).toStrictEqual([[id]]);
+    expect(spyUnSelectCourse.mock.calls).toStrictEqual([[id]]);
   });
 });
