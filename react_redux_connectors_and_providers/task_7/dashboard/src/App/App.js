@@ -89,12 +89,6 @@ class App extends React.Component {
   render() {
     // console.log(this);
 
-    const listCourses = [
-      { id: 1, name: 'ES6', credit: 60 },
-      { id: 2, name: 'Webpack', credit: 20 },
-      { id: 3, name: 'React', credit: 40 },
-    ];
-
     const { displayDrawer } = this.props;
 
     return (
@@ -111,7 +105,7 @@ class App extends React.Component {
               this.props.isLoggedIn
               ? (
                 <BodySectionWithMarginBottom title="Course list">
-                  <CourseList listCourses={listCourses} />
+                  <CourseList />
                 </BodySectionWithMarginBottom>
               )
               : (

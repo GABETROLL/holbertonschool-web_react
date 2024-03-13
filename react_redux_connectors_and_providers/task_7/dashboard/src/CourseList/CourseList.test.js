@@ -65,10 +65,13 @@ and calls `unSelectCourse(id)` when given `id, checked: false` as arguments', ()
     const spySelectCourse = jest.fn();
     const spyUnSelectCourse = jest.fn();
     const wrapper = mount(<CourseList selectCourse={spySelectCourse} unSelectCourse={spyUnSelectCourse} />);
-    const id = '3094380594380594385';
+
     expect(spySelectCourse.mock.calls).toStrictEqual([]);
     expect(spyUnSelectCourse.mock.calls).toStrictEqual([]);
+    const id = '3094380594380594385';
     wrapper.instance().onChangeRow(id, false);
+    expect(spySelectCourse.mock.calls).toStrictEqual([]);
+    expect(spyUnSelectCourse.mock.calls).toStrictEqual([[id]]);
     wrapper.instance().onChangeRow(id, true);
     expect(spySelectCourse.mock.calls).toStrictEqual([[id]]);
     expect(spyUnSelectCourse.mock.calls).toStrictEqual([[id]]);

@@ -27,11 +27,19 @@ export function mapStateToProps({ courses }) {
 export const mapDispatchToProps = { fetchCourses, selectCourse, unSelectCourse };
 
 class CourseList extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onChangeRow = this.onChangeRow.bind(this);
+  }
+
   componentDidMount() {
     this.props.fetchCourses();
   }
 
   onChangeRow(id, checked) {
+    console.log(this.props);
+
     if (checked) {
       this.props.selectCourse(id);
     } else {

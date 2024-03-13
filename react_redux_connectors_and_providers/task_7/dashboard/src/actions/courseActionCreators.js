@@ -31,6 +31,7 @@ export function fetchCourses() {
 
       if (response.ok) {
         const body = await response.json();
+        console.log('Courses fetch body:', body);
 
         dispatch(setCourses(body));
       }

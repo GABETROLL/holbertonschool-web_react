@@ -75,10 +75,23 @@ describe('courseReducer',() => {
     expect(courseReducer(undefined, { type: 'other' }).toJS()).toStrictEqual(expectedResult);
   });
 
-  it('returns the courses array passed, and each course now has the property isSelected=false, \
-when the action type is `FETCH_COURSE_SUCCESS`', () => {
-    const value = courseReducer(initialState, fetchCourseSuccess(fetched));
-    expect(value.toJS()).toStrictEqual(fetchedData);
+  it('DEEPLY merges the newly fetched list of courses, BUT with each course now having `isSelected: false`, \
+with the existing ones in the state', () => {
+    const aFetch = {
+      '0': { id: '0', name: 'C', credit: 10 },
+      '1': { id: '1', name: 'Python', credit: 45 },
+      '2': { id: '2', name: 'JS', credit: 10 },
+    };
+    const bFetch = {
+      '3': { id: '3', name: 'HTML+CSS', credit: 35 },
+      '4': { id: '4', name: 'JS', credit: 80 },
+      '5': { id: '5', name: 'React', credit: 50 },
+    };
+
+    let result = courseReducer(initialState, fetchCourseSuccess(Object.values(aFetch)));
+    expect(result.toJS()).toStrictEqual({ result: ['0', '1', '2'], entities: { courses: aFetch } });
+    result = courseReducer(result, fetchCourseSuccess(Object.values(bFetch)));
+    expect(result.toJS()).toStrictEqual({ result: ['0', '1', '2', '3', '4', '5'], entities: { courses: { ...bFetch, ...aFetch} } });
   });
 
   it('returns the courses array passed, with the 2nd course selected, \

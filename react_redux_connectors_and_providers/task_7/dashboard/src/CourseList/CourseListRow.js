@@ -26,6 +26,17 @@ const styles = StyleSheet.create({
 /**
  * The props: `id`, `onChangeRow` and `isChecked`, are not needed,
  * if the component is meant to be a header row (`isHeader: true`).
+ * 
+ * If `isHeader` is false, this component assumes the user wants a courses table row,
+ * and renders a <tr /> with:
+ * - a checkbox, rendered with its `checked` state depending on `isChecked`,
+ *   and that calls `onChangeRow(id, <new checkbox state>)` when checked/unchecked,
+ *   in the beginning of the first cell,
+ * - `textFirstCell` in the first cell
+ * - `textSecondCell` in the second cell
+ *
+ * But, if `id` is not provided, this component won't care about `onChangeRow` nor `isChecked`,
+ * and won't render the checkbox.
  */
 function CourseListRow({ id, onChangeRow, isChecked, isHeader, textFirstCell, textSecondCell }) {
   return (
@@ -35,30 +46,24 @@ function CourseListRow({ id, onChangeRow, isChecked, isHeader, textFirstCell, te
         isChecked && styles.rowChecked
       ],
     )}>
-      {
-        isHeader ? (
-          <>
-            <th className={css(styles.CourseListTh, textSecondCell ? undefined : styles.CourseListCaption)} colSpan={textSecondCell ? '1' : '2'}>{textFirstCell}</th>
-            {
-              textSecondCell ? (
-                <th className={css(styles.CourseListTh)} colSpan="2">{textSecondCell}</th>
-              ) : (<></>)
-            }
-          </>
-        ) : (
-          <>
-            <td>
-              <input
-                type="checkbox" name={`checkbox:${textFirstCell}`}
-                onChange={(event) => onChangeRow(id, event.target.checked)}
-                checked={isChecked}
-              />
-              {textFirstCell}
-            </td>
-            <td>{textSecondCell}</td>
-          </>
-        )
-      }
+      { isHeader ? (<>
+        <th className={css(styles.CourseListTh, textSecondCell ? undefined : styles.CourseListCaption)} colSpan={textSecondCell ? '1' : '2'}>{textFirstCell}</th>
+        { textSecondCell ? (
+          <th className={css(styles.CourseListTh)} colSpan="2">{textSecondCell}</th>
+        ) : (<></>)}
+      </>) : (<>
+        <td>
+          { id && (
+            <input
+              type="checkbox" name={`checkbox:${textFirstCell}`}
+              onChange={(event) => onChangeRow(id, event.target.checked)}
+              checked={isChecked}
+            />
+          )}
+          {textFirstCell}
+        </td>
+        <td>{textSecondCell}</td>
+      </>) }
     </tr>
   );
 }

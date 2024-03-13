@@ -1,3 +1,5 @@
+import { Map } from 'immutable';
+
 /**
  * Assumes that `coursesState` comes from `courseReducer`.
  *
@@ -5,7 +7,7 @@
  * as an `Immutable.List<POJS Course>`.
  */
 export default function getListCourses(coursesState) {
-  return coursesState.getIn(['entities', 'courses'])
+  return (coursesState.getIn(['entities', 'courses']) || Map())
     .valueSeq()
     .map(course => course.toJS())
     .toList();

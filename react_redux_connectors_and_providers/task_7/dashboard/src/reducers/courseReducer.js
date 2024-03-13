@@ -12,20 +12,24 @@ export const initialState = fromJS({
 export default function courseReducer(state = initialState, action) {
   if (!action) return state;
 
+  const selectPath = ['entities', 'courses', action.index];
+
   switch (action.type) {
     case SELECT_COURSE: {
-      return state.setIn(['entities', 'courses', action.index.toString(), 'isSelected'], true);
+      return state.hasIn(selectPath)
+        ? state.setIn([...selectPath, 'isSelected'], true)
+        : state;
     }
     case UNSELECT_COURSE: {
-      return state.setIn(['entities', 'courses', action.index.toString(), 'isSelected'], false);
+      return state.hasIn(selectPath)
+        ? state.setIn([...selectPath, 'isSelected'], false)
+        : state;
     }
     case FETCH_COURSE_SUCCESS: {
       const mapped = action.data.map(course => ({ ...course, isSelected: false }));
       const normalized = coursesNormalizer(mapped);
       const immutableNormalized = fromJS(normalized);
-      const mergedState = state.merge(immutableNormalized);
-
-      // console.log(mapped, normalized, immutableNormalized, mergedState);
+      const mergedState = state.mergeDeep(immutableNormalized);
 
       return mergedState;
     }
