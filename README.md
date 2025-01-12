@@ -1,5 +1,5 @@
 # Learning React at Holberton
-This folder showcases a step-by-step guide on how to build a simple recreation of the Holberton student's dashboard with React, by showcasing a new skill of React in each folder, which adds new features to the application.
+This repository contains different versions of a mock-up page of Holberton's student dashboard. Each version adds new features, using different tools from React.
 ## Usage
 ### Install Dependencies
 Unfortunately, because of the way this project is structured, you will need to install the dependencies for each individual exercise folder you wish to test:
@@ -18,6 +18,7 @@ $ npm run
 $ npm test
 ```
 ## Project Directory
+Each folder, a new React tool is introduced, and implemented into the mock-up.
 * ``react_intro/``
 * ``react_props/``
 * ``React_component/``
@@ -26,3 +27,21 @@ $ npm test
 * ``0x08_react_redux_action_creator_normalizr/``
 * ``react_redux_reducer_selector/``
 * ``react_redux_connectors_and_providers/``
+In each folder, there are exercise folders, each of wich are a new version of the mock-up page, which relate to the current React tool being taught. In each exercise folder, there are config files, and a ``src/`` folder, where the code for the current exercise is.
+```
+react_tool/
+  00_exercise/
+    src/
+  01_exercise/
+    src/
+  02_exercise/
+    src/
+  ...
+react_other_tool/
+  00_exercise/
+    src/
+  01_exercise/
+    src/
+  ...
+...
+```
