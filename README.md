@@ -27,6 +27,7 @@ Each folder, a new React tool is introduced, and implemented into the mock-up.
 * ``0x08_react_redux_action_creator_normalizr/``
 * ``react_redux_reducer_selector/``
 * ``react_redux_connectors_and_providers/``
+
 Loosely speaking, in each folder, there are exercise folders, each of wich are a new version of the mock-up page, which relate to the current React tool being taught. In each exercise folder, there may be a ``dashboard/`` folder, containing config files, and a ``src/`` folder, where the code for the current exercise is, but some exercise folders are structured differently.
 ```
 react_tool/
